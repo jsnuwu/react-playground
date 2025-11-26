@@ -39,7 +39,7 @@
   --glow-y: 50%;
   --glow-intensity: 0;
   --glow-radius: 200px;
-}C
+}
 
 .magic-bento-card:hover {
   transform: translateY(-2px);

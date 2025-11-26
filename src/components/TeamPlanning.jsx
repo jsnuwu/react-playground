@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "../styles/TeamPlanning.css";
+import LoLMap from "./LolMap";
+import "../styles/LolMap.css";
 
 const initialPlayers = [
   "Jason", "David", "Jenny", "Dennis", "Felix P",
@@ -88,7 +90,7 @@ const onDrop = (team, lane) => {
     <div className="lol-planner-container">
       {/* Pool */}
       <div className="pool-area">
-        <h3>Unassigned Players</h3>
+        <h3>Players</h3>
         <div className="pool-list">
           {pool.map((player) => (
             <div
@@ -108,8 +110,45 @@ const onDrop = (team, lane) => {
   {renderTeamLane("Blue Team", blueTeam, "blue")}
   {renderTeamLane("Red Team", redTeam, "red")}
       </div>
+      <LoLMap
+  redTeam={redTeam}
+  blueTeam={blueTeam}
+  onDropPlayer={(lane, team) => {
+    // Hier benutzen wir die gleiche Logik wie bei deinem bestehenden onDrop
+    if (!dragged) return;
+    const { player, fromTeam, fromLane } = dragged;
+
+    let newPool = [...pool];
+    let newRed = { ...redTeam };
+    let newBlue = { ...blueTeam };
+
+    // Entferne Spieler aus altem Team / Pool
+    if (fromTeam === "pool") newPool = newPool.filter((p) => p !== player);
+    else if (fromTeam === "red") newRed[fromLane] = null;
+    else if (fromTeam === "blue") newBlue[fromLane] = null;
+
+    // Falls Slot schon besetzt ist, zurück in Pool
+    if (team === "red" && newRed[lane] && !newPool.includes(newRed[lane])) newPool.push(newRed[lane]);
+    if (team === "blue" && newBlue[lane] && !newPool.includes(newBlue[lane])) newPool.push(newBlue[lane]);
+
+    // Setze Spieler ins neue Team
+    if (team === "red") newRed[lane] = player;
+    if (team === "blue") newBlue[lane] = player;
+
+    setPool(newPool);
+    setRedTeam(newRed);
+    setBlueTeam(newBlue);
+    setDragged(null);
+  }}
+/>
+
     </div>
+
+
+
+
   );
+  
 };
 
 export default LoLTeamPlanner;
