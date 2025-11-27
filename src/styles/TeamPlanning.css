@@ -22,7 +22,7 @@
 }
 
 .player-card {
-  background-color: rgba(132, 0, 255, 0.3);
+  background-color: rgb(104, 53, 221, 0.8);
   padding: 8px 16px;
   border-radius: 12px;
   cursor: grab;
