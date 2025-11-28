@@ -20,6 +20,36 @@ import slide12 from "/slideShow/12.png";
 import slide13 from "/slideShow/13.png";
 import slide14 from "/slideShow/14.png";
 import slide15 from "/slideShow/15.png";
+import slide16 from "/slideShow/16.png";
+import slide17 from "/slideShow/17.png";
+import slide18 from "/slideShow/18.png";
+import slide19 from "/slideShow/19.png";
+import slide20 from "/slideShow/20.png";
+import slide21 from "/slideShow/21.png";
+import slide22 from "/slideShow/22.png";
+import slide23 from "/slideShow/23.png";
+import slide24 from "/slideShow/24.png";
+import slide25 from "/slideShow/25.png";
+import slide26 from "/slideShow/26.png";
+import slide27 from "/slideShow/27.png";
+import slide28 from "/slideShow/28.png";
+import slide29 from "/slideShow/29.png";
+import slide30 from "/slideShow/30.png";
+import slide31 from "/slideShow/31.png";
+import slide32 from "/slideShow/32.png";
+import slide33 from "/slideShow/33.png";
+import slide34 from "/slideShow/34.png";
+import slide35 from "/slideShow/35.png";
+import slide36 from "/slideShow/36.png";
+import slide37 from "/slideShow/37.png";
+import slide38 from "/slideShow/38.png";
+import slide39 from "/slideShow/39.png";
+import slide40 from "/slideShow/40.png";
+import slide41 from "/slideShow/41.png";
+import slide42 from "/slideShow/42.png";
+import slide43 from "/slideShow/43.png";
+import slide44 from "/slideShow/44.png";
+import slide45 from "/slideShow/45.png";
 
 const DEFAULT_PARTICLE_COUNT = 12;
 const DEFAULT_SPOTLIGHT_RADIUS = 300;
@@ -42,6 +72,36 @@ const slides = [
   slide13,
   slide14,
   slide15,
+  slide16,
+  slide17,
+  slide18,
+  slide19,
+  slide20,
+  slide21,
+  slide22,
+  slide23,
+  slide24,
+  slide25,
+  slide26,
+  slide27,
+  slide28,
+  slide29,
+  slide30,
+  slide31,
+  slide32,
+  slide33,
+  slide34,
+  slide35,
+  slide36,
+  slide37,
+  slide38,
+  slide39,
+  slide40,
+  slide41,
+  slide42,
+  slide43,
+  slide44,
+  slide45,
 ];
 
 const cardData = [

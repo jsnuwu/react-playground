@@ -7,7 +7,7 @@ const ImageSlider = ({ images, interval = 2000 }) => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      const nextIndex = (currentIndex + 1) % images.length;
+const nextIndex = Math.floor(Math.random() * images.length);
 
       if (imgRef.current) {
 
