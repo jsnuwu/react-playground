@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/LolMap.css";
+import "/src/styles/LolMap.css";
 
 const lanes = ["Top", "Jungle", "Mid", "ADC", "Support", "Bot"];
 
