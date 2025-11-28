@@ -7,7 +7,6 @@ import TeamPlanning from "./components/TeamPlanning";
 
 function App() {
   const containerRef = useRef(null);
-  const [searchText, setSearchText] = useState("");
 
   const items = [
     { label: "uno", href: "#" },
@@ -15,10 +14,6 @@ function App() {
     { label: "tres", href: "#" },
   ];
 
-  const handleSearch = () => {
-    if (!searchText) return;
-    console.log("Search clicked:", searchText);
-  };
 
   return (
     <div
@@ -73,53 +68,6 @@ function App() {
           timeVariance={300}
           colors={[1, 2, 3, 1, 2, 3, 1, 4]}
         />
-      </div>
-
-      {/* Search Bar */}
-      <div
-        style={{
-          marginBottom: "5vh",
-          width: "90%",
-          maxWidth: "600px",
-          display: "flex",
-          gap: "10px",
-        }}
-      >
-        <input
-          type="text"
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-          placeholder="Search..."
-          style={{
-            flex: 1,
-            padding: "12px 20px",
-            borderRadius: "30px",
-            border: "2px solid #444",
-            backgroundColor: "#1a1b2a",
-            color: "#fff",
-            fontSize: "16px",
-            outline: "none",
-            transition: "all 0.3s ease",
-          }}
-          onFocus={(e) => (e.target.style.borderColor = "#6c63ff")}
-          onBlur={(e) => (e.target.style.borderColor = "#444")}
-          onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-        />
-        <button
-          onClick={handleSearch}
-          style={{
-            padding: "12px 20px",
-            borderRadius: "30px",
-            border: "none",
-            backgroundColor: "#6c63ff",
-            color: "#fff",
-            cursor: "pointer",
-            fontWeight: "bold",
-            transition: "background 0.3s",
-          }}
-        >
-          Search
-        </button>
       </div>
 
       {/* Bento */}

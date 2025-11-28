@@ -6,11 +6,27 @@
   padding: 2rem;
   color: #fff;
   font-family: sans-serif;
+
 }
+
+.test {
+  border: 1px solid #392e4e;
+  padding: 1rem;
+  border-radius: 16px;
+  background: radial-gradient(circle at center,
+      rgba(104, 53, 221, 0.1),
+      rgba(20, 24, 35, 0.8)
+    );
+  box-shadow: 0 0 25px rgba(104, 53, 221, 0.2),
+              inset 0 0 20px rgba(104, 53, 221, 0.1);
+  backdrop-filter: blur(8px);
+}
+
 
 .pool-area {
   width: 100%;
   text-align: center;
+  margin-bottom: 2rem;
 }
 
 .pool-list {

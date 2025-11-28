@@ -7,6 +7,9 @@
   margin: auto;
   background-color: rgba(21, 24, 32, 0.8);
   border-radius: 12px;
+  border: 1px solid #392e4e;
+    box-shadow: 0 0 25px rgba(104, 53, 221, 0.2),
+              inset 0 0 20px rgba(104, 53, 221, 0.1);
   padding: 1rem;
 }
 

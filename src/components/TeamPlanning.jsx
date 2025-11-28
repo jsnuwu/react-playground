@@ -109,6 +109,7 @@ const LoLTeamPlanner = () => {
 
   return (
     <div className="lol-planner-container">
+      <div className='test'>
       {/* Pool */}
       <div className="pool-area">
         <h3>Players</h3>
@@ -130,6 +131,7 @@ const LoLTeamPlanner = () => {
       <div className="teams-area">
         {renderTeamLane("Blue Team", blueTeam, "blue")}
         {renderTeamLane("Red Team", redTeam, "red")}
+      </div>
       </div>
       <LoLMap
         redTeam={redTeam}
