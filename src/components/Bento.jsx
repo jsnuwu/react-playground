@@ -117,7 +117,7 @@ const cardData = [
   },
   {
     color: DEFAULT_CARD_COLOR,
-    title: "Ranking",
+    title: "Leaderboard",
     description: <RankingCard />,
   },
   {
