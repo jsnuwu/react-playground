@@ -14,7 +14,7 @@ const ImageSlider = ({ images, interval = 2000 }) => {
         gsap.to(imgRef.current, {
           opacity: 0,
           y: 10,
-          duration: 0.8,
+          duration: 0.5,
           ease: "power1.inOut",
           onComplete: () => {
             setCurrentIndex(nextIndex);
@@ -24,7 +24,7 @@ const ImageSlider = ({ images, interval = 2000 }) => {
             gsap.to(imgRef.current, {
               opacity: 1,
               y: 0,
-              duration: 0.5,
+              duration: 0.8,
               ease: "power1.out",
             });
           },

@@ -3,6 +3,8 @@ import { gsap } from "gsap";
 import "../styles/Bento.css";
 import LoLPatchNotes from "../api/LoLPatchNotes";
 import ImageSlider from "../components/ImageSlider";
+import RankingCard from "./RankingCard";
+
 import slide1 from "/slideShow/1.png";
 import slide2 from "/slideShow/2.png";
 import slide3 from "/slideShow/3.png";
@@ -24,14 +26,28 @@ const DEFAULT_SPOTLIGHT_RADIUS = 300;
 const DEFAULT_GLOW_COLOR = "132, 0, 255";
 const MOBILE_BREAKPOINT = 768;
 const DEFAULT_CARD_COLOR = "rgba(16, 20, 26, 0.9)";
-const slides = [slide1, slide2, slide3, slide4, slide5,slide6,slide7,slide8,slide9,slide10,slide11,slide12,slide13,slide14,slide15 ];
+const slides = [
+  slide1,
+  slide2,
+  slide3,
+  slide4,
+  slide5,
+  slide6,
+  slide7,
+  slide8,
+  slide9,
+  slide10,
+  slide11,
+  slide12,
+  slide13,
+  slide14,
+  slide15,
+];
 
 const cardData = [
   {
     color: DEFAULT_CARD_COLOR,
-    description: (
-        <ImageSlider images={slides} interval={2500} />
-    ),
+    description: <ImageSlider images={slides} interval={2500} />,
   },
   {
     color: DEFAULT_CARD_COLOR,
@@ -41,9 +57,8 @@ const cardData = [
   },
   {
     color: DEFAULT_CARD_COLOR,
-    title: "3",
-    description: "text",
-    label: "3",
+    title: "Ranking",
+    description: <RankingCard />,
   },
   {
     color: DEFAULT_CARD_COLOR,

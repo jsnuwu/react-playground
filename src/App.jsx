@@ -14,7 +14,6 @@ function App() {
     { label: "tres", href: "#" },
   ];
 
-
   return (
     <div
       style={{
