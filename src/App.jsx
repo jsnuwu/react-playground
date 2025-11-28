@@ -18,7 +18,7 @@ function App() {
     <div
       style={{
         width: "100%",
-        minHeight: "500vh",
+        minHeight: "auto",
         overflowY: "auto",
         display: "flex",
         flexDirection: "column",

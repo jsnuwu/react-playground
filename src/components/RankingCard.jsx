@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import "../styles/RankingCard.css";
 
 const initialRanking = [
-  { name: "Jason", score: 1200 },
-  { name: "David", score: 1100 },
-  { name: "Jenny", score: 1050 },
-  { name: "Dennis", score: 950 },
-  { name: "Felix P", score: 900 },
-  { name: "Mechu", score: 850 },
-  { name: "Felix S", score: 800 },
-  { name: "Mohammed", score: 750 },
-  { name: "Nils", score: 700 },
-  { name: "Adrian", score: 650 },
+  { name: "Jason", score: 600 },
+  { name: "David", score: 600 },
+  { name: "Jenny", score: 600 },
+  { name: "Felix P", score: 600 },
+  { name: "Mechu", score: 600 },
+  { name: "Felix S", score: 600 },
+  { name: "Mohammed", score: 600 },
+  { name: "Nils", score: 600 },
+  { name: "Adrian", score: 600 },
   { name: "Kristof", score: 600 },
+  { name: "Dennis", score: -2 },
 ];
 
 const RankingCard = () => {

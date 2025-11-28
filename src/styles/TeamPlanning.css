@@ -6,22 +6,21 @@
   padding: 2rem;
   color: #fff;
   font-family: sans-serif;
-
 }
 
 .test {
   border: 1px solid #392e4e;
   padding: 1rem;
   border-radius: 16px;
-  background: radial-gradient(circle at center,
-      rgba(104, 53, 221, 0.1),
-      rgba(20, 24, 35, 0.8)
-    );
+  background: radial-gradient(
+    circle at center,
+    rgba(104, 53, 221, 0.1),
+    rgba(20, 24, 35, 0.8)
+  );
   box-shadow: 0 0 25px rgba(104, 53, 221, 0.2),
-              inset 0 0 20px rgba(104, 53, 221, 0.1);
+    inset 0 0 20px rgba(104, 53, 221, 0.1);
   backdrop-filter: blur(8px);
 }
-
 
 .pool-area {
   width: 100%;
@@ -65,7 +64,7 @@
 }
 
 .team-column {
-  flex: 1;
+flex: 1 1 300px;
   width: auto;
   background-color: rgba(16, 20, 26, 0.9);
   border-radius: 16px;
@@ -132,4 +131,50 @@
 
 .team-column.red {
   border-color: #ff4d4dcc;
+}
+
+@media (max-width: 1024px) {
+  .map-grid {
+    grid-template-columns: repeat(3, minmax(60px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .teams-area {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .map-grid {
+    grid-template-columns: repeat(2, minmax(60px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .lane-box {
+    min-height: 60px;
+    padding: 0.5rem;
+  }
+
+  .player-card {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .map-grid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0.5rem;
+  }
+
+  .lane-box {
+    min-height: 50px;
+    padding: 0.4rem;
+    font-size: 0.8rem;
+  }
+
+  .player-card {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+  }
 }
