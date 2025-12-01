@@ -17,7 +17,7 @@
   max-width: 54em;
   font-size: clamp(1rem, 0.9rem + 0.5vw, 1.5rem);
   align-items: start;
-   grid-auto-rows: minmax(0px, auto);
+  grid-auto-rows: minmax(0px, auto);
 }
 
 .magic-bento-card {
@@ -61,6 +61,8 @@
 
 .magic-bento-card__content {
   flex-direction: column;
+  flex: 1;
+  justify-content: center;
 }
 
 .magic-bento-card__label {
@@ -142,13 +144,12 @@
   .magic-bento-card:nth-child(4) {
     grid-column: 1 / span 3;
     grid-row: 2 / span 4;
-        height: 523px;
+    height: 523px;
     padding: 0.25em;
   }
-
 }
 
-/* Border glow effect */
+/* Border effect */
 .magic-bento-card--border-glow::after {
   content: "";
   position: absolute;
@@ -210,3 +211,4 @@
   position: relative;
   user-select: none;
 }
+

@@ -3,7 +3,8 @@ import { gsap } from "gsap";
 import "../styles/Bento.css";
 import LoLPatchNotes from "../api/LoLPatchNotes";
 import ImageSlider from "../components/ImageSlider";
-import RankingCard from "./RankingCard";
+import RankingCard from "../components/RankingCard";
+import TextSlider from "../components/TextSlider";
 
 import slide1 from "/slideShow/1.png";
 import slide2 from "/slideShow/2.png";
@@ -104,16 +105,69 @@ const slides = [
   slide45,
 ];
 
+const sentences = [
+  "Dhuscarr – 3.82 KDA, doch oft nur Statistik ohne echten Impact.",
+  "gloriezzz – 4.20 KDA, die Handschrift eines dominierenden Giganten.",
+  "gloriezzz – 7 Wins, ein Sieger, der kaum zu stoppen ist.",
+  "gloriezzz – 78 Kills, präzise wie ein chirurgischer Schlag.",
+  "Dhuscarr – 3.82 KDA, doch oft nur Statistik ohne echten Impact.",
+  "Dhuscarr – 66 Assists, viele davon in verlorenen Fights gesammelt.",
+  "Dhuscarr – 64 Kills, aber selten dann, wenn es wirklich zählt.",
+  "jsnuwu – 81 Kills, 81 Momente der Perfektion.",
+  "jsnuwu – der Spieler, der zwischen Glanz und Abgrund pendelt.",
+  "jsnuwu – 52 Deaths, ein Preis für ungebremste Aggression.",
+  "MOONBOW – 101 Assists, eine unsichtbare Motorin jeder Schlacht.",
+  "MOONBOW – 2.67 KDA, eine Supporterin, die leise carried.",
+  "MOONBOW – Präsenz in jedem Fight, auch wenn man sie nicht sieht.",
+  "2Luckyy – 67 Kills, pure Explosion in jedem Match.",
+  "2Luckyy – 60 Deaths, Risiko als Lebensstil.",
+  "2Luckyy – High Risk, High Reward in seiner reinsten Form.",
+  "Killuaツ – 42 Kills, zurückhaltend, aber wirkungsvoll.",
+  "Killuaツ – 53 Assists, ein Teamfighter mit klarer Handschrift.",
+  "Killuaツ – 5 Wins, entstanden durch stetigen Impact.",
+  "Nols1000 – 38 Kills, solide und zuverlässig.",
+  "Nols1000 – 48 Deaths, ein Spieler, der im Zentrum des Sturms steht.",
+  "Nols1000 – 1.63 KDA, ein ruhiger Kämpfer mit Last auf den Schultern.",
+  "Kristof – nur 19 Deaths, unberührbar wie ein Geist.",
+  "Kristof – 3.0 KDA, sauberes Gameplay bis ins Detail.",
+  "Kristof – die beste Survivability im gesamten Team.",
+  "SuperAdi06 – 26 Deaths, ein defensiver Fels in jedem Match.",
+  "SuperAdi06 – 14 Kills, getroffen nur mit Bedacht.",
+  "SuperAdi06 – 0.81 KDA, ein Spieler, der Sicherheit über Risiko stellt.",
+  "Chuchiii – 52 Deaths, gezeichnet von schweren Matchups.",
+  "Chuchiii – 20 Assists, auch im Kampf immer ein Teil des Teams.",
+  "Chuchiii – 4 Kills, selten vorne, aber nie wirklich weg.",
+  "gloriezzz – der statistische König eurer Gruppe.",
+  "Dhuscarr – ein Beschwörer, der die Kontrolle verliert, wenn’s brenzlig wird.",
+  "jsnuwu – der Funke, der ein Match jederzeit entzünden kann.",
+  "MOONBOW – das Rückgrat eurer Teamfights, eine unverzichtbare Spielerin.",
+  "2Luckyy – ein Spieler, der Siege erzwingt oder zerstört.",
+  "Killuaツ – die stille Kraft in jedem Teamfight.",
+  "Nols1000 – standhaft, auch wenn die Zahlen gegen ihn sprechen.",
+  "Kristof – Positionierung auf einem anderen Level.",
+  "SuperAdi06 – ein Spieler, der selten fällt, selbst wenn alles bricht.",
+  "Chuchiii – die Definition von Ausdauer trotz Rückschlägen.",
+  "gloriezzz – Sieg nach Sieg, ein Muster, das sich durchzieht.",
+  "Dhuscarr – KDA, Konstanz, Kontrolle – alles gut, aber selten spielentscheidend.",
+  "jsnuwu – wenn er fällt, dann nur nach einem wahrhaft wilden Kampf.",
+  "MOONBOW – eine Spielerin, die Fights entscheidet, ohne Schaden zu machen.",
+  "2Luckyy – immer am Limit, immer gefährlich.",
+  "Killuaツ – ein Spieler, der selten glänzt, aber immer trägt.",
+  "Nols1000 – ein Teil des Teams, selbst wenn die Stats es schwer machen.",
+  "Kristof – der Spieler, der einfach nicht stirbt.",
+  "SuperAdi06 – immer im Spiel, auch ohne große Zahlen.",
+  "Chuchiii – kämpft in jeder Statistik gegen den Strom, aber bleibt bestehen.",
+];
+
 const cardData = [
   {
     color: DEFAULT_CARD_COLOR,
     description: <ImageSlider images={slides} interval={2500} />,
   },
+
   {
     color: DEFAULT_CARD_COLOR,
-    title: "TITLE 2",
-    description: "text",
-    label: "2",
+    description: <TextSlider texts={sentences} interval={6000} />,
   },
   {
     color: DEFAULT_CARD_COLOR,
@@ -124,7 +178,6 @@ const cardData = [
     color: DEFAULT_CARD_COLOR,
     description: <LoLPatchNotes />,
   },
-
 ];
 
 const createParticleElement = (x, y, color = DEFAULT_GLOW_COLOR) => {

@@ -11,6 +11,8 @@
     box-shadow: 0 0 25px rgba(104, 53, 221, 0.2),
               inset 0 0 20px rgba(104, 53, 221, 0.1);
   padding: 1rem;
+    margin-top: 2rem;
+
 }
 
 .map-svg {

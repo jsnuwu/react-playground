@@ -1,9 +1,10 @@
-import React, { useRef, useState } from "react";
-import SplashCursor from "./components/SplashCursor";
-import Headline from "./components/Headline";
-import Bento from "./components/Bento";
+import React, { useRef } from "react";
+import SplashCursor from "./pages/SplashCursor";
+import Headline from "./pages/Headline";
+import Bento from "./pages/Bento";
 import Nav from "./components/Nav";
-import TeamPlanning from "./components/TeamPlanning";
+import TeamPlanning from "./pages/TeamPlanning";
+import StatPage from "./pages/StatPage";
 
 function App() {
   const containerRef = useRef(null);
@@ -39,7 +40,7 @@ function App() {
         }}
       >
         <Headline
-          label="HHHEEEAAADDDLLLIIINNNEEE"
+          label="League Of Legends @ adesso"
           className="headline-demo"
           containerRef={containerRef}
           fromFontVariationSettings="'wght' 400, 'opsz' 9"
@@ -49,14 +50,14 @@ function App() {
         />
       </div>
 
-      {/* Navigation */}
-      <div
+      {/* Navigation 
+      <div 
         style={{
           marginBottom: "5vh",
-          width: "90%",
+          width: "100%",
           maxWidth: "800px",
         }}
-      >
+      >/
         <Nav
           items={items}
           particleCount={15}
@@ -68,11 +69,11 @@ function App() {
           colors={[1, 2, 3, 1, 2, 3, 1, 4]}
         />
       </div>
-
+*/}
       {/* Bento */}
       <div
         style={{
-          width: "90%",
+          width: "100%",
           maxWidth: "1200px",
           zIndex: 2,
         }}
@@ -80,11 +81,17 @@ function App() {
         <Bento />
       </div>
 
+      {/* Stats */}
+      <div style={{ width: "100%", minHeight: "auto" }}>
+        {" "}
+        <StatPage />{" "}
+      </div>
+
       {/* Team Planner */}
       <div
         style={{
-          width: "90%",
-          maxWidth: "1200px",
+          width: "100%",
+          maxWidth: "auto",
           zIndex: 2,
         }}
       >

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/TeamPlanning.css";
-import LoLMap from "./LolMap";
+import LoLMap from "../components/LolMap";
 import "../styles/LolMap.css";
 
 const initialPlayers = [

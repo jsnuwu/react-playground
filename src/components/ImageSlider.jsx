@@ -35,6 +35,26 @@ const nextIndex = Math.floor(Math.random() * images.length);
     return () => clearInterval(timer);
   }, [currentIndex, images, interval]);
 
+  const handleMouseEnter = () => {
+    if (imgRef.current) {
+      gsap.to(imgRef.current, {
+        scale: 1.05,
+        duration: 0.3,
+        ease: "power1.out",
+      });
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (imgRef.current) {
+      gsap.to(imgRef.current, {
+        scale: 1,
+        duration: 0.3,
+        ease: "power1.out",
+      });
+    }
+  };
+
   return (
     <img
       ref={imgRef}
@@ -48,6 +68,8 @@ const nextIndex = Math.floor(Math.random() * images.length);
         transform: "translateX(-50%)",
         display: "block",
       }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     />
   );
 };

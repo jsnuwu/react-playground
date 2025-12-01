@@ -1,33 +1,23 @@
 import React, { useState } from "react";
 import "../styles/RankingCard.css";
-
-const initialRanking = [
-  { name: "Jason", kda: [81, 52, 48], wins: 4, losses: 5 },
-  { name: "David", kda: [78, 35, 69], wins: 7, losses: 2 },
-  { name: "Jenny", kda: [30, 49, 101], wins: 4, losses: 5 },
-  { name: "Dennis", kda: [64, 34, 57], wins: 6, losses: 3 },
-  { name: "Felix P", kda: [67, 60, 56], wins: 4, losses: 5 },
-  { name: "Mechu", kda: [4, 36, 18], wins: 2, losses: 7 },
-  { name: "Felix S", kda: [12, 54, 48], wins: 3, losses: 6 },
-  { name: "Mohammed", kda: [42, 42, 53], wins: 3, losses: 6 },
-  { name: "Nils", kda: [38, 55, 40], wins: 2, losses: 7 },
-  { name: "Adrian", kda: [14, 26, 7], wins: 5, losses: 4 },
-  //{ name: "Kristof", kda: [29, 19, 25], wins: 3, losses: 2 },
-].map(player => {
-  const [kills, deaths, assists] = player.kda;
-  const games = player.wins + player.losses;
-  const kdaRatio = (kills + assists) / Math.max(1, deaths);
-  const winrate = (player.wins / games) * 100;
-  return { ...player, kdaRatio, winrate, games };
-});
-
-const sortedInitialRanking = [...initialRanking].sort((a, b) => {
-  if (b.kdaRatio !== a.kdaRatio) return b.kdaRatio - a.kdaRatio;
-  return b.winrate - a.winrate;
-});
+import players from "../data/players";
 
 const RankingCard = () => {
-  const [ranking, setRanking] = useState(sortedInitialRanking);
+
+  const processedPlayers = players.map((player) => {
+    const [kills, deaths, assists] = [player.kills, player.deaths, player.assists];
+    const games = player.wins + player.looses;
+    const kdaRatio = (kills + assists) / Math.max(1, deaths);
+    const winrate = (player.wins / games) * 100;
+    return { ...player, kda: [kills, deaths, assists], kdaRatio, winrate, games };
+  });
+
+  const sortedPlayers = [...processedPlayers].sort((a, b) => {
+    if (b.kdaRatio !== a.kdaRatio) return b.kdaRatio - a.kdaRatio;
+    return b.winrate - a.winrate;
+  });
+
+  const [ranking, setRanking] = useState(sortedPlayers);
   const [editingPlayer, setEditingPlayer] = useState(null);
 
   const handleKDAChange = (index, value) => {
@@ -37,11 +27,11 @@ const RankingCard = () => {
   };
 
   const saveKDA = () => {
-    const updated = ranking.map(p =>
+    const updated = ranking.map((p) =>
       p.name === editingPlayer.name
         ? (() => {
             const [kills, deaths, assists] = editingPlayer.kda;
-            const games = editingPlayer.wins + editingPlayer.losses;
+            const games = editingPlayer.wins + editingPlayer.looses;
             const kdaRatio = (kills + assists) / Math.max(1, deaths);
             const winrate = (editingPlayer.wins / games) * 100;
             return { ...editingPlayer, kdaRatio, winrate, games };
@@ -54,7 +44,7 @@ const RankingCard = () => {
       return b.winrate - a.winrate;
     });
 
-        setRanking(updated);
+    setRanking(updated);
     setEditingPlayer(null);
   };
 
@@ -67,11 +57,17 @@ const RankingCard = () => {
             className={`rank-item rank-${index + 1}`}
             onClick={() => setEditingPlayer(player)}
           >
-            <span className="player-name">{index + 1}. {player.name}</span>
+            <span className="player-name">
+              {index + 1}. {player.name}
+            </span>
             <div className="player-details">
-              <div>{player.kda[0]} / {player.kda[1]} / {player.kda[2]}</div>
+              <div>
+                {player.kda[0]} / {player.kda[1]} / {player.kda[2]}
+              </div>
               <div>KDA-Ratio: {player.kdaRatio.toFixed(2)}</div>
-              <div>{player.wins}W / {player.losses}L</div>
+              <div>
+                {player.wins}W / {player.looses}L
+              </div>
               <div>Winrate: {player.winrate.toFixed(1)}%</div>
               <div>Games: {player.games}</div>
             </div>
@@ -88,7 +84,7 @@ const RankingCard = () => {
               <input
                 type="number"
                 value={editingPlayer.kda[0]}
-                onChange={e => handleKDAChange(0, e.target.value)}
+                onChange={(e) => handleKDAChange(0, e.target.value)}
               />
             </label>
             <label>
@@ -96,7 +92,7 @@ const RankingCard = () => {
               <input
                 type="number"
                 value={editingPlayer.kda[1]}
-                onChange={e => handleKDAChange(1, e.target.value)}
+                onChange={(e) => handleKDAChange(1, e.target.value)}
               />
             </label>
             <label>
@@ -104,7 +100,7 @@ const RankingCard = () => {
               <input
                 type="number"
                 value={editingPlayer.kda[2]}
-                onChange={e => handleKDAChange(2, e.target.value)}
+                onChange={(e) => handleKDAChange(2, e.target.value)}
               />
             </label>
 

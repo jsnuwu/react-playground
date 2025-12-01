@@ -4,7 +4,7 @@
   padding: 18px;
   background: linear-gradient(145deg, #0c0f14, #141a22);
   border-radius: 14px;
-  color: #e4e8ef;
+  color: #ffffff;
   font-family: "Montserrat", "Segoe UI", sans-serif;
   height: 100%;
   box-shadow: 0 0 18px rgba(0, 0, 0, 0.45);
@@ -16,7 +16,6 @@
   font-weight: 700;
   font-size: 1.3rem;
   letter-spacing: 1px;
-  color: #8ab4ff;
 }
 
 .ranking-card ol {
@@ -44,7 +43,6 @@
   background: rgba(255, 255, 255, 0.09);
   box-shadow: 0 0 12px rgba(90, 128, 255, 0.25);
 }
-
 
 .rank-1 {
   color: gold;
