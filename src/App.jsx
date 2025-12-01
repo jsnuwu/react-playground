@@ -40,7 +40,7 @@ function App() {
         }}
       >
         <Headline
-          label="League Of Legends @ adesso"
+          label="League Of Legends @adesso"
           className="headline-demo"
           containerRef={containerRef}
           fromFontVariationSettings="'wght' 400, 'opsz' 9"
@@ -85,6 +85,25 @@ function App() {
       <div style={{ width: "100%", minHeight: "auto" }}>
         {" "}
         <StatPage />{" "}
+      </div>
+
+      <div
+        ref={containerRef}
+        style={{
+          zIndex: 2,
+          textAlign: "center",
+          marginBottom: "2vh",
+        }}
+      >
+        <Headline
+          label="Assign the lanes"
+          className="headline-demo"
+          containerRef={containerRef}
+          fromFontVariationSettings="'wght' 400, 'opsz' 9"
+          toFontVariationSettings="'wght' 1000, 'opsz' 40"
+          radius={100}
+          falloff="linear"
+        />
       </div>
 
       {/* Team Planner */}

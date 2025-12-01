@@ -72,25 +72,51 @@ const LoLTeamPlanner = () => {
       <div className="map-grid">
         {lanes.map((lane) => (
           <div
-            key={lane}
-            className="lane-box"
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={() => onDrop(teamKey, lane)}
-          >
-            <h4>{lane}</h4>
-            {teamState[lane] ? (
-              <div
-                className="player-card"
-                draggable
-                onDragStart={() => onDragStart(teamState[lane], teamKey, lane)}
-                onClick={() => returnToPool(teamKey, lane)}
-              >
-                {teamState[lane]}
-              </div>
-            ) : (
-              <span className="lane-placeholder">Drop here</span>
-            )}
-          </div>
+  key={lane}
+  className="lane-box"
+  onDragOver={(e) => e.preventDefault()}
+  onDrop={() => onDrop(teamKey, lane)}
+  onClick={() => {
+    if (!dragged) return;
+    const { player, fromTeam, lane: fromLane } = dragged;
+
+    let newPool = [...pool];
+    let newRed = { ...redTeam };
+    let newBlue = { ...blueTeam };
+
+    if (fromTeam === "pool") newPool = newPool.filter((p) => p !== player);
+    else if (fromTeam === "red") newRed[fromLane] = null;
+    else if (fromTeam === "blue") newBlue[fromLane] = null;
+
+    if (teamKey === "red" && newRed[lane] && !newPool.includes(newRed[lane]))
+      newPool.push(newRed[lane]);
+    if (teamKey === "blue" && newBlue[lane] && !newPool.includes(newBlue[lane]))
+      newPool.push(newBlue[lane]);
+
+    if (teamKey === "red") newRed[lane] = player;
+    if (teamKey === "blue") newBlue[lane] = player;
+
+    setPool(newPool);
+    setRedTeam(newRed);
+    setBlueTeam(newBlue);
+    setDragged(null);
+  }}
+>
+  <h4>{lane}</h4>
+  {teamState[lane] ? (
+    <div
+      className="player-card"
+      draggable
+      onDragStart={() => onDragStart(teamState[lane], teamKey, lane)}
+      onClick={() => returnToPool(teamKey, lane)} 
+    >
+      {teamState[lane]}
+    </div>
+  ) : (
+    <span className="lane-placeholder">Drop / Tap here</span>
+  )}
+</div>
+
         ))}
       </div>
     </div>
@@ -109,6 +135,7 @@ const LoLTeamPlanner = () => {
               className="player-card"
               draggable
               onDragStart={() => onDragStart(player, "pool")}
+                onClick={() => setDragged({ player, fromTeam: "pool" })} 
             >
               {player}
             </div>
