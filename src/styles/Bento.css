@@ -142,13 +142,10 @@
   .magic-bento-card:nth-child(4) {
     grid-column: 1 / span 3;
     grid-row: 2 / span 4;
+        height: 523px;
     padding: 0.25em;
   }
 
-  .magic-bento-card:nth-child(6) {
-    grid-column: 6;
-    grid-row: 3 / 3;
-  }
 }
 
 /* Border glow effect */

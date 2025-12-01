@@ -117,7 +117,7 @@ const cardData = [
   },
   {
     color: DEFAULT_CARD_COLOR,
-    title: "Leaderboard",
+    title: "KDA",
     description: <RankingCard />,
   },
   {
@@ -125,12 +125,6 @@ const cardData = [
     description: <LoLPatchNotes />,
   },
 
-  {
-    color: DEFAULT_CARD_COLOR,
-    title: "TITLE 6",
-    description: "text",
-    label: "6",
-  },
 ];
 
 const createParticleElement = (x, y, color = DEFAULT_GLOW_COLOR) => {
