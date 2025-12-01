@@ -6,7 +6,6 @@ import felixPAvatar from "../assets/profilePictures/felix.jpg";
 import MechuAvatar from "../assets/profilePictures/mechu.png";
 import felixSAvatar from "../assets/profilePictures/felixS.png";
 import NilsAvatar from "../assets/profilePictures/nils.png";
-import AdrianAvatar from "../assets/profilePictures/adi.png";
 
 
 const players = [
@@ -121,7 +120,7 @@ const players = [
   {
     id: 10,
     name: "Adrian",
-    avatar: AdrianAvatar,
+    avatar: "",
     kills: 14,
     deaths: 26,
     assists: 7,

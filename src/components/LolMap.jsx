@@ -1,29 +1,34 @@
 import React from "react";
+import players from "../data/players";
+import defaultAvatar from "../assets/profilePictures/default.jpg";
 import "/src/styles/LolMap.css";
+import topIcon from "../assets/laneIcons/topIcon.png";
+import jglIcon from "../assets/laneIcons/jglIcon.png";
+import midIcon from "../assets/laneIcons/midIcon.png";
+import adcIcon from "../assets/laneIcons/adcIcon.png";
+import supIcon from "../assets/laneIcons/supIcon.png";
 
 const lanes = ["Top", "Jungle", "Mid", "ADC", "Support", "Bot"];
+const laneIcons = {
+  Top: topIcon,
+  Jungle: jglIcon,
+  Mid: midIcon,
+  ADC: adcIcon,
+  Support: supIcon,
+};
 
 const SummonersRiftMap = ({ redTeam, blueTeam, onDrop, onDragStart }) => {
   const scale = 1;
   const baseSize = 100 * scale;
 
-  // Originalkoordinaten
+  const avatarMap = Object.fromEntries(
+    players.map((p) => [p.name, p.avatar || defaultAvatar])
+  );
+
   const positions = {
     Bases: {
       red: { x: 700, y: 98 },
       blue: { x: 100, y: 702 },
-    },
-    Turrets: {
-      red: [
-        { x: 620, y: 25 },
-        { x: 660, y: 125 },
-        { x: 750, y: 160 },
-      ],
-      blue: [
-        { x: 170, y: 770 },
-        { x: 135, y: 680 },
-        { x: 50, y: 650 },
-      ],
     },
     Slots: {
       Top: { x: 100, y: 110 },
@@ -35,7 +40,6 @@ const SummonersRiftMap = ({ redTeam, blueTeam, onDrop, onDragStart }) => {
     },
   };
 
-  // Skalierte Positionen
   const scaledPositions = {
     Bases: {
       red: {
@@ -47,16 +51,6 @@ const SummonersRiftMap = ({ redTeam, blueTeam, onDrop, onDragStart }) => {
         y: positions.Bases.blue.y * scale,
       },
     },
-    Turrets: {
-      red: positions.Turrets.red.map((t) => ({
-        x: t.x * scale,
-        y: t.y * scale,
-      })),
-      blue: positions.Turrets.blue.map((t) => ({
-        x: t.x * scale,
-        y: t.y * scale,
-      })),
-    },
     Slots: Object.fromEntries(
       Object.entries(positions.Slots).map(([lane, pos]) => [
         lane,
@@ -65,33 +59,77 @@ const SummonersRiftMap = ({ redTeam, blueTeam, onDrop, onDragStart }) => {
     ),
   };
 
-  // Offset für Namen
   const redOffset = {
-    Top: { x: + 20 * scale, y: + 30 * scale },
-    Jungle: { x: + 20 * scale, y: - 20 * scale },
-    Mid: { x: + 60 * scale, y: -60 * scale },
-    ADC: { x: -20 * scale, y: 80 * scale },
-    Support: { x: - 220 * scale, y: 0 * scale },
-    Bot: { x: -20 * scale, y: 20 * scale },
+    Top: { x: + 130 * scale, y: - 30 * scale },
+    Jungle: { x: +95 * scale, y: -80 * scale },
+    Mid: { x: +50 * scale, y: -50 * scale },
+    ADC: { x: +90 * scale, y: -60 * scale },
+    Support: { x: +41 * scale, y: -220 * scale },
   };
 
   const blueOffset = {
-    Top: { x: 120 * scale, y: - 30 * scale },
-    Jungle: { x: + 280 * scale, y: + 260 * scale },
-    Mid: { x: - 55 * scale, y: 60 * scale },
-    ADC: { x: 90 * scale, y: -80 * scale },
-    Support: { x: 40 * scale, y: - 80 * scale },
-    Bot: { x: 60 * scale, y: -30 * scale },
+    Top: { x: 10 * scale, y: + 80 * scale },
+    Jungle: { x: -30 * scale, y: +50 * scale },
+    Mid: { x: -45 * scale, y: 50 * scale },
+    ADC: { x: -30 * scale, y: +60 * scale },
+    Support: { x: -160 * scale, y: -20 * scale },
   };
 
   return (
     <div className="map-container">
       <svg viewBox={`0 0 ${800 * scale} ${800 * scale}`} className="map-svg">
-  <defs>
-    <filter id="white-shadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="0" dy="0" stdDeviation="20" floodColor="white" />
-    </filter>
-  </defs>
+        <defs>
+          <filter
+            id="white-shadow"
+            x="-50%"
+            y="-50%"
+            width="200%"
+            height="200%"
+          >
+            <feDropShadow dx="0" dy="0" stdDeviation="20" floodColor="white" />
+          </filter>
+        </defs>
+
+        <image
+          href={topIcon}
+          x={scaledPositions.Slots.Top.x - 0}
+          y={scaledPositions.Slots.Top.y - 35}
+          width={80}
+          height={80}
+          opacity="0.25"
+        />
+        <image
+          href={jglIcon}
+          x={scaledPositions.Slots.Jungle.x - 15}
+          y={scaledPositions.Slots.Jungle.y - 50}
+          width={80}
+          height={80}
+          opacity="0.25"
+        />
+        <image
+          href={midIcon}
+          x={scaledPositions.Slots.Mid.x + 10}
+          y={scaledPositions.Slots.Mid.y + 10}
+          width={100}
+          height={100}
+          opacity="0.25"
+        />
+        <image
+          href={supIcon}
+          x={scaledPositions.Slots.Support.x - 100}
+          y={scaledPositions.Slots.Support.y - 165}
+          width={80}
+          height={80}
+          opacity="0.25"
+        />
+        <image
+          href={adcIcon}
+          x={scaledPositions.Slots.ADC.x - -25}
+          y={scaledPositions.Slots.ADC.y - 0}
+          width={80}
+          height={80}
+          opacity="0.25"
+        />
 
         {/* Halbkreise / Spawn Areas */}
         <path
@@ -122,26 +160,6 @@ const SummonersRiftMap = ({ redTeam, blueTeam, onDrop, onDragStart }) => {
           opacity="0.6"
         />
 
-        {/* Turrets */}
-        {scaledPositions.Turrets.red.map((t, i) => (
-          <circle
-            key={`red-turret-${i}`}
-            cx={t.x}
-            cy={t.y}
-            r={22 * scale}
-            fill="#ff4d4d"
-          />
-        ))}
-        {scaledPositions.Turrets.blue.map((t, i) => (
-          <circle
-            key={`blue-turret-${i}`}
-            cx={t.x}
-            cy={t.y}
-            r={22 * scale}
-            fill="#4da6ff"
-          />
-        ))}
-
         {/* Lane Paths */}
         <path
           d={`M ${scaledPositions.Bases.blue.x + -50} ${
@@ -155,7 +173,7 @@ const SummonersRiftMap = ({ redTeam, blueTeam, onDrop, onDragStart }) => {
           strokeWidth={30 * scale}
           fill="none"
           opacity="0.3"
-          filter="url(#white-shadow)" 
+          filter="url(#white-shadow)"
         />
         <path
           d={`M ${scaledPositions.Bases.blue.x + -20} ${
@@ -169,8 +187,7 @@ const SummonersRiftMap = ({ redTeam, blueTeam, onDrop, onDragStart }) => {
           strokeWidth={30 * scale}
           fill="none"
           opacity="0.3"
-          filter="url(#white-shadow)" 
-
+          filter="url(#white-shadow)"
         />
         <path
           d={`M ${scaledPositions.Bases.blue.x + 0} ${
@@ -185,7 +202,7 @@ const SummonersRiftMap = ({ redTeam, blueTeam, onDrop, onDragStart }) => {
           fill="none"
           opacity="0.3"
           z-index="-1"
-          filter="url(#white-shadow)" 
+          filter="url(#white-shadow)"
         />
 
         {/* Bases */}
@@ -213,45 +230,77 @@ const SummonersRiftMap = ({ redTeam, blueTeam, onDrop, onDragStart }) => {
           const pos = scaledPositions.Slots[lane];
           if (!pos) return null;
 
+          const renderPlayer = (team, isRed) => {
+            const player = team[lane];
+            if (!player) return null;
+
+            const offset = isRed ? redOffset[lane] : blueOffset[lane];
+            const color = isRed ? "#ff4d4d" : "#4da6ff";
+
+            return (
+              <g
+                draggable="true"
+                onDragStart={() =>
+                  onDragStart(player, isRed ? "red" : "blue", lane)
+                }
+                style={{ cursor: "grab" }}
+              >
+                {/* Avatar */}
+                <image
+                  href={avatarMap[player]}
+                  x={pos.x + offset.x - 20}
+                  y={pos.y + offset.y - 20}
+                  width={40}
+                  height={40}
+                  clipPath="circle(50%)"
+                />
+
+                {/* Name */}
+                <text
+                  x={pos.x + offset.x}
+                  y={pos.y + offset.y + 35}
+                  textAnchor="middle"
+                  fill={color}
+                  fontSize="14"
+                  fontWeight="600"
+                  style={{ userSelect: "none" }}
+                >
+                  {player}
+                </text>
+              </g>
+            );
+          };
+
           return (
             <g
               key={lane}
-              className="lane-slot"
               onDragOver={(e) => e.preventDefault()}
               onDrop={() => onDrop(lane)}
             >
-              {redTeam[lane] && (
-                <text
-                  x={pos.x + redOffset[lane].x}
-                  y={pos.y + redOffset[lane].y}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  fill="#ff4d4d"
-                  fontSize={1 * scale}
-                  draggable
-                  onDragStart={() => onDragStart(redTeam[lane], "red", lane)}
-                >
-                  {redTeam[lane]}
-                </text>
-              )}
-              {blueTeam[lane] && (
-                <text
-                  x={pos.x + blueOffset[lane].x}
-                  y={pos.y + blueOffset[lane].y}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  fill="#4da6ff"
-                  fontSize={14 * scale}
-                  draggable
-                  onDragStart={() => onDragStart(blueTeam[lane], "blue", lane)}
-                >
-                  {blueTeam[lane]}
-                </text>
-              )}
+              {renderPlayer(redTeam, true)}
+              {renderPlayer(blueTeam, false)}
             </g>
           );
         })}
       </svg>
+      {/* Lane Background Icons */}
+      {lanes.map((lane) => {
+        const pos = scaledPositions.Slots[lane];
+        if (!pos) return null;
+
+        return (
+          <image
+            key={`lane-icon-${lane}`}
+            href={laneIcons[lane]}
+            x={pos.x - 35}
+            y={pos.y - 35}
+            width={70}
+            height={70}
+            opacity="0.25"
+            style={{ pointerEvents: "none" }} // NICHT draggebar
+          />
+        );
+      })}
     </div>
   );
 };

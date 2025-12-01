@@ -4,23 +4,13 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-    margin-top: 2rem;
-
-}
-
-.statpage-title {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #fff;
-  text-align: center;
-  position: relative;
-  z-index: 2;
+  margin-top: 2rem;
+  align-items: center;
 }
 
 .statpage-list {
   display: flex;
   flex-direction: column;
-  gap: 15px;
 }
 
 .stat-card {
@@ -33,6 +23,8 @@
   text-align: center;
   box-shadow: 0 4px 15px rgba(132, 0, 255, 0.3);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 1500px;
+  margin-bottom: 0.8rem;
 }
 
 .stat-card:hover {
@@ -42,10 +34,10 @@
 
 .player-card-row {
   display: grid;
-    grid-template-columns: 60px 120px repeat(5, 1fr); 
+  grid-template-columns: 50px 60px 120px repeat(5, 1fr);
   align-items: center;
   gap: 20px;
-  margin-left: 2rem;
+  margin-left: 1rem;
 }
 
 .player-avatar img {
@@ -70,6 +62,15 @@
   white-space: nowrap;
   font-size: 16px;
 }
+
+.player-placement {
+  font-size: 22px;
+  font-weight: 700;
+  color: #8400ff;
+  width: 40px;
+  text-align: center;
+}
+
 
 @media (max-width: 1024px) {
   .player-card-row {
@@ -98,7 +99,7 @@
 
 @media (max-width: 768px) {
   .player-card-row {
-    grid-template-columns: 1fr; 
+    grid-template-columns: 1fr;
     gap: 10px;
     margin-left: 0;
   }

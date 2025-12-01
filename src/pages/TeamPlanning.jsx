@@ -2,20 +2,9 @@ import React, { useState } from "react";
 import "../styles/TeamPlanning.css";
 import LoLMap from "../components/LolMap";
 import "../styles/LolMap.css";
+import players from "../data/players";
 
-const initialPlayers = [
-  "Jason",
-  "David",
-  "Jenny",
-  "Dennis",
-  "Felix P",
-  "Mechu",
-  "Felix S",
-  "Mohammed",
-  "Nils",
-  "Adrian",
-  "Kristof",
-];
+const initialPlayers = players.map(p => p.name);
 
 const lanes = ["Top", "Jungle", "Mid", "ADC", "Support"];
 

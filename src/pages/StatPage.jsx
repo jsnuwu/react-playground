@@ -54,6 +54,8 @@ const StatPage = () => {
         {sortedPlayers.map((player, index) => (
           <div key={index} className="stat-card">
             <div className="player-card-row">
+              <div className="player-placement">#{index + 1}</div>
+
               <div className="player-avatar">
                 <img src={player.avatar || defaultAvatar} alt={player.name} />
               </div>
