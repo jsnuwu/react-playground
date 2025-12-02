@@ -7,7 +7,6 @@ import MechuAvatar from "../assets/profilePictures/mechu.png";
 import felixSAvatar from "../assets/profilePictures/felixS.png";
 import NilsAvatar from "../assets/profilePictures/nils.png";
 
-
 const players = [
   {
     id: 1,
@@ -129,7 +128,7 @@ const players = [
     winRate: ((5 / (5 + 4)) * 100).toFixed(1),
     roundsPlayed: 9,
   },
-    {
+  {
     id: 11,
     name: "Kristof",
     avatar: "",

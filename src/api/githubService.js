@@ -18,7 +18,7 @@ export const fetchPlayersFromGitHub = async () => {
     if (!res.ok) throw new Error("Fehler beim Laden der Spieler");
     const data = await res.json();
     const content = JSON.parse(atob(data.content));
-    return { players: content, sha: data.sha }; 
+    return { players: content, sha: data.sha };
   } catch (err) {
     console.error(err);
     return { players: [], sha: null };

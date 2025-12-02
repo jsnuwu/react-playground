@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "../styles/RankingCard.css";
-import { fetchPlayersFromGitHub, savePlayersToGitHub } from "../api/githubService";
+import {
+  fetchPlayersFromGitHub,
+  savePlayersToGitHub,
+} from "../api/githubService";
 import defaultPlayers from "../data/players";
 
 const RankingCard = () => {
   const [ranking, setRanking] = useState([]);
   const [fileSha, setFileSha] = useState(null);
   const [editingPlayer, setEditingPlayer] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   const processPlayers = (players) => {
     return players
@@ -37,20 +39,22 @@ const RankingCard = () => {
 
   useEffect(() => {
     const loadPlayers = async () => {
-      setLoading(true);
+      const saved = localStorage.getItem("rankingData");
+      if (saved) {
+        setRanking(JSON.parse(saved));
+        return;
+      }
+
       try {
         const { players, sha } = await fetchPlayersFromGitHub();
         if (players && players.length > 0) {
           setRanking(processPlayers(players));
           setFileSha(sha);
-          localStorage.setItem("rankingData", JSON.stringify(players));
         } else {
           setRanking(processPlayers(defaultPlayers));
         }
       } catch {
         setRanking(processPlayers(defaultPlayers));
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -58,9 +62,7 @@ const RankingCard = () => {
   }, []);
 
   useEffect(() => {
-    if (ranking.length > 0) {
-      localStorage.setItem("rankingData", JSON.stringify(ranking));
-    }
+    localStorage.setItem("rankingData", JSON.stringify(ranking));
   }, [ranking]);
 
   const handleKDAChange = (index, value) => {
@@ -88,28 +90,24 @@ const RankingCard = () => {
         : p
     );
 
-    const sortedUpdated = updated.sort((a, b) => {
-      if (b.kdaRatio !== a.kdaRatio) return b.kdaRatio - a.kdaRatio;
-      return b.winrate - a.winrate;
-    });
+    setRanking(
+      updated.sort((a, b) => {
+        if (b.kdaRatio !== a.kdaRatio) return b.kdaRatio - a.kdaRatio;
+        return b.winrate - a.winrate;
+      })
+    );
 
-    setRanking(sortedUpdated);
+    localStorage.setItem("rankingData", JSON.stringify(updated));
 
     if (fileSha) {
-      try {
-        const result = await savePlayersToGitHub(sortedUpdated, fileSha);
-        if (result && result.content && result.content.sha) {
-          setFileSha(result.content.sha);
-        }
-      } catch (err) {
-        console.error("Fehler beim Speichern zu GitHub:", err);
+      const result = await savePlayersToGitHub(updated, fileSha);
+      if (result && result.content && result.content.sha) {
+        setFileSha(result.content.sha);
       }
     }
 
     setEditingPlayer(null);
   };
-
-  if (loading) return <div>Lädt Spieler...</div>;
 
   return (
     <div className="ranking-card">
