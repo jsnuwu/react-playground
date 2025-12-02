@@ -73,7 +73,7 @@ const LoLTeamPlanner = () => {
         {lanes.map((lane) => (
           <div
   key={lane}
-  className="lane-box"
+  className={`lane-box ${teamKey}`}
   onDragOver={(e) => e.preventDefault()}
   onDrop={() => onDrop(teamKey, lane)}
   onClick={() => {

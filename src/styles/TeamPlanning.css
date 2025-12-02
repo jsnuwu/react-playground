@@ -6,7 +6,6 @@
   padding: 2rem;
   color: #fff;
   font-family: sans-serif;
-
 }
 
 .test {
@@ -65,7 +64,7 @@
 }
 
 .team-column {
-flex: 1 1 300px;
+  flex: 1 1 300px;
   width: auto;
   background-color: rgba(16, 20, 26, 0.9);
   border-radius: 16px;
@@ -111,10 +110,29 @@ flex: 1 1 300px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid #392e4e;
   padding: 0.5rem;
   white-space: nowrap;
   width: auto;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+}
+
+.lane-box.red {
+  border: 1px solid rgba(255, 77, 77, 0.2);
+}
+
+.lane-box.blue {
+  border: 1px solid rgba(77, 166, 255, 0.2);
+}
+
+.lane-box.red:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0px 15px rgba(255, 77, 77, 0.7); 
+}
+
+.lane-box.blue:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0px 15px rgba(77, 166, 255, 0.7); 
 }
 
 .lane-box h4 {
