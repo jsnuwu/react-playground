@@ -36,27 +36,33 @@
   cursor: pointer;
   transition: 0.2s ease;
   border: 1px solid rgba(255, 255, 255, 0.04);
+
 }
 
 .rank-item:hover {
   transform: translateY(-3px);
   background: rgba(255, 255, 255, 0.09);
-  box-shadow: 0 0 12px rgba(90, 128, 255, 0.25);
 }
 
 .rank-1 {
   color: gold;
   font-weight: bold;
+    box-shadow: 0 0 15px rgb(255, 217, 0);
+
 }
 
 .rank-2 {
   color: rgb(235, 232, 232);
   font-weight: bold;
+      box-shadow: 0 0 13px rgb(235, 232, 232);
+
 }
 
 .rank-3 {
   color: #e58f3a;
   font-weight: bold;
+      box-shadow: 0 0 10px #e58f3a;
+
 }
 
 .modal {

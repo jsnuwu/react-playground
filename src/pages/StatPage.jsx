@@ -49,8 +49,10 @@ const StatPage = () => {
       <div className="statpage-grid">
         {" "}
         {sortedPlayers.map((player, index) => (
-          <div
+          <a
             key={index}
+            href={player.profileLink} 
+            target="_blank"
             className={`stat-card ${index === 0 ? "stat-card-first" : ""}`}
             style={index === 0 ? { "--borderGif": `url(${blueBoarder})` } : {}}
           >
@@ -96,7 +98,7 @@ const StatPage = () => {
                 <p>Games Played: {player.games}</p>{" "}
               </div>{" "}
             </div>{" "}
-          </div>
+          </a>
         ))}{" "}
       </div>{" "}
     </div>

@@ -8,11 +8,6 @@ import StatPage from "./pages/StatPage";
 function App() {
   const containerRef = useRef(null);
 
-  const items = [
-    { label: "uno", href: "#" },
-    { label: "dos", href: "#" },
-    { label: "tres", href: "#" },
-  ];
 
   return (
     <div

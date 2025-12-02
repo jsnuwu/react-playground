@@ -171,7 +171,7 @@ const cardData = [
   },
   {
     color: DEFAULT_CARD_COLOR,
-    title: "KDA",
+    title: "Leaderboard",
     description: <RankingCard />,
   },
   {
