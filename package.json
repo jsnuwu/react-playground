@@ -11,6 +11,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@lolmath/ui": "^8.0.0",
     "axios": "^1.13.2",
     "axois": "^0.0.1-security",
     "class-variance-authority": "^0.7.1",

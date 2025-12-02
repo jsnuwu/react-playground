@@ -73,6 +73,22 @@
   text-align: center;
 }
 
+.stat-card-first {
+  position: relative;
+  z-index: 3;
+}
+
+.stat-card-first::before {
+  content: "";
+  position: absolute;
+  inset: -1px; 
+  border-radius: 15px; 
+  background: var(--borderGif) center/cover no-repeat;
+  z-index: -1;
+  opacity: 0.8;
+}
+
+
 /* Breakpoint: Tablet */
 @media (max-width: 1024px) {
   .player-card-row {
