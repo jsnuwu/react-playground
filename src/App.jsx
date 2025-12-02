@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import SplashCursor from "./pages/SplashCursor";
 import Headline from "./pages/Headline";
 import Bento from "./pages/Bento";
-import Nav from "./components/Nav";
 import TeamPlanning from "./pages/TeamPlanning";
 import StatPage from "./pages/StatPage";
 
@@ -50,26 +49,6 @@ function App() {
         />
       </div>
 
-      {/* Navigation 
-      <div 
-        style={{
-          marginBottom: "5vh",
-          width: "100%",
-          maxWidth: "800px",
-        }}
-      >/
-        <Nav
-          items={items}
-          particleCount={15}
-          particleDistances={[90, 10]}
-          particleR={100}
-          initialActiveIndex={0}
-          animationTime={600}
-          timeVariance={300}
-          colors={[1, 2, 3, 1, 2, 3, 1, 4]}
-        />
-      </div>
-*/}
       {/* Bento */}
       <div
         style={{

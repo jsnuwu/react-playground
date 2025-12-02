@@ -1,69 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../styles/RankingCard.css";
-import {
-  fetchPlayersFromGitHub,
-  savePlayersToGitHub,
-} from "../api/githubService";
-import defaultPlayers from "../data/players";
+import players from "../data/players";
 
 const RankingCard = () => {
-  const [ranking, setRanking] = useState([]);
-  const [fileSha, setFileSha] = useState(null);
+  const processedPlayers = players.map((player) => {
+    const [kills, deaths, assists] = [player.kills, player.deaths, player.assists];
+    const games = player.wins + player.looses;
+    const kdaRatio = (kills + assists) / Math.max(1, deaths);
+    const winrate = (player.wins / games) * 100;
+    return { ...player, kda: [kills, deaths, assists], kdaRatio, winrate, games };
+  });
+
+  const sortedPlayers = [...processedPlayers].sort((a, b) => {
+    if (b.kdaRatio !== a.kdaRatio) return b.kdaRatio - a.kdaRatio;
+    return b.winrate - a.winrate;
+  });
+
+  const [ranking, setRanking] = useState(sortedPlayers);
   const [editingPlayer, setEditingPlayer] = useState(null);
-
-  const processPlayers = (players) => {
-    return players
-      .map((player) => {
-        const [kills, deaths, assists] = [
-          player.kills,
-          player.deaths,
-          player.assists,
-        ];
-        const games = player.wins + player.looses;
-        const kdaRatio = (kills + assists) / Math.max(1, deaths);
-        const winrate = (player.wins / Math.max(1, games)) * 100;
-
-        return {
-          ...player,
-          kda: [kills, deaths, assists],
-          kdaRatio,
-          winrate,
-          games,
-        };
-      })
-      .sort((a, b) => {
-        if (b.kdaRatio !== a.kdaRatio) return b.kdaRatio - a.kdaRatio;
-        return b.winrate - a.winrate;
-      });
-  };
-
-  useEffect(() => {
-    const loadPlayers = async () => {
-      const saved = localStorage.getItem("rankingData");
-      if (saved) {
-        setRanking(JSON.parse(saved));
-        return;
-      }
-
-      try {
-        const { players, sha } = await fetchPlayersFromGitHub();
-        if (players && players.length > 0) {
-          setRanking(processPlayers(players));
-          setFileSha(sha);
-        } else {
-          setRanking(processPlayers(defaultPlayers));
-        }
-      } catch {
-        setRanking(processPlayers(defaultPlayers));
-      }
-    };
-
-    loadPlayers();
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("rankingData", JSON.stringify(ranking));
-  }, [ranking]);
 
   const handleKDAChange = (index, value) => {
     const newKDA = [...editingPlayer.kda];
@@ -71,41 +25,25 @@ const RankingCard = () => {
     setEditingPlayer({ ...editingPlayer, kda: newKDA });
   };
 
-  const saveKDA = async () => {
+  const saveKDA = () => {
     const updated = ranking.map((p) =>
       p.name === editingPlayer.nameBeforeEdit
         ? (() => {
             const [kills, deaths, assists] = editingPlayer.kda;
             const games = editingPlayer.wins + editingPlayer.looses;
             const kdaRatio = (kills + assists) / Math.max(1, deaths);
-            const winrate = (editingPlayer.wins / Math.max(1, games)) * 100;
-
-            return {
-              ...editingPlayer,
-              kdaRatio,
-              winrate,
-              games,
-            };
+            const winrate = (editingPlayer.wins / games) * 100;
+            return { ...editingPlayer, kdaRatio, winrate, games };
           })()
         : p
     );
 
-    setRanking(
-      updated.sort((a, b) => {
-        if (b.kdaRatio !== a.kdaRatio) return b.kdaRatio - a.kdaRatio;
-        return b.winrate - a.winrate;
-      })
-    );
+    updated.sort((a, b) => {
+      if (b.kdaRatio !== a.kdaRatio) return b.kdaRatio - a.kdaRatio;
+      return b.winrate - a.winrate;
+    });
 
-    localStorage.setItem("rankingData", JSON.stringify(updated));
-
-    if (fileSha) {
-      const result = await savePlayersToGitHub(updated, fileSha);
-      if (result && result.content && result.content.sha) {
-        setFileSha(result.content.sha);
-      }
-    }
-
+    setRanking(updated);
     setEditingPlayer(null);
   };
 
@@ -116,22 +54,20 @@ const RankingCard = () => {
           <li
             key={player.name}
             className={`rank-item rank-${index + 1}`}
-            onClick={() =>
-              setEditingPlayer({ ...player, nameBeforeEdit: player.name })
-            }
+            onClick={() => setEditingPlayer({ ...player, nameBeforeEdit: player.name })}
           >
             <span className="player-name">
               {index + 1}. {player.name}
             </span>
             <div className="player-details">
               <div>
-                {player.kda?.[0]} / {player.kda?.[1]} / {player.kda?.[2]}
+                {player.kda[0]} / {player.kda[1]} / {player.kda[2]}
               </div>
-              <div>KDA-Ratio: {player.kdaRatio?.toFixed(2)}</div>
+              <div>KDA-Ratio: {player.kdaRatio.toFixed(2)}</div>
               <div>
                 {player.wins}W / {player.looses}L
               </div>
-              <div>Winrate: {player.winrate?.toFixed(1)}%</div>
+              <div>Winrate: {player.winrate.toFixed(1)}%</div>
               <div>Games: {player.games}</div>
             </div>
           </li>
@@ -142,7 +78,6 @@ const RankingCard = () => {
         <div className="modal">
           <div className="modal-content">
             <h4>Edit {editingPlayer.name}</h4>
-
             <label>
               Name:
               <input
@@ -153,62 +88,50 @@ const RankingCard = () => {
                 }
               />
             </label>
-
             <label>
               Wins:
               <input
                 type="number"
                 value={editingPlayer.wins}
                 onChange={(e) =>
-                  setEditingPlayer({
-                    ...editingPlayer,
-                    wins: Number(e.target.value),
-                  })
+                  setEditingPlayer({ ...editingPlayer, wins: Number(e.target.value) })
                 }
               />
             </label>
-
             <label>
               Losses:
               <input
                 type="number"
                 value={editingPlayer.looses}
                 onChange={(e) =>
-                  setEditingPlayer({
-                    ...editingPlayer,
-                    looses: Number(e.target.value),
-                  })
+                  setEditingPlayer({ ...editingPlayer, looses: Number(e.target.value) })
                 }
               />
             </label>
-
             <label>
               Kills:
               <input
                 type="number"
-                value={editingPlayer.kda?.[0]}
+                value={editingPlayer.kda[0]}
                 onChange={(e) => handleKDAChange(0, e.target.value)}
               />
             </label>
-
             <label>
               Deaths:
               <input
                 type="number"
-                value={editingPlayer.kda?.[1]}
+                value={editingPlayer.kda[1]}
                 onChange={(e) => handleKDAChange(1, e.target.value)}
               />
             </label>
-
             <label>
               Assists:
               <input
                 type="number"
-                value={editingPlayer.kda?.[2]}
+                value={editingPlayer.kda[2]}
                 onChange={(e) => handleKDAChange(2, e.target.value)}
               />
             </label>
-
             <div className="modal-buttons">
               <button onClick={saveKDA}>Save</button>
               <button onClick={() => setEditingPlayer(null)}>Cancel</button>

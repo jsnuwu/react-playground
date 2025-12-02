@@ -85,9 +85,9 @@
   border-radius: 15px; 
   background: var(--borderGif) center/cover no-repeat;
   z-index: -1;
-  opacity: 0.8;
+  opacity: 1;
+  
 }
-
 
 /* Breakpoint: Tablet */
 @media (max-width: 1024px) {
