@@ -103,11 +103,12 @@
 .avatar-border-first::before {
   content: "";
   position: absolute;
-  inset: -20px;
-  border-radius: 50%;
+ width: 70%;
+  height: 70%;
+  top: -30%;
+  left: -25%;  border-radius: 50%;
   background: var(--borderGif) center/cover no-repeat;
-  margin-bottom: 3.4rem;
-  margin-right: 3rem;
+
   rotate: calc(-33deg);
 }
 
@@ -165,16 +166,16 @@
 
 @media (max-width: 480px) {
   .stat-card {
-    padding: 0.8rem;
+    padding: 1rem;
   }
 
   .player-avatar img {
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
   }
 
   .player-name h3 {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .player-kda,
@@ -182,6 +183,6 @@
   .player-win-loose,
   .player-winrate,
   .player-playedGames {
-    font-size: 12px;
+    font-size: 13px;
   }
 }
