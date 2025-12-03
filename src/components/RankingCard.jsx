@@ -1,22 +1,33 @@
-import React, { useState } from "react";
 import "../styles/RankingCard.css";
-import players from "../data/players";
+import { useContext, useState } from "react";
+import { PlayerContext } from "../Data/PlayerContext";
 
 const RankingCard = () => {
-  const processedPlayers = players.map((player) => {
-    const [kills, deaths, assists] = [player.kills, player.deaths, player.assists];
+  const { playerData, setPlayerData } = useContext(PlayerContext);
+
+  const processedPlayers = playerData.map((player) => {
+    const [kills, deaths, assists] = [
+      player.kills,
+      player.deaths,
+      player.assists,
+    ];
     const games = player.wins + player.looses;
     const kdaRatio = (kills + assists) / Math.max(1, deaths);
     const winrate = (player.wins / games) * 100;
-    return { ...player, kda: [kills, deaths, assists], kdaRatio, winrate, games };
+    return {
+      ...player,
+      kda: [kills, deaths, assists],
+      kdaRatio,
+      winrate,
+      games,
+    };
   });
 
-  const sortedPlayers = [...processedPlayers].sort((a, b) => {
+  const ranking = [...processedPlayers].sort((a, b) => {
     if (b.kdaRatio !== a.kdaRatio) return b.kdaRatio - a.kdaRatio;
     return b.winrate - a.winrate;
   });
 
-  const [ranking, setRanking] = useState(sortedPlayers);
   const [editingPlayer, setEditingPlayer] = useState(null);
 
   const handleKDAChange = (index, value) => {
@@ -26,24 +37,26 @@ const RankingCard = () => {
   };
 
   const saveKDA = () => {
-    const updated = ranking.map((p) =>
+    const updatedPlayers = playerData.map((p) =>
       p.name === editingPlayer.nameBeforeEdit
-        ? (() => {
-            const [kills, deaths, assists] = editingPlayer.kda;
-            const games = editingPlayer.wins + editingPlayer.looses;
-            const kdaRatio = (kills + assists) / Math.max(1, deaths);
-            const winrate = (editingPlayer.wins / games) * 100;
-            return { ...editingPlayer, kdaRatio, winrate, games };
-          })()
+        ? {
+            ...editingPlayer,
+            kills: editingPlayer.kda[0],
+            deaths: editingPlayer.kda[1],
+            assists: editingPlayer.kda[2],
+            games: editingPlayer.wins + editingPlayer.looses,
+            kdaRatio:
+              (editingPlayer.kda[0] + editingPlayer.kda[2]) /
+              Math.max(1, editingPlayer.kda[1]),
+            winrate:
+              (editingPlayer.wins /
+                (editingPlayer.wins + editingPlayer.looses)) *
+              100,
+          }
         : p
     );
 
-    updated.sort((a, b) => {
-      if (b.kdaRatio !== a.kdaRatio) return b.kdaRatio - a.kdaRatio;
-      return b.winrate - a.winrate;
-    });
-
-    setRanking(updated);
+    setPlayerData(updatedPlayers);
     setEditingPlayer(null);
   };
 
@@ -54,7 +67,9 @@ const RankingCard = () => {
           <li
             key={player.name}
             className={`rank-item rank-${index + 1}`}
-            onClick={() => setEditingPlayer({ ...player, nameBeforeEdit: player.name })}
+            onClick={() =>
+              setEditingPlayer({ ...player, nameBeforeEdit: player.name })
+            }
           >
             <span className="player-name">
               {index + 1}. {player.name}
@@ -94,7 +109,10 @@ const RankingCard = () => {
                 type="number"
                 value={editingPlayer.wins}
                 onChange={(e) =>
-                  setEditingPlayer({ ...editingPlayer, wins: Number(e.target.value) })
+                  setEditingPlayer({
+                    ...editingPlayer,
+                    wins: Number(e.target.value),
+                  })
                 }
               />
             </label>
@@ -104,7 +122,10 @@ const RankingCard = () => {
                 type="number"
                 value={editingPlayer.looses}
                 onChange={(e) =>
-                  setEditingPlayer({ ...editingPlayer, looses: Number(e.target.value) })
+                  setEditingPlayer({
+                    ...editingPlayer,
+                    looses: Number(e.target.value),
+                  })
                 }
               />
             </label>
