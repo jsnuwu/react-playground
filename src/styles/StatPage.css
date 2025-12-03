@@ -28,8 +28,29 @@
   text-align: center;
   box-shadow: 0 4px 15px rgba(132, 0, 255, 0.3);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  width: 100%; 
+  width: 100%;
   margin-bottom: 0.8rem;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: var(--borderGif);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.6;
+  z-index: 0;
+}
+
+.stat-card > .player-card-row {
+  position: relative;
+  z-index: 1;
+  
 }
 
 .stat-card:hover {
@@ -42,6 +63,12 @@
   grid-template-columns: 50px 60px 1fr repeat(5, 1fr);
   align-items: center;
   gap: 15px;
+}
+
+.player-avatar {
+  position: relative;
+    overflow: visible;
+
 }
 
 .player-avatar img {
@@ -73,36 +100,16 @@
   text-align: center;
 }
 
-.stat-card-first {
-  position: relative;
-  z-index: 3;
-}
-
-.stat-card-first::before {
-  content: "";
-  position: absolute;
-  inset: -1px; 
-  border-radius: 15px; 
-  background: var(--borderGif) center/cover no-repeat;
-  z-index: -1;
-  opacity: 0.8;
-  
-}
-
-.avatar-border-first {
-  position: relative;
-}
-
 .avatar-border-first::before {
   content: "";
   position: absolute;
-  inset: -20px; 
+  inset: -20px;
   border-radius: 50%;
   background: var(--borderGif) center/cover no-repeat;
-  z-index: 1;
-  opacity: 0.8;
+  margin-bottom: 3.4rem;
+  margin-right: 3rem;
+  rotate: calc(-33deg);
 }
-
 
 @media (max-width: 1024px) {
   .player-card-row {

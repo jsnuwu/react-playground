@@ -5,9 +5,9 @@ import { PlayerContext } from "../Data/PlayerContext";
 const RankingCard = () => {
   const { playerData, setPlayerData } = useContext(PlayerContext);
 
-  const weightKDA = 0.4;
+  const weightKDA = 0.2;
   const weightWinrate = 0.6;
-  const weightGames = 0.2;
+  const weightGames = 0.3;
 
   const maxKDA = Math.max(
     ...playerData.map((p) => (p.kills + p.assists) / Math.max(1, p.deaths))
