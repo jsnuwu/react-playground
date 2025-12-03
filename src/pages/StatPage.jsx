@@ -11,28 +11,30 @@ const StatPage = () => {
   const { playerData } = useContext(PlayerContext);
   const containerRef = useRef(null);
 
-  const processedPlayers = playerData.map((player) => {
-    const [kills, deaths, assists] = [
-      player.kills,
-      player.deaths,
-      player.assists,
-    ];
+  const maxKDA = Math.max(
+    ...playerData.map((p) => (p.kills + p.assists) / Math.max(1, p.deaths))
+  );
+  const maxGames = Math.max(...playerData.map((p) => p.wins + p.looses));
+
+  const processedPlayers = playerData.map(player => {
+    const [kills, deaths, assists] = [player.kills, player.deaths, player.assists];
     const games = player.wins + player.looses;
     const kdaRatio = (kills + assists) / Math.max(1, deaths);
     const winrate = (player.wins / games) * 100;
+    const score = (kdaRatio / maxKDA) * 0.4 + (winrate / 100) * 0.6 + (games / maxGames) * 0.2;
+
     return {
       ...player,
       kda: [kills, deaths, assists],
       kdaRatio,
       winrate,
       games,
+      score,
     };
   });
 
-  const sortedPlayers = [...processedPlayers].sort((a, b) => {
-    if (b.kdaRatio !== a.kdaRatio) return b.kdaRatio - a.kdaRatio;
-    return b.winrate - a.winrate;
-  });
+  const sortedPlayers = [...processedPlayers].sort((a, b) => b.score - a.score);
+
 
   return (
     <div className="statpage-container">

@@ -5,6 +5,16 @@ import { PlayerContext } from "../Data/PlayerContext";
 const RankingCard = () => {
   const { playerData, setPlayerData } = useContext(PlayerContext);
 
+  const weightKDA = 0.4;
+  const weightWinrate = 0.6;
+  const weightGames = 0.2;
+
+  const maxKDA = Math.max(
+    ...playerData.map((p) => (p.kills + p.assists) / Math.max(1, p.deaths))
+  );
+  const maxWinrate = 100;
+  const maxGames = Math.max(...playerData.map((p) => p.wins + p.looses));
+
   const processedPlayers = playerData.map((player) => {
     const [kills, deaths, assists] = [
       player.kills,
@@ -14,19 +24,22 @@ const RankingCard = () => {
     const games = player.wins + player.looses;
     const kdaRatio = (kills + assists) / Math.max(1, deaths);
     const winrate = (player.wins / games) * 100;
+    const score =
+      (kdaRatio / maxKDA) * weightKDA +
+      (winrate / maxWinrate) * weightWinrate +
+      (games / maxGames) * weightGames;
+
     return {
       ...player,
       kda: [kills, deaths, assists],
       kdaRatio,
       winrate,
       games,
+      score,
     };
   });
 
-  const ranking = [...processedPlayers].sort((a, b) => {
-    if (b.kdaRatio !== a.kdaRatio) return b.kdaRatio - a.kdaRatio;
-    return b.winrate - a.winrate;
-  });
+  const ranking = [...processedPlayers].sort((a, b) => b.score - a.score);
 
   const [editingPlayer, setEditingPlayer] = useState(null);
 
