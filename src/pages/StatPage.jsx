@@ -3,11 +3,6 @@ import { PlayerContext } from "../Data/PlayerContext";
 import Headline from "../pages/Headline";
 import "../styles/StatPage.css";
 import defaultAvatar from "../assets/profilePictures/default.jpg";
-import blueBoarder from "../assets/effects/blueBoarder.gif";
-import boarder2 from "../assets/effects/blueBoarder.gif";
-import blueLighting from "../assets/effects/blueLighing.gif";
-import lightning from "../assets/effects/lightning.gif";
-import blueRed from "../assets/effects/blueRed.gif";
 
 import crown from "../assets/effects/crown.png";
 import place2 from "../assets/effects/place2.png";
@@ -74,7 +69,7 @@ const StatPage = () => {
             key={index}
             href={player.profileLink}
             target="_blank"
-            className="stat-card"
+            className={`stat-card card-placement-${index + 1}`}
             style={
               index < borderGifs.length
                 ? { "--borderGif": `url(${borderGifs[index]})` }
@@ -82,14 +77,13 @@ const StatPage = () => {
             }
           >
             <div className="player-card-row">
-              <div className="player-placement">#{index + 1}</div>
+              <div className={`player-placement placement-${index + 1}`}>
+                #{index + 1}
+              </div>
               <div class="player-avatar-wrapper">
                 <div
                   className={`player-avatar ${
-                    index === 0
-                      ? "avatar-border-first"
-                      : index === 1
-                      
+                    index === 0 ? "avatar-border-first" : index === 1
                   }`}
                   style={
                     index < avatarBorderGifs.length

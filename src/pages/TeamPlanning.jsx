@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../styles/TeamPlanning.css";
 import LoLMap from "../components/LolMap";
 import "../styles/LolMap.css";
-import players from "../data/players";
-
-const initialPlayers = players.map(p => p.name);
+import { PlayerContext } from "../Data/PlayerContext";
 
 const lanes = ["Top", "Jungle", "Mid", "ADC", "Support"];
 
 const LoLTeamPlanner = () => {
-  const [pool, setPool] = useState(initialPlayers);
+  const { playerData } = useContext(PlayerContext); 
   const [redTeam, setRedTeam] = useState({
     Top: null,
     Jungle: null,
@@ -26,6 +24,14 @@ const LoLTeamPlanner = () => {
   });
   const [dragged, setDragged] = useState(null);
 
+  const pool = playerData
+    .map((p) => p.name)
+    .filter(
+      (name) =>
+        !Object.values(redTeam).includes(name) &&
+        !Object.values(blueTeam).includes(name)
+    );
+
   const onDragStart = (player, fromTeam, lane = null) => {
     setDragged({ player, fromTeam, lane });
   };
@@ -34,36 +40,23 @@ const LoLTeamPlanner = () => {
     if (!dragged) return;
     const { player, fromTeam, lane: fromLane } = dragged;
 
-    let newPool = [...pool];
     let newRed = { ...redTeam };
     let newBlue = { ...blueTeam };
 
-    if (fromTeam === "pool") newPool = newPool.filter((p) => p !== player);
-    else if (fromTeam === "red") newRed[fromLane] = null;
-    else if (fromTeam === "blue") newBlue[fromLane] = null;
-
-    if (team === "red" && newRed[lane] && !newPool.includes(newRed[lane])) {
-      newPool.push(newRed[lane]);
-    }
-    if (team === "blue" && newBlue[lane] && !newPool.includes(newBlue[lane])) {
-      newPool.push(newBlue[lane]);
-    }
+    if (fromTeam === "red") newRed[fromLane] = null;
+    if (fromTeam === "blue") newBlue[fromLane] = null;
 
     if (team === "red") newRed[lane] = player;
     if (team === "blue") newBlue[lane] = player;
 
-    setPool(newPool);
     setRedTeam(newRed);
     setBlueTeam(newBlue);
     setDragged(null);
   };
 
   const returnToPool = (team, lane) => {
-    const player = team === "red" ? redTeam[lane] : blueTeam[lane];
-    if (!player) return;
     if (team === "red") setRedTeam({ ...redTeam, [lane]: null });
     if (team === "blue") setBlueTeam({ ...blueTeam, [lane]: null });
-    setPool([...pool, player]);
   };
 
   const renderTeamLane = (teamName, teamState, teamKey) => (
@@ -72,51 +65,25 @@ const LoLTeamPlanner = () => {
       <div className="map-grid">
         {lanes.map((lane) => (
           <div
-  key={lane}
-  className={`lane-box ${teamKey}`}
-  onDragOver={(e) => e.preventDefault()}
-  onDrop={() => onDrop(teamKey, lane)}
-  onClick={() => {
-    if (!dragged) return;
-    const { player, fromTeam, lane: fromLane } = dragged;
-
-    let newPool = [...pool];
-    let newRed = { ...redTeam };
-    let newBlue = { ...blueTeam };
-
-    if (fromTeam === "pool") newPool = newPool.filter((p) => p !== player);
-    else if (fromTeam === "red") newRed[fromLane] = null;
-    else if (fromTeam === "blue") newBlue[fromLane] = null;
-
-    if (teamKey === "red" && newRed[lane] && !newPool.includes(newRed[lane]))
-      newPool.push(newRed[lane]);
-    if (teamKey === "blue" && newBlue[lane] && !newPool.includes(newBlue[lane]))
-      newPool.push(newBlue[lane]);
-
-    if (teamKey === "red") newRed[lane] = player;
-    if (teamKey === "blue") newBlue[lane] = player;
-
-    setPool(newPool);
-    setRedTeam(newRed);
-    setBlueTeam(newBlue);
-    setDragged(null);
-  }}
->
-  <h4>{lane}</h4>
-  {teamState[lane] ? (
-    <div
-      className="player-card"
-      draggable
-      onDragStart={() => onDragStart(teamState[lane], teamKey, lane)}
-      onClick={() => returnToPool(teamKey, lane)} 
-    >
-      {teamState[lane]}
-    </div>
-  ) : (
-    <span className="lane-placeholder">Drop / Tap here</span>
-  )}
-</div>
-
+            key={lane}
+            className={`lane-box ${teamKey}`}
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={() => onDrop(teamKey, lane)}
+          >
+            <h4>{lane}</h4>
+            {teamState[lane] ? (
+              <div
+                className="player-card"
+                draggable
+                onDragStart={() => onDragStart(teamState[lane], teamKey, lane)}
+                onClick={() => returnToPool(teamKey, lane)}
+              >
+                {teamState[lane]}
+              </div>
+            ) : (
+              <span className="lane-placeholder">Drop / Tap here</span>
+            )}
+          </div>
         ))}
       </div>
     </div>
@@ -124,8 +91,6 @@ const LoLTeamPlanner = () => {
 
   return (
     <div className="lol-planner-container">
-      <div className='test'>
-      {/* Pool */}
       <div className="pool-area">
         <h3>Players</h3>
         <div className="pool-list">
@@ -135,7 +100,6 @@ const LoLTeamPlanner = () => {
               className="player-card"
               draggable
               onDragStart={() => onDragStart(player, "pool")}
-                onClick={() => setDragged({ player, fromTeam: "pool" })} 
             >
               {player}
             </div>
@@ -143,45 +107,15 @@ const LoLTeamPlanner = () => {
         </div>
       </div>
 
-      {/* Teams */}
       <div className="teams-area">
         {renderTeamLane("Blue Team", blueTeam, "blue")}
         {renderTeamLane("Red Team", redTeam, "red")}
       </div>
-      </div>
+
       <LoLMap
         redTeam={redTeam}
         blueTeam={blueTeam}
-        onDropPlayer={(lane, team) => {
-          if (!dragged) return;
-          const { player, fromTeam, fromLane } = dragged;
-
-          let newPool = [...pool];
-          let newRed = { ...redTeam };
-          let newBlue = { ...blueTeam };
-
-          if (fromTeam === "pool")
-            newPool = newPool.filter((p) => p !== player);
-          else if (fromTeam === "red") newRed[fromLane] = null;
-          else if (fromTeam === "blue") newBlue[fromLane] = null;
-
-          if (team === "red" && newRed[lane] && !newPool.includes(newRed[lane]))
-            newPool.push(newRed[lane]);
-          if (
-            team === "blue" &&
-            newBlue[lane] &&
-            !newPool.includes(newBlue[lane])
-          )
-            newPool.push(newBlue[lane]);
-
-          if (team === "red") newRed[lane] = player;
-          if (team === "blue") newBlue[lane] = player;
-
-          setPool(newPool);
-          setRedTeam(newRed);
-          setBlueTeam(newBlue);
-          setDragged(null);
-        }}
+        onDropPlayer={(lane, team) => onDrop(team, lane)}
       />
     </div>
   );

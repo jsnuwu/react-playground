@@ -5,6 +5,8 @@ import Bento from "./pages/Bento";
 import TeamPlanning from "./pages/TeamPlanning";
 import StatPage from "./pages/StatPage";
 import { PlayerProvider } from "./Data/PlayerContext";
+import AddNewPlayer from "./pages/AddNewPlayer";
+
 function App() {
   const containerRef = useRef(null);
 
@@ -29,7 +31,8 @@ function App() {
         style={{
           zIndex: 2,
           textAlign: "center",
-          marginBottom: "2vh",
+          marginTop: "2vh",
+          marginBottom: "4vh",
         }}
       >
         <Headline
@@ -40,6 +43,7 @@ function App() {
           toFontVariationSettings="'wght' 1000, 'opsz' 40"
           radius={100}
           falloff="linear"
+          
         />
       </div>
       <PlayerProvider>
@@ -55,7 +59,8 @@ function App() {
         </div>
 
         {/* Stats */}
-        <div style={{ width: "100%", minHeight: "auto" }}>
+        <div style={{ width: "100%", minHeight: "auto", marginBottom: "14vh",
+}}>
           {" "}
           <StatPage />{" "}
         </div>
@@ -85,10 +90,33 @@ function App() {
             width: "100%",
             maxWidth: "auto",
             zIndex: 2,
+            marginBottom: "10vh",
+
           }}
         >
           <TeamPlanning />
         </div>
+
+
+          <Headline
+            label="Add new Player"
+            className="headline-demo"
+            containerRef={containerRef}
+            fromFontVariationSettings="'wght' 400, 'opsz' 9"
+            toFontVariationSettings="'wght' 1000, 'opsz' 40"
+            radius={100}
+            falloff="linear"
+          />
+
+        <div
+          style={{
+            width: "100%",
+            maxWidth: "1200px",
+            zIndex: 2,
+          }}
+        >
+          <AddNewPlayer/>
+</div>
       </PlayerProvider>
 
       {/* Splash Cursor */}

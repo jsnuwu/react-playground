@@ -4,8 +4,6 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  margin-top: 2rem;
-  margin-bottom: 4rem;
   align-items: center;
 }
 
@@ -28,9 +26,9 @@
   text-align: center;
   box-shadow: 0 4px 15px rgba(132, 0, 255, 0.3);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  width: 100%;
-  margin-bottom: 0.8rem;
+  width: 95%;
   overflow: hidden;
+  margin: 0.4rem auto;
 }
 
 .stat-card::before {
@@ -50,7 +48,6 @@
 .stat-card > .player-card-row {
   position: relative;
   z-index: 1;
-  
 }
 
 .stat-card:hover {
@@ -67,8 +64,7 @@
 
 .player-avatar {
   position: relative;
-    overflow: visible;
-
+  overflow: visible;
 }
 
 .player-avatar img {
@@ -96,17 +92,52 @@
 .player-placement {
   font-size: 22px;
   font-weight: 700;
-  color: #8400ff;
+  color: #ffffff;
   text-align: center;
 }
+
+.placement-1 {
+  color: rgb(255, 215, 0);
+  text-shadow: 0 0 15px rgba(255, 215, 0, 7);
+}
+
+.placement-2 {
+  color: rgb(212, 212, 212);
+  text-shadow: 0 0 15px rgba(229, 226, 226, 0.7);
+}
+
+.placement-3 {
+  color: #f79430;
+  text-shadow: 0 0 15px rgba(205, 127, 50, 0.4);
+}
+
+.card-placement-1 {
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+  border: 1.5px solid rgb(255, 215, 0, 0.8);
+  width: 100%;
+}
+
+.card-placement-2 {
+  box-shadow: 0 0 20px rgba(212, 212, 212, 0.4);
+  border: 1px solid rgba(212, 212, 212, 0.6);
+    width: 98%;
+}
+
+.card-placement-3 {
+  box-shadow: 0 0 20px rgba(205, 127, 50, 0.2);
+  border: 0.1px solid rgba(205, 127, 50, 0.4);
+  width: 96%;
+}
+
 
 .avatar-border-first::before {
   content: "";
   position: absolute;
- width: 70%;
+  width: 70%;
   height: 70%;
   top: -30%;
-  left: -25%;  border-radius: 50%;
+  left: -21%;
+  border-radius: 50%;
   background: var(--borderGif) center/cover no-repeat;
 
   rotate: calc(-33deg);
