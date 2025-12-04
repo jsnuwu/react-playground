@@ -13,12 +13,30 @@ export const PlayerProvider = ({ children }) => {
 
         const merged = data.map(p => {
           const defaultPlayer = defaultPlayers.find(dp => dp.id === p.id);
-          return { ...p, avatar: defaultPlayer?.avatar || null };
+          return {
+            ...p,
+            avatar: defaultPlayer?.avatar || null, 
+          };
         });
         setPlayerData(merged);
       })
       .catch(() => console.log("Backend nicht erreichbar, nutze Default"));
   }, []);
+
+
+/*  useEffect(() => {
+    fetch("http://localhost:3000/players")
+      .then(res => res.json())
+      .then(data => {
+
+        const merged = data.map(p => {
+          const defaultPlayer = defaultPlayers.find(dp => dp.id === p.id);
+          return { ...p, avatar: defaultPlayer?.avatar || null };
+        });
+        setPlayerData(merged);
+      })
+      .catch(() => console.log("Backend nicht erreichbar, nutze Default"));
+  }, []); */
 
   return (
     <PlayerContext.Provider value={{ playerData, setPlayerData }}>

@@ -11,6 +11,23 @@ import KristofAvatar from "../assets/profilePictures/kristof.png";
 import MoAvatar from "../assets/profilePictures/mo.png";
 
 const players = [
+  { id: 1, name: "Jason", avatar: jsnAvatar },
+  { id: 2, name: "David", avatar: davidAvatar },
+  { id: 3, name: "Jenny", avatar: jennyAvatar },
+  { id: 4, name: "Dennis", avatar: DennisAvatar },
+  { id: 5, name: "Felix P", avatar: felixPAvatar },
+  { id: 6, name: "Mechu", avatar: MechuAvatar },
+  { id: 7, name: "Felix S", avatar: felixSAvatar },
+  { id: 8, name: "Mohammed", avatar: MoAvatar },
+  { id: 9, name: "Nils", avatar: NilsAvatar },
+  { id: 10, name: "Adrian", avatar: AdrianAvatar },
+  { id: 11, name: "Kristof", avatar: KristofAvatar },
+];
+
+
+/*
+
+const players = [
   {
     id: 1,
     name: "Jason",
@@ -155,5 +172,5 @@ const players = [
     roundsPlayed: 5,
   },
 ];
-
+*/
 export default players;
