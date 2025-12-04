@@ -29,11 +29,18 @@ const AddNewPlayer = () => {
   const addPlayer = async () => {
     if (!form.name) return alert("Name ist erforderlich!");
 
-    const newPlayer = {
-      ...form,
-      avatar: form.avatar || null,
-      profileLink: form.profileLink || "#",
-    };
+const newPlayer = {
+  name: form.name,
+  kills: form.kills,
+  deaths: form.deaths,
+  assists: form.assists,
+  wins: form.wins,
+  looses: form.looses,
+  roundsPlayed: form.roundsPlayed,
+  avatar: form.avatar || null,
+  profileLink: form.profileLink || "#",
+};
+
 
     try {
       const res = await fetch("http://localhost:3000/players", {
@@ -64,6 +71,7 @@ const AddNewPlayer = () => {
   };
 
   return (
+    
     <div className="add-player-container">
       <h2>Neuen Spieler erstellen</h2>
       <div className="add-player-form">
