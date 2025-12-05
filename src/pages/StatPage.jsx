@@ -49,6 +49,8 @@ const StatPage = () => {
 
 const handleDelete = async (_id) => {
   try {
+      /*await fetch(`http://localhost:3000/players/${id}`, { method: "DELETE" });*/
+
     await fetch(
       `https://react-playground-backend-l7lj.onrender.com/players/${_id}`,
       { method: "DELETE" }

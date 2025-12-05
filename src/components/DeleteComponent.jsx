@@ -32,19 +32,19 @@ const DeleteButton = ({ onDelete, playerName }) => {
           <line
             x1="0"
             y1="0"
-            x2="24"
-            y2="24"
-            stroke="#ffffff73"
-            strokeWidth="3"
+            x2="16"
+            y2="16"
+            stroke="#ffffff3b"
+            strokeWidth="2"
             strokeLinecap="round"
           />
           <line
-            x1="24"
+            x1="16"
             y1="0"
             x2="0"
-            y2="24"
-            stroke="#ffffff73"
-            strokeWidth="3"
+            y2="16"
+            stroke="#ffffff3b"
+            strokeWidth="2"
             strokeLinecap="round"
           />
         </svg>

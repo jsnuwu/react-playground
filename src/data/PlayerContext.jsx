@@ -7,6 +7,8 @@ export const PlayerProvider = ({ children }) => {
   const [playerData, setPlayerData] = useState(defaultPlayers);
 
 useEffect(() => {
+   /* fetch("http://localhost:3000/players")*/
+
     fetch("https://react-playground-backend-l7lj.onrender.com/players")
     .then((res) => res.json())
     .then((data) => {

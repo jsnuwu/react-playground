@@ -51,6 +51,8 @@ const AddNewPlayer = () => {
     };
 
     try {
+/*const res = await fetch("http://localhost:3000/players", {*/
+
 const res = await fetch(
   "https://react-playground-backend-l7lj.onrender.com/players",
   {

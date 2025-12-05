@@ -41,49 +41,11 @@ const RankingCard = () => {
 
   const ranking = [...processedPlayers].sort((a, b) => b.score - a.score);
 
-  const [editingPlayer, setEditingPlayer] = useState(null);
-
-  const handleKDAChange = (index, value) => {
-    const newKDA = [...editingPlayer.kda];
-    newKDA[index] = Number(value);
-    setEditingPlayer({ ...editingPlayer, kda: newKDA });
-  };
-
-  const saveKDA = () => {
-    const updatedPlayers = playerData.map((p) =>
-      p.name === editingPlayer.nameBeforeEdit
-        ? {
-            ...editingPlayer,
-            kills: editingPlayer.kda[0],
-            deaths: editingPlayer.kda[1],
-            assists: editingPlayer.kda[2],
-            games: editingPlayer.wins + editingPlayer.looses,
-            kdaRatio:
-              (editingPlayer.kda[0] + editingPlayer.kda[2]) /
-              Math.max(1, editingPlayer.kda[1]),
-            winrate:
-              (editingPlayer.wins /
-                (editingPlayer.wins + editingPlayer.looses)) *
-              100,
-          }
-        : p
-    );
-
-    setPlayerData(updatedPlayers);
-    setEditingPlayer(null);
-  };
-
   return (
     <div className="ranking-card">
       <ol>
         {ranking.slice(0, 5).map((player, index) => (
-          <li
-            key={player.name}
-            className={`rank-item rank-${index + 1}`}
-            onClick={() =>
-              setEditingPlayer({ ...player, nameBeforeEdit: player.name })
-            }
-          >
+          <li key={player.name} className={`rank-item rank-${index + 1}`}>
             <span className="player-name">
               {index + 1}. {player.name}
             </span>
@@ -101,78 +63,6 @@ const RankingCard = () => {
           </li>
         ))}
       </ol>
-
-      {editingPlayer && (
-        <div className="modal">
-          <div className="modal-content">
-            <h4>Edit {editingPlayer.name}</h4>
-            <label>
-              Name:
-              <input
-                type="text"
-                value={editingPlayer.name}
-                onChange={(e) =>
-                  setEditingPlayer({ ...editingPlayer, name: e.target.value })
-                }
-              />
-            </label>
-            <label>
-              Wins:
-              <input
-                type="number"
-                value={editingPlayer.wins}
-                onChange={(e) =>
-                  setEditingPlayer({
-                    ...editingPlayer,
-                    wins: Number(e.target.value),
-                  })
-                }
-              />
-            </label>
-            <label>
-              Losses:
-              <input
-                type="number"
-                value={editingPlayer.looses}
-                onChange={(e) =>
-                  setEditingPlayer({
-                    ...editingPlayer,
-                    looses: Number(e.target.value),
-                  })
-                }
-              />
-            </label>
-            <label>
-              Kills:
-              <input
-                type="number"
-                value={editingPlayer.kda[0]}
-                onChange={(e) => handleKDAChange(0, e.target.value)}
-              />
-            </label>
-            <label>
-              Deaths:
-              <input
-                type="number"
-                value={editingPlayer.kda[1]}
-                onChange={(e) => handleKDAChange(1, e.target.value)}
-              />
-            </label>
-            <label>
-              Assists:
-              <input
-                type="number"
-                value={editingPlayer.kda[2]}
-                onChange={(e) => handleKDAChange(2, e.target.value)}
-              />
-            </label>
-            <div className="modal-buttons">
-              <button onClick={saveKDA}>Save</button>
-              <button onClick={() => setEditingPlayer(null)}>Cancel</button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
