@@ -6,23 +6,25 @@ export const PlayerContext = createContext();
 export const PlayerProvider = ({ children }) => {
   const [playerData, setPlayerData] = useState(defaultPlayers);
 
-  useEffect(() => {
-    fetch("http://localhost:3000/players")
-      .then((res) => res.json())
-      .then((data) => {
-        const merged = data.map((p) => {
-          const defaultPlayer = defaultPlayers.find((dp) => dp.name === p.name);
-          return {
-            ...defaultPlayer,
-            ...p,
-            avatar: defaultPlayer?.avatar || null,
-          };
-        });
+useEffect(() => {
+  fetch("http://localhost:3000/players")
+    .then((res) => res.json())
+    .then((data) => {
+      const merged = data.map((dbPlayer) => {
+        const defaultPlayer = defaultPlayers.find(
+          (dp) => dp.name === dbPlayer.name
+        );
+        return {
+          ...dbPlayer,
+          avatar: defaultPlayer?.avatar || dbPlayer.avatar || null,
+          profileLink: dbPlayer.profileLink || "#",
+        };
+      });
+      setPlayerData(merged);
+    })
+    .catch(() => console.log("Backend not reachable, using Default players"));
+}, []);
 
-        setPlayerData(merged);
-      })
-      .catch(() => console.log("Backend nicht erreichbar, nutze Default"));
-  }, []);
 
   /*  useEffect(() => {
     fetch("http://localhost:3000/players")

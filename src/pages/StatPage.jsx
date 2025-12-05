@@ -47,10 +47,15 @@ const StatPage = () => {
     };
   });
 
-  const handleDelete = (id) => {
-    setPlayerData(playerData.filter((player) => player.id !== id));
-    fetch(`http://localhost:3000/players/${id}`, { method: "DELETE" });
-  };
+const handleDelete = async (id) => {
+  try {
+    await fetch(`http://localhost:3000/players/${id}`, { method: "DELETE" });
+    setPlayerData(playerData.filter((player) => player._id !== id));
+  } catch (err) {
+    console.error("Error by delete:", err);
+  }
+};
+
 
   const sortedPlayers = [...processedPlayers].sort((a, b) => b.score - a.score);
   const borderGifs = [test1, test2, test3];
@@ -125,7 +130,7 @@ const StatPage = () => {
               </div>
               <DeleteButton
                 playerName={player.name}
-                onDelete={() => handleDelete(player.id)}
+                onDelete={() => handleDelete(player._id)}
               />
             </div>
           </a>
