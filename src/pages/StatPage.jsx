@@ -47,12 +47,15 @@ const StatPage = () => {
     };
   });
 
-const handleDelete = async (id) => {
+const handleDelete = async (_id) => {
   try {
-    await fetch(`http://localhost:3000/players/${id}`, { method: "DELETE" });
-    setPlayerData(playerData.filter((player) => player._id !== id));
+    await fetch(
+      `https://react-playground-backend-l7lj.onrender.com/players/${_id}`,
+      { method: "DELETE" }
+    );
+    setPlayerData(playerData.filter((player) => player._id !== _id));
   } catch (err) {
-    console.error("Error by delete:", err);
+    console.error("Error deleting player:", err);
   }
 };
 

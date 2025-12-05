@@ -51,11 +51,14 @@ const AddNewPlayer = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:3000/players", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newPlayer),
-      });
+const res = await fetch(
+  "https://react-playground-backend-l7lj.onrender.com/players",
+  {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newPlayer),
+  }
+);
 
       const createdPlayer = await res.json();
 
