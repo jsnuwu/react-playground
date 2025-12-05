@@ -9,7 +9,7 @@ import NilsAvatar from "../assets/profilePictures/nils.png";
 import AdrianAvatar from "../assets/profilePictures/adi.png";
 import KristofAvatar from "../assets/profilePictures/kristof.png";
 import MoAvatar from "../assets/profilePictures/mo.png";
-
+/*
 const players = [
   { id: 1, name: "Jason", avatar: jsnAvatar },
   { id: 2, name: "David", avatar: davidAvatar },
@@ -24,8 +24,10 @@ const players = [
   { id: 11, name: "Kristof", avatar: KristofAvatar },
 ];
 
+ HIER ID anpassen weil avatare falsch ;-; (wenn backend an ist)
 
-/*
+*/
+
 
 const players = [
   {
@@ -172,5 +174,5 @@ const players = [
     roundsPlayed: 5,
   },
 ];
-*/
+
 export default players;

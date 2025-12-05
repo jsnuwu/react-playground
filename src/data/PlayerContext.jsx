@@ -8,23 +8,23 @@ export const PlayerProvider = ({ children }) => {
 
   useEffect(() => {
     fetch("http://localhost:3000/players")
-      .then(res => res.json())
-      .then(data => {
-
-        const merged = data.map(p => {
-          const defaultPlayer = defaultPlayers.find(dp => dp.id === p.id);
+      .then((res) => res.json())
+      .then((data) => {
+        const merged = data.map((p) => {
+          const defaultPlayer = defaultPlayers.find((dp) => dp.name === p.name);
           return {
+            ...defaultPlayer,
             ...p,
-            avatar: defaultPlayer?.avatar || null, 
+            avatar: defaultPlayer?.avatar || null,
           };
         });
+
         setPlayerData(merged);
       })
       .catch(() => console.log("Backend nicht erreichbar, nutze Default"));
   }, []);
 
-
-/*  useEffect(() => {
+  /*  useEffect(() => {
     fetch("http://localhost:3000/players")
       .then(res => res.json())
       .then(data => {

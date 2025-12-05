@@ -80,7 +80,7 @@ const StatPage = () => {
               <div className={`player-placement placement-${index + 1}`}>
                 #{index + 1}
               </div>
-              <div class="player-avatar-wrapper">
+              <div className="player-avatar-wrapper">
                 <div
                   className={`player-avatar ${
                     index === 0 ? "avatar-border-first" : index === 1

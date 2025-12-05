@@ -29,6 +29,7 @@
   width: 95%;
   overflow: hidden;
   margin: 0.4rem auto;
+  pointer-events: auto;
 }
 
 .stat-card::before {
@@ -43,6 +44,7 @@
   background-position: center;
   opacity: 0.6;
   z-index: 0;
+  pointer-events: none !important;
 }
 
 .stat-card > .player-card-row {
@@ -66,7 +68,9 @@
   position: relative;
   overflow: visible;
 }
-
+.player-avatar::before {
+  pointer-events: none !important;
+}
 .player-avatar img {
   width: 60px;
   height: 60px;
@@ -120,7 +124,7 @@
 .card-placement-2 {
   box-shadow: 0 0 20px rgba(212, 212, 212, 0.4);
   border: 1px solid rgba(212, 212, 212, 0.6);
-    width: 98%;
+  width: 98%;
 }
 
 .card-placement-3 {
@@ -128,7 +132,6 @@
   border: 0.1px solid rgba(205, 127, 50, 0.4);
   width: 96%;
 }
-
 
 .avatar-border-first::before {
   content: "";

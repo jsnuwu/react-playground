@@ -22,25 +22,26 @@ const AddNewPlayer = () => {
     const { name, value } = e.target;
     setForm({
       ...form,
-      [name]: ["avatar", "profileLink", "name"].includes(name) ? value : Number(value),
+      [name]: ["avatar", "profileLink", "name"].includes(name)
+        ? value
+        : Number(value),
     });
   };
 
   const addPlayer = async () => {
     if (!form.name) return alert("Name ist erforderlich!");
 
-const newPlayer = {
-  name: form.name,
-  kills: form.kills,
-  deaths: form.deaths,
-  assists: form.assists,
-  wins: form.wins,
-  looses: form.looses,
-  roundsPlayed: form.roundsPlayed,
-  avatar: form.avatar || null,
-  profileLink: form.profileLink || "#",
-};
-
+    const newPlayer = {
+      name: form.name,
+      kills: form.kills,
+      deaths: form.deaths,
+      assists: form.assists,
+      wins: form.wins,
+      looses: form.looses,
+      roundsPlayed: form.roundsPlayed,
+      avatar: form.avatar || null,
+      profileLink: form.profileLink || "#",
+    };
 
     try {
       const res = await fetch("http://localhost:3000/players", {
@@ -51,7 +52,10 @@ const newPlayer = {
 
       const createdPlayer = await res.json();
 
-      setPlayerData([...playerData, { ...createdPlayer, avatar: newPlayer.avatar || defaultAvatar }]);
+      setPlayerData([
+        ...playerData,
+        { ...createdPlayer, avatar: newPlayer.avatar || defaultAvatar,  profileLink: newPlayer.profileLink || "#" },
+      ]);
       setForm({
         name: "",
         kills: 0,
@@ -71,29 +75,82 @@ const newPlayer = {
   };
 
   return (
-    
     <div className="add-player-container">
       <h2>Neuen Spieler erstellen</h2>
       <div className="add-player-form">
-        <input type="text" name="name" placeholder="Name" value={form.name} onChange={handleChange} />
-        
+        <input
+          type="text"
+          name="name"
+          placeholder="Name"
+          value={form.name}
+          onChange={handleChange}
+        />
+
         <div className="row">
-          <input type="number" name="kills" placeholder="Kills" value={form.kills} onChange={handleChange} />
-          <input type="number" name="deaths" placeholder="Deaths" value={form.deaths} onChange={handleChange} />
+          <input
+            type="number"
+            name="kills"
+            placeholder="Kills"
+            value={form.kills}
+            onChange={handleChange}
+          />
+          <input
+            type="number"
+            name="deaths"
+            placeholder="Deaths"
+            value={form.deaths}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="row">
-          <input type="number" name="assists" placeholder="Assists" value={form.assists} onChange={handleChange} />
-          <input type="number" name="wins" placeholder="Wins" value={form.wins} onChange={handleChange} />
+          <input
+            type="number"
+            name="assists"
+            placeholder="Assists"
+            value={form.assists}
+            onChange={handleChange}
+          />
+          <input
+            type="number"
+            name="wins"
+            placeholder="Wins"
+            value={form.wins}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="row">
-          <input type="number" name="looses" placeholder="Losses" value={form.looses} onChange={handleChange} />
-          <input type="number" name="roundsPlayed" placeholder="Runden gespielt" value={form.roundsPlayed} onChange={handleChange} />
+          <input
+            type="number"
+            name="looses"
+            placeholder="Losses"
+            value={form.looses}
+            onChange={handleChange}
+          />
+          <input
+            type="number"
+            name="roundsPlayed"
+            placeholder="Runden gespielt"
+            value={form.roundsPlayed}
+            onChange={handleChange}
+          />
         </div>
 
-        <input type="text" name="avatar" placeholder="Avatar URL (optional)" value={form.avatar} onChange={handleChange} />
-        <input type="text" name="profileLink" placeholder="Profil-Link (optional)" value={form.profileLink} onChange={handleChange} />
+        <input
+          type="text"
+          name="avatar"
+          placeholder="Avatar URL (optional)"
+          value={form.avatar}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="profileLink"
+          placeholder="Profil-Link (optional)"
+          value={form.profileLink}
+          onChange={handleChange}
+        />
 
         <button onClick={addPlayer}>Spieler hinzufügen</button>
       </div>
