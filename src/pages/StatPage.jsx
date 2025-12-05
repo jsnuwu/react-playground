@@ -4,6 +4,8 @@ import Headline from "../pages/Headline";
 import "../styles/StatPage.css";
 import defaultAvatar from "../assets/profilePictures/default.jpg";
 
+import DeleteButton from "../components/DeleteComponent";
+
 import crown from "../assets/effects/crown.png";
 import place2 from "../assets/effects/place2.png";
 import place3 from "../assets/effects/place3.png";
@@ -13,7 +15,7 @@ import test2 from "../assets/effects/test2.gif";
 import test3 from "../assets/effects/test3.gif";
 
 const StatPage = () => {
-  const { playerData } = useContext(PlayerContext);
+  const { playerData, setPlayerData } = useContext(PlayerContext);
   const containerRef = useRef(null);
 
   const maxKDA = Math.max(
@@ -44,6 +46,11 @@ const StatPage = () => {
       score,
     };
   });
+
+  const handleDelete = (id) => {
+    setPlayerData(playerData.filter((player) => player.id !== id));
+    fetch(`http://localhost:3000/players/${id}`, { method: "DELETE" });
+  };
 
   const sortedPlayers = [...processedPlayers].sort((a, b) => b.score - a.score);
   const borderGifs = [test1, test2, test3];
@@ -116,6 +123,10 @@ const StatPage = () => {
               <div className="player-playedGames">
                 <p>Games Played: {player.games}</p>
               </div>
+              <DeleteButton
+                playerName={player.name}
+                onDelete={() => handleDelete(player.id)}
+              />
             </div>
           </a>
         ))}

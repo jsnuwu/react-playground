@@ -1,4 +1,4 @@
-export const fetchPlayersFromGitHub = async () => {
+/*export const fetchPlayersFromGitHub = async () => {
   const USER = process.env.REACT_APP_GITHUB_USER;
   const REPO = process.env.REACT_APP_GITHUB_REPO;
   const PATH = process.env.REACT_APP_PLAYERS_PATH;
@@ -32,4 +32,4 @@ export const savePlayersToGitHub = async (updatedPlayers, sha) => {
   });
   return res.json();
 };
-
+*/
