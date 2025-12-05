@@ -94,7 +94,7 @@ const res = await fetch(
       <h2>Add New Player</h2>
 
       {notification && (
-        <Notification message={notification.message} type={notification.type} />
+        <Notification  message={notification.message} type={notification.type} />
       )}
 
       <div className="add-player-form">

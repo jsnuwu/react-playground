@@ -18,7 +18,7 @@
 
 .stat-card {
   position: relative;
-  z-index: 2;
+  z-index: 99999 !important;
   background-color: rgba(16, 20, 26, 0.9);
   border-radius: 15px;
   padding: 1rem;

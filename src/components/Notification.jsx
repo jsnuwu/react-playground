@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom";
-import "../styles/AddNewPlayer.css";
+import "../styles/Notification.css";
 
 const Notification = ({ message, type = "success" }) => {
   return ReactDOM.createPortal(

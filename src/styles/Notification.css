@@ -8,7 +8,6 @@
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(132, 0, 255, 0.3);
   font-weight: bold;
-  z-index: 9999;
   animation: fadeInOut 3s forwards;
 }
 

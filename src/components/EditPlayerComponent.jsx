@@ -26,7 +26,7 @@ const EditButton = ({ onEdit, playerName }) => {
         <svg
           width="14"
           height="14"
-          viewBox="0 0 24 24"
+          viewBox="0 0 34 34"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
