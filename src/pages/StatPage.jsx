@@ -48,20 +48,38 @@ const StatPage = () => {
     };
   });
 
-const handleDelete = async (_id) => {
-  try {
+  const handleDelete = async (_id) => {
+    try {
       /*await fetch(`http://localhost:3000/players/${id}`, { method: "DELETE" });*/
 
-    await fetch(
-      `https://react-playground-backend-l7lj.onrender.com/players/${_id}`,
-      { method: "DELETE" }
-    );
-    setPlayerData(playerData.filter((player) => player._id !== _id));
-  } catch (err) {
-    console.error("Error deleting player:", err);
-  }
-};
+      await fetch(
+        `https://react-playground-backend-l7lj.onrender.com/players/${_id}`,
+        { method: "DELETE" }
+      );
+      setPlayerData(playerData.filter((player) => player._id !== _id));
+    } catch (err) {
+      console.error("Error deleting player:", err);
+    }
+  };
 
+  const handleEdit = async (_id, updatedPlayer) => {
+    try {
+      await fetch(
+        `https://react-playground-backend-l7lj.onrender.com/players/${_id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updatedPlayer),
+        }
+      );
+
+      setPlayerData((prev) =>
+        prev.map((p) => (p._id === _id ? { ...p, ...updatedPlayer } : p))
+      );
+    } catch (err) {
+      console.error("Error updating player:", err);
+    }
+  };
 
   const sortedPlayers = [...processedPlayers].sort((a, b) => b.score - a.score);
   const borderGifs = [test1, test2, test3];
@@ -135,16 +153,17 @@ const handleDelete = async (_id) => {
                 <p>Games Played: {player.games}</p>
               </div>
 
-              <EditButton 
+              <EditButton
+                player={player}
+                onEdit={(updatedFields) =>
+                  handleEdit(player._id, updatedFields)
+                }
               />
 
               <DeleteButton
                 playerName={player.name}
                 onDelete={() => handleDelete(player._id)}
               />
-
-
-
             </div>
           </a>
         ))}
