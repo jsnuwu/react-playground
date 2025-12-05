@@ -5,6 +5,7 @@ import "../styles/StatPage.css";
 import defaultAvatar from "../assets/profilePictures/default.jpg";
 
 import DeleteButton from "../components/DeleteComponent";
+import EditButton from "../components/EditPlayerComponent";
 
 import crown from "../assets/effects/crown.png";
 import place2 from "../assets/effects/place2.png";
@@ -133,10 +134,17 @@ const handleDelete = async (_id) => {
               <div className="player-playedGames">
                 <p>Games Played: {player.games}</p>
               </div>
+
+              <EditButton 
+              />
+
               <DeleteButton
                 playerName={player.name}
                 onDelete={() => handleDelete(player._id)}
               />
+
+
+
             </div>
           </a>
         ))}

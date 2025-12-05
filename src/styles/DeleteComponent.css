@@ -94,3 +94,16 @@
     transform: scale(1);
   }
 }
+
+@media (max-width: 480px) {
+  .button-wrapper {
+    top: -8px;
+    right: -8px;
+    gap: 3px;
+  }
+
+  .delete-button-wrapper {
+    width: 16px;
+    height: 16px;
+  }
+}

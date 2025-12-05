@@ -130,43 +130,4 @@
   transform: scale(1.05);
 }
 
-.notification {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #1a1a1d;
-  color: #fff;
-  padding: 0.8rem 1.2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(132, 0, 255, 0.3);
-  font-weight: bold;
-  z-index: 9999;
-  animation: fadeInOut 3s forwards;
-}
 
-.notification.success {
-  border-left: 5px solid #4caf50;
-}
-
-.notification.error {
-  border-left: 5px solid #ff3232;
-}
-
-@keyframes fadeInOut {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  10% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  90% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-}

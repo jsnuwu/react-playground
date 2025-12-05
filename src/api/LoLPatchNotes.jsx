@@ -13,7 +13,7 @@ const LoLPatchNotesImage = () => {
   }}
 >
       <img
-        src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/49fbd13ae5b81995ab4cbd517278be8117df30f3-1920x1080.png"
+        src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/2a7c25a53cec7b06a00299f84e776280a53e3c87-1920x1080.jpg"
         alt="League Patchnotes"
 
       />
