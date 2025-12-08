@@ -22,14 +22,21 @@ const AddNewPlayer = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    if (["avatar", "profileLink", "name"].includes(name)) {
+      return setForm({ ...form, [name]: value });
+    }
+
+    let num = Number(value);
+
+    if (num < 0) num = 0;
+    if (num > 999) num = 999;
+
     setForm({
       ...form,
-      [name]: ["avatar", "profileLink", "name"].includes(name)
-        ? value
-        : Number(value),
+      [name]: num,
     });
   };
-
   const showNotification = (message, type = "success") => {
     setNotification({ message, type });
     setTimeout(() => setNotification(null), 3000);
@@ -51,16 +58,16 @@ const AddNewPlayer = () => {
     };
 
     try {
-/*const res = await fetch("http://localhost:3000/players", {*/
+      /*const res = await fetch("http://localhost:3000/players", {*/
 
-const res = await fetch(
-  "https://react-playground-backend-l7lj.onrender.com/players",
-  {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(newPlayer),
-  }
-);
+      const res = await fetch(
+        "https://react-playground-backend-l7lj.onrender.com/players",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newPlayer),
+        }
+      );
 
       const createdPlayer = await res.json();
 
@@ -94,7 +101,7 @@ const res = await fetch(
       <h2>Add New Player</h2>
 
       {notification && (
-        <Notification  message={notification.message} type={notification.type} />
+        <Notification message={notification.message} type={notification.type} />
       )}
 
       <div className="add-player-form">
@@ -114,6 +121,8 @@ const res = await fetch(
             <label>Kills</label>
             <input
               type="number"
+              min="0"
+              max="999"
               name="kills"
               value={form.kills}
               onChange={handleChange}
@@ -123,6 +132,8 @@ const res = await fetch(
             <label>Deaths</label>
             <input
               type="number"
+              min="0"
+              max="999"
               name="deaths"
               value={form.deaths}
               onChange={handleChange}
@@ -135,6 +146,8 @@ const res = await fetch(
             <label>Assists</label>
             <input
               type="number"
+              min="0"
+              max="999"
               name="assists"
               value={form.assists}
               onChange={handleChange}
@@ -144,6 +157,8 @@ const res = await fetch(
             <label>Wins</label>
             <input
               type="number"
+              min="0"
+              max="999"
               name="wins"
               value={form.wins}
               onChange={handleChange}
@@ -156,6 +171,8 @@ const res = await fetch(
             <label>Losses</label>
             <input
               type="number"
+              min="0"
+              max="999"
               name="looses"
               value={form.looses}
               onChange={handleChange}
@@ -165,6 +182,8 @@ const res = await fetch(
             <label>Rounds Played</label>
             <input
               type="number"
+              min="0"
+              max="999"
               name="roundsPlayed"
               value={form.roundsPlayed}
               onChange={handleChange}
