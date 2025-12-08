@@ -7,10 +7,11 @@ import StatPage from "./pages/StatPage";
 import { PlayerProvider } from "./Data/PlayerContext";
 import AddNewPlayer from "./pages/AddNewPlayer";
 import EasterEgg from "./components/EasterEgg";
-import BackToTop from "./components/BackToTopButton"
+import BackToTop from "./components/BackToTopButton";
 
 function App() {
   const containerRef = useRef(null);
+  const statPageRef = useRef(null);
 
   return (
     <div
@@ -62,7 +63,7 @@ function App() {
         {/* Stats */}
         <div style={{ width: "100%", minHeight: "auto", marginBottom: "14vh" }}>
           {" "}
-          <StatPage />{" "}
+          <StatPage ref={statPageRef} />{" "}
         </div>
 
         <div
@@ -137,27 +138,24 @@ function App() {
         }}
       >
         <SplashCursor />
-
       </div>
 
-    <div
-      style={{
-        width: "100%",
-        minHeight: "auto",
-        overflowY: "auto",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        paddingTop: "5vh",
-        overflowX: "hidden",
-        position: "relative", 
-      }}
-    >
-
-      {/* BackToTopButton */}
-      <BackToTop />
-    </div>
-
+      <div
+        style={{
+          width: "100%",
+          minHeight: "auto",
+          overflowY: "auto",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          paddingTop: "5vh",
+          overflowX: "hidden",
+          position: "relative",
+        }}
+      >
+        {/* BackToTopButton */}
+        <BackToTop />
+      </div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import "../styles/RankingCard.css";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { PlayerContext } from "../Data/PlayerContext";
 
 const RankingCard = () => {
@@ -39,13 +39,24 @@ const RankingCard = () => {
     };
   });
 
+  const handleClick = () => {
+    const statPageElement = document.querySelector(".statpage-container");
+    if (statPageElement) {
+      statPageElement.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const ranking = [...processedPlayers].sort((a, b) => b.score - a.score);
 
   return (
     <div className="ranking-card">
       <ol>
-        {ranking.slice(0, 5).map((player, index) => (
-          <li key={player.name} className={`rank-item rank-${index + 1}`}>
+        {ranking.slice(0, 4).map((player, index) => (
+          <li
+            key={player.name}
+            className={`rank-item rank-${index + 1}`}
+            onClick={handleClick}
+          >
             <span className="player-name">
               {index + 1}. {player.name}
             </span>
