@@ -52,6 +52,15 @@ const EditButton = ({ player, onEdit }) => {
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
+          setForm({
+            name: player.name,
+            kills: player.kills,
+            deaths: player.deaths,
+            assists: player.assists,
+            wins: player.wins,
+            looses: player.looses,
+            roundsPlayed: player.roundsPlayed,
+          });
           setShowModal(true);
         }}
       >
