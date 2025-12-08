@@ -6,11 +6,11 @@
   border-radius: 15px;
   box-shadow: 0 4px 15px rgba(132, 0, 255, 0.3);
   color: #fff;
-  transition: transform 0.25s ease, box-shadow 0.25s ease,;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .add-player-container:hover {
-  transform:  scale(1.02);
+  transform: scale(1.02);
   box-shadow: 0 4px 15px rgba(132, 0, 255, 0.3);
   background-color: rgba(16, 20, 26, 0.95);
 }
@@ -55,7 +55,6 @@
   color: #fff;
   font-size: 14px;
   transition: border 0.2s, box-shadow 0.2s;
-
 }
 
 .form-row input:focus {
@@ -66,8 +65,8 @@
 
 .form-row input:hover {
   transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 8px 55px rgba(132, 0, 255, 0.3);
 }
-
 
 .add-player-form button {
   padding: 0.8rem;
@@ -106,7 +105,8 @@
   fill: transparent;
   stroke: #8400ff;
   stroke-width: 5px;
-  transition: stroke-width 0.5s ease, stroke-dashoffset 0.5s ease, stroke-dasharray 0.5s ease;
+  transition: stroke-width 0.5s ease, stroke-dashoffset 0.5s ease,
+    stroke-dasharray 0.5s ease;
   border-radius: 12px;
 }
 
@@ -129,5 +129,3 @@
   transition: 0.5s;
   transform: scale(1.05);
 }
-
-

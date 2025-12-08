@@ -35,7 +35,7 @@
   font-weight: 300;
   overflow: hidden;
   transition: all 0.3s ease;
-
+  
   --glow-x: 50%;
   --glow-y: 50%;
   --glow-intensity: 0;

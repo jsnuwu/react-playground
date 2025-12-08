@@ -116,6 +116,7 @@ const LoLTeamPlanner = () => {
         redTeam={redTeam}
         blueTeam={blueTeam}
         onDropPlayer={(lane, team) => onDrop(team, lane)}
+        playerData={playerData}
       />
     </div>
   );

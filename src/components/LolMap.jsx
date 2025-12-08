@@ -17,12 +17,12 @@ const laneIcons = {
   Support: supIcon,
 };
 
-const SummonersRiftMap = ({ redTeam, blueTeam, onDrop, onDragStart }) => {
+const SummonersRiftMap = ({ redTeam, blueTeam, onDrop, onDragStart, playerData }) => {
   const scale = 1;
   const baseSize = 100 * scale;
 
   const avatarMap = Object.fromEntries(
-    players.map((p) => [p.name, p.avatar || defaultAvatar])
+    playerData.map((p) => [p.name, p.avatar || defaultAvatar])
   );
 
   const positions = {

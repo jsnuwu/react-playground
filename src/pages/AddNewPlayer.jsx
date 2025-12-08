@@ -20,23 +20,34 @@ const AddNewPlayer = () => {
     profileLink: "",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+const handleChange = (e) => {
+  const { name, value } = e.target;
 
-    if (["avatar", "profileLink", "name"].includes(name)) {
-      return setForm({ ...form, [name]: value });
-    }
+  if (["avatar", "profileLink", "name"].includes(name)) {
+    return setForm({ ...form, [name]: value });
+  }
 
-    let num = Number(value);
+  if (value === "") {
+    return setForm({ ...form, [name]: "" });
+  }
 
-    if (num < 0) num = 0;
-    if (num > 999) num = 999;
+  if (!/^\d+$/.test(value)) {
+    return;
+  }
 
-    setForm({
-      ...form,
-      [name]: num,
-    });
-  };
+  let num = Number(value);
+
+  if (num < 0) num = 0;
+  if (num > 9999) num = 9999;
+
+  setForm({
+    ...form,
+    [name]: num,
+  });
+};
+
+
+
   const showNotification = (message, type = "success") => {
     setNotification({ message, type });
     setTimeout(() => setNotification(null), 3000);
@@ -178,17 +189,7 @@ const AddNewPlayer = () => {
               onChange={handleChange}
             />
           </div>
-          <div>
-            <label>Rounds Played</label>
-            <input
-              type="number"
-              min="0"
-              max="999"
-              name="roundsPlayed"
-              value={form.roundsPlayed}
-              onChange={handleChange}
-            />
-          </div>
+
         </div>
 
         <div className="form-row">
