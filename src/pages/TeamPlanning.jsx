@@ -7,7 +7,7 @@ import { PlayerContext } from "../Data/PlayerContext";
 const lanes = ["Top", "Jungle", "Mid", "ADC", "Support"];
 
 const LoLTeamPlanner = () => {
-  const { playerData } = useContext(PlayerContext); 
+  const { playerData } = useContext(PlayerContext);
   const [redTeam, setRedTeam] = useState({
     Top: null,
     Jungle: null,

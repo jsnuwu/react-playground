@@ -20,33 +20,35 @@ const AddNewPlayer = () => {
     profileLink: "",
   });
 
-const handleChange = (e) => {
-  const { name, value } = e.target;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-  if (["avatar", "profileLink", "name"].includes(name)) {
-    return setForm({ ...form, [name]: value });
-  }
-
-  if (value === "") {
-    return setForm({ ...form, [name]: "" });
-  }
-
-  if (!/^\d+$/.test(value)) {
+ if (name === "name") {
+    const sanitized = value.replace(/[^a-zA-Z0-9 _]/g, ""); 
+    setForm({ ...form, [name]: sanitized });
     return;
   }
 
-  let num = Number(value);
+    if (["avatar", "profileLink", "name"].includes(name)) {
+      return setForm({ ...form, [name]: value });
+    }
 
-  if (num < 0) num = 0;
-  if (num > 9999) num = 9999;
+    if (value === "") {
+      return setForm({ ...form, [name]: "" });
+    }
 
-  setForm({
-    ...form,
-    [name]: num,
-  });
-};
+    let num = Number(value);
 
+    if (isNaN(num)) return;
 
+    if (num < 0) num = 0;
+    if (num > 9999) num = 9999;
+
+    setForm({
+      ...form,
+      [name]: num,
+    });
+  };
 
   const showNotification = (message, type = "success") => {
     setNotification({ message, type });
@@ -124,6 +126,7 @@ const handleChange = (e) => {
             placeholder="Name"
             value={form.name}
             onChange={handleChange}
+            maxLength={16}
           />
         </div>
 
@@ -137,6 +140,20 @@ const handleChange = (e) => {
               name="kills"
               value={form.kills}
               onChange={handleChange}
+              onKeyDown={(e) => {
+                if (
+                  !/^\d$/.test(e.key) &&
+                  ![
+                    "Backspace",
+                    "Delete",
+                    "ArrowLeft",
+                    "ArrowRight",
+                    "Tab",
+                  ].includes(e.key)
+                ) {
+                  e.preventDefault();
+                }
+              }}
             />
           </div>
           <div>
@@ -148,6 +165,20 @@ const handleChange = (e) => {
               name="deaths"
               value={form.deaths}
               onChange={handleChange}
+              onKeyDown={(e) => {
+                if (
+                  !/^\d$/.test(e.key) &&
+                  ![
+                    "Backspace",
+                    "Delete",
+                    "ArrowLeft",
+                    "ArrowRight",
+                    "Tab",
+                  ].includes(e.key)
+                ) {
+                  e.preventDefault();
+                }
+              }}
             />
           </div>
         </div>
@@ -162,6 +193,20 @@ const handleChange = (e) => {
               name="assists"
               value={form.assists}
               onChange={handleChange}
+              onKeyDown={(e) => {
+                if (
+                  !/^\d$/.test(e.key) &&
+                  ![
+                    "Backspace",
+                    "Delete",
+                    "ArrowLeft",
+                    "ArrowRight",
+                    "Tab",
+                  ].includes(e.key)
+                ) {
+                  e.preventDefault();
+                }
+              }}
             />
           </div>
           <div>
@@ -173,6 +218,20 @@ const handleChange = (e) => {
               name="wins"
               value={form.wins}
               onChange={handleChange}
+              onKeyDown={(e) => {
+                if (
+                  !/^\d$/.test(e.key) &&
+                  ![
+                    "Backspace",
+                    "Delete",
+                    "ArrowLeft",
+                    "ArrowRight",
+                    "Tab",
+                  ].includes(e.key)
+                ) {
+                  e.preventDefault();
+                }
+              }}
             />
           </div>
         </div>
@@ -187,9 +246,22 @@ const handleChange = (e) => {
               name="looses"
               value={form.looses}
               onChange={handleChange}
+              onKeyDown={(e) => {
+                if (
+                  !/^\d$/.test(e.key) &&
+                  ![
+                    "Backspace",
+                    "Delete",
+                    "ArrowLeft",
+                    "ArrowRight",
+                    "Tab",
+                  ].includes(e.key)
+                ) {
+                  e.preventDefault();
+                }
+              }}
             />
           </div>
-
         </div>
 
         <div className="form-row">
