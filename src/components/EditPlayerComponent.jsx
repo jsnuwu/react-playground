@@ -15,27 +15,20 @@ const EditButton = ({ player, onEdit }) => {
     roundsPlayed: player.roundsPlayed,
   });
 
-  useEffect(() => {
-    setForm({
-      name: player.name,
-      kills: player.kills,
-      deaths: player.deaths,
-      assists: player.assists,
-      wins: player.wins,
-      looses: player.looses,
-      roundsPlayed: player.roundsPlayed,
-    });
-  }, [player]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-  };
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setForm({ 
+    ...form, 
+    [name]: e.target.type === "number" ? Number(value) : value 
+  });
+};
 
-  const handleSave = () => {
-    onEdit(form);
-    setShowModal(false);
-  };
+const handleSave = () => {
+  onEdit({ ...form, _id: player._id });
+  setShowModal(false);
+};
+
 
   return (
     <>
