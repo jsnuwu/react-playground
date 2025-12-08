@@ -28,10 +28,15 @@ const EditButton = ({ player, onEdit }) => {
   }, [player]);
 
 const handleChange = (e) => {
-  const { name, value } = e.target;
-  setForm({ 
-    ...form, 
-    [name]: e.target.type === "number" ? Number(value) : value 
+  const { name, value, type } = e.target;
+  if (type === "number" && value === "") {
+    setForm({ ...form, [name]: 0 });
+    return;
+  }
+
+  setForm({
+    ...form,
+    [name]: type === "number" ? Number(value) : value
   });
 };
 
@@ -73,7 +78,7 @@ const handleSave = () => {
               <input
                 name="kills"
                 type="number"
-                value={form.kills}
+                value={form.kills ?? 0}
                 onChange={handleChange}
               />
               <label>Deaths</label>
@@ -81,7 +86,7 @@ const handleSave = () => {
               <input
                 name="deaths"
                 type="number"
-                value={form.deaths}
+                value={form.deaths ?? 0}
                 onChange={handleChange}
               />
               <label>Assists</label>
@@ -89,7 +94,7 @@ const handleSave = () => {
               <input
                 name="assists"
                 type="number"
-                value={form.assists}
+                value={form.assists ?? 0}
                 onChange={handleChange}
               />
               <label>Wins</label>
@@ -97,7 +102,7 @@ const handleSave = () => {
               <input
                 name="wins"
                 type="number"
-                value={form.wins}
+                value={form.wins ?? 0}
                 onChange={handleChange}
               />
               <label>Looses</label>
@@ -105,7 +110,7 @@ const handleSave = () => {
               <input
                 name="looses"
                 type="number"
-                value={form.looses}
+                value={form.looses ?? 0}
                 onChange={handleChange}
               />
               <label>Rounds Played</label>
@@ -113,7 +118,7 @@ const handleSave = () => {
               <input
                 name="roundsPlayed"
                 type="number"
-                value={form.roundsPlayed}
+                value={form.roundsPlayed ?? 0}
                 onChange={handleChange}
               />
               <div className="svg-button-wrapper" onClick={handleSave}>
