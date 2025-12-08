@@ -3,6 +3,7 @@ import "../styles/TeamPlanning.css";
 import LoLMap from "../components/LolMap";
 import "../styles/LolMap.css";
 import { PlayerContext } from "../Data/PlayerContext";
+import AutoTeamButton from "../components/AutoTeamButton";
 
 const lanes = ["Top", "Jungle", "Mid", "ADC", "Support"];
 
@@ -106,6 +107,13 @@ const LoLTeamPlanner = () => {
           ))}
         </div>
       </div>
+
+      <AutoTeamButton
+        redTeam={redTeam}
+        setRedTeam={setRedTeam}
+        blueTeam={blueTeam}
+        setBlueTeam={setBlueTeam}
+      />
 
       <div className="teams-area">
         {renderTeamLane("Blue Team", blueTeam, "blue")}

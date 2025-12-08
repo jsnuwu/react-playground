@@ -27,6 +27,13 @@ export const PlayerProvider = ({ children }) => {
       .catch(() => console.log("Backend not reachable, using Default players"));
   }, []);
 
+  return (
+    <PlayerContext.Provider value={{ playerData, setPlayerData }}>
+      {children}
+    </PlayerContext.Provider>
+  );
+};
+
   /*  useEffect(() => {
     fetch("http://localhost:3000/players")
       .then(res => res.json())
@@ -41,9 +48,4 @@ export const PlayerProvider = ({ children }) => {
       .catch(() => console.log("Backend nicht erreichbar, nutze Default"));
   }, []); */
 
-  return (
-    <PlayerContext.Provider value={{ playerData, setPlayerData }}>
-      {children}
-    </PlayerContext.Provider>
-  );
-};
+
