@@ -102,7 +102,7 @@ const StatPage = () => {
       <div className="statpage-grid">
         {sortedPlayers.map((player, index) => (
           <a
-            key={index}
+            key={player._id}
             href={player.profileLink}
             target="_blank"
             className={`stat-card card-placement-${index + 1}`}

@@ -1,0 +1,32 @@
+.easteregg-img {
+  position: fixed;
+  bottom: 20px;
+  width: 220px;
+  z-index: 9999;
+  pointer-events: none;
+  user-select: none;
+  left: 20px; 
+  transform-origin: center;
+  animation: 
+    eggFadeIn 0.2s ease-out forwards,
+    eggFadeOut 0.3s ease-out forwards 2s; 
+}
+
+.easteregg-img.right {
+  right: 20px;
+  left: auto;
+}
+
+.easteregg-img.left {
+  transform: scaleX(-1) translateZ(0);
+}
+
+@keyframes eggFadeIn {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes eggFadeOut {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 0; transform: translateY(10px) scale(0.98); }
+}

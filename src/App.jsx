@@ -6,6 +6,7 @@ import TeamPlanning from "./pages/TeamPlanning";
 import StatPage from "./pages/StatPage";
 import { PlayerProvider } from "./Data/PlayerContext";
 import AddNewPlayer from "./pages/AddNewPlayer";
+import EasterEgg from "./components/EasterEgg";
 
 function App() {
   const containerRef = useRef(null);
@@ -43,7 +44,6 @@ function App() {
           toFontVariationSettings="'wght' 1000, 'opsz' 40"
           radius={100}
           falloff="linear"
-          
         />
       </div>
       <PlayerProvider>
@@ -59,8 +59,7 @@ function App() {
         </div>
 
         {/* Stats */}
-        <div style={{ width: "100%", minHeight: "auto", marginBottom: "14vh",
-}}>
+        <div style={{ width: "100%", minHeight: "auto", marginBottom: "14vh" }}>
           {" "}
           <StatPage />{" "}
         </div>
@@ -91,33 +90,39 @@ function App() {
             maxWidth: "auto",
             zIndex: 2,
             marginBottom: "10vh",
-
           }}
         >
           <TeamPlanning />
         </div>
 
-
-          <Headline
-            label="Add new Player"
-            className="headline-demo"
-            containerRef={containerRef}
-            fromFontVariationSettings="'wght' 400, 'opsz' 9"
-            toFontVariationSettings="'wght' 1000, 'opsz' 40"
-            radius={100}
-            falloff="linear"
-          />
+        <Headline
+          label="Add new Player"
+          className="headline-demo"
+          containerRef={containerRef}
+          fromFontVariationSettings="'wght' 400, 'opsz' 9"
+          toFontVariationSettings="'wght' 1000, 'opsz' 40"
+          radius={100}
+          falloff="linear"
+        />
 
         <div
           style={{
             width: "100%",
             maxWidth: "1200px",
+            height: "900px",
             zIndex: 2,
           }}
         >
-          <AddNewPlayer/>
-</div>
+          <AddNewPlayer />
+        </div>
       </PlayerProvider>
+
+      <EasterEgg
+        gifSrc="/assets/meme.gif"
+        key1="Shift"
+        key2="g"
+        duration={2500}
+      />
 
       {/* Splash Cursor */}
       <div

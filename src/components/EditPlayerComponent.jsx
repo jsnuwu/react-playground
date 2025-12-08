@@ -15,7 +15,7 @@ const EditButton = ({ player, onEdit }) => {
     roundsPlayed: player.roundsPlayed,
   });
 
-    useEffect(() => {
+  useEffect(() => {
     setForm({
       name: player.name,
       kills: player.kills,
@@ -27,24 +27,23 @@ const EditButton = ({ player, onEdit }) => {
     });
   }, [player]);
 
-const handleChange = (e) => {
-  const { name, value, type } = e.target;
-  if (type === "number" && value === "") {
-    setForm({ ...form, [name]: 0 });
-    return;
-  }
+  const handleChange = (e) => {
+    const { name, value, type } = e.target;
+    if (type === "number" && value === "") {
+      setForm({ ...form, [name]: 0 });
+      return;
+    }
 
-  setForm({
-    ...form,
-    [name]: type === "number" ? Number(value) : value
-  });
-};
+    setForm({
+      ...form,
+      [name]: type === "number" ? Number(value) : value,
+    });
+  };
 
-const handleSave = () => {
-  onEdit({ ...form, _id: player._id });
-  setShowModal(false);
-};
-
+  const handleSave = () => {
+    onEdit({ ...form, _id: player._id });
+    setShowModal(false);
+  };
 
   return (
     <>
