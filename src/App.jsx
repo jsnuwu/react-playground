@@ -7,6 +7,7 @@ import StatPage from "./pages/StatPage";
 import { PlayerProvider } from "./Data/PlayerContext";
 import AddNewPlayer from "./pages/AddNewPlayer";
 import EasterEgg from "./components/EasterEgg";
+import BackToTop from "./components/BackToTopButton"
 
 function App() {
   const containerRef = useRef(null);
@@ -117,6 +118,7 @@ function App() {
         </div>
       </PlayerProvider>
 
+      {/* EasterEgg */}
       <EasterEgg
         gifSrc="/assets/meme.gif"
         key1="Shift"
@@ -135,7 +137,27 @@ function App() {
         }}
       >
         <SplashCursor />
+
       </div>
+
+    <div
+      style={{
+        width: "100%",
+        minHeight: "auto",
+        overflowY: "auto",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        paddingTop: "5vh",
+        overflowX: "hidden",
+        position: "relative", 
+      }}
+    >
+
+      {/* BackToTopButton */}
+      <BackToTop />
+    </div>
+
     </div>
   );
 }
