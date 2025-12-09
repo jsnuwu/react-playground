@@ -1,5 +1,4 @@
 import React from "react";
-import players from "../data/players";
 import defaultAvatar from "../assets/profilePictures/default.jpg";
 import "/src/styles/LolMap.css";
 import topIcon from "../assets/laneIcons/topIcon.png";
@@ -17,7 +16,15 @@ const laneIcons = {
   Support: supIcon,
 };
 
-const SummonersRiftMap = ({ redTeam, blueTeam, onDrop, onDragStart, playerData }) => {
+const SummonersRiftMap = ({
+  redTeam,
+  setRedTeam,
+  blueTeam,
+  setBlueTeam,
+  onDrop,
+  onDragStart,
+  playerData,
+}) => {
   const scale = 1;
   const baseSize = 100 * scale;
 
@@ -60,7 +67,7 @@ const SummonersRiftMap = ({ redTeam, blueTeam, onDrop, onDragStart, playerData }
   };
 
   const redOffset = {
-    Top: { x: + 130 * scale, y: - 30 * scale },
+    Top: { x: +130 * scale, y: -30 * scale },
     Jungle: { x: +95 * scale, y: -80 * scale },
     Mid: { x: +50 * scale, y: -50 * scale },
     ADC: { x: +90 * scale, y: -60 * scale },
@@ -68,7 +75,7 @@ const SummonersRiftMap = ({ redTeam, blueTeam, onDrop, onDragStart, playerData }
   };
 
   const blueOffset = {
-    Top: { x: 10 * scale, y: + 80 * scale },
+    Top: { x: 10 * scale, y: +80 * scale },
     Jungle: { x: -30 * scale, y: +50 * scale },
     Mid: { x: -45 * scale, y: 50 * scale },
     ADC: { x: -30 * scale, y: +60 * scale },
@@ -77,6 +84,30 @@ const SummonersRiftMap = ({ redTeam, blueTeam, onDrop, onDragStart, playerData }
 
   return (
     <div className="map-container">
+      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+         <button
+    className="clear-map-button"
+    onClick={() => {
+      setRedTeam({
+        Top: null,
+        Jungle: null,
+        Mid: null,
+        ADC: null,
+        Support: null,
+      });
+      setBlueTeam({
+        Top: null,
+        Jungle: null,
+        Mid: null,
+        ADC: null,
+        Support: null,
+      });
+    }}
+    aria-label="Clear map"
+  >
+    ×
+  </button>
+      </div>
       <svg viewBox={`0 0 ${800 * scale} ${800 * scale}`} className="map-svg">
         <defs>
           <filter
@@ -297,7 +328,7 @@ const SummonersRiftMap = ({ redTeam, blueTeam, onDrop, onDragStart, playerData }
             width={70}
             height={70}
             opacity="0.25"
-            style={{ pointerEvents: "none" }} // NICHT draggebar
+            style={{ pointerEvents: "none" }}
           />
         );
       })}

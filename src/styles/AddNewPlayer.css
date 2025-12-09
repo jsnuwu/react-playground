@@ -82,8 +82,8 @@
 }
 
 .add-player-form button:hover {
-  background-color: rgb(161, 79, 255);
-  box-shadow: 0 0 15px rgba(132, 0, 255, 0.5);
+  background-color: #a14fff;
+  box-shadow: 0 0 15px #8400ff80;
 }
 .svg-button-wrapper {
   position: relative;

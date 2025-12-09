@@ -74,10 +74,10 @@ const EditButton = ({ player, onEdit }) => {
 
       {showModal &&
         ReactDOM.createPortal(
-          <div
+          <div key="edit-modal"
             className="edit-modal-overlay"
             onClick={() => setShowModal(false)}
-          >
+          > 
             <div className="edit-modal" onClick={(e) => e.stopPropagation()}>
               <h3>Edit Player</h3>
 

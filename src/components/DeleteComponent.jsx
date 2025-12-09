@@ -52,7 +52,7 @@ const DeleteButton = ({ onDelete, playerName }) => {
 
       {showModal &&
         ReactDOM.createPortal(
-          <div className="delete-modal-overlay" onClick={handleCancel}>
+          <div  key="delete-modal" className="delete-modal-overlay" onClick={handleCancel}>
             <div
               className="delete-modal"
               onClick={(e) => e.stopPropagation()}

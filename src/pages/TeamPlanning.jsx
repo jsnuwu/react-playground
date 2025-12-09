@@ -122,7 +122,9 @@ const LoLTeamPlanner = () => {
 
       <LoLMap
         redTeam={redTeam}
+        setRedTeam={setRedTeam} 
         blueTeam={blueTeam}
+        setBlueTeam={setBlueTeam} 
         onDropPlayer={(lane, team) => onDrop(team, lane)}
         playerData={playerData}
       />
