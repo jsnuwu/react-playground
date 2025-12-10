@@ -312,7 +312,7 @@ ${JSON.stringify(C)}
 
 Nutzer fragt:
 ${d}
-`,B=await(await fetch("http://localhost:3000/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:[{role:"user",content:_}]})})).json(),j=J3(B.reply);g(B.reply||"Keine Antwort von der KI."),j?.red&&j?.blue&&(n({Top:j.red[0],Jungle:j.red[1],Mid:j.red[2],ADC:j.red[3],Support:j.red[4]}),l({Top:j.blue[0],Jungle:j.blue[1],Mid:j.blue[2],ADC:j.blue[3],Support:j.blue[4]}),A(!0))}catch(C){console.error("KI Fehler:",C),alert("Fehler beim Chat oder Teamgenerierung")}finally{f(!1)}},w=()=>{navigator.clipboard.writeText(`
+`,B=await(await fetch("https://react-playground-backend-l7lj.onrender.com/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:[{role:"user",content:_}]})})).json(),j=J3(B.reply);g(B.reply||"Keine Antwort von der KI."),j?.red&&j?.blue&&(n({Top:j.red[0],Jungle:j.red[1],Mid:j.red[2],ADC:j.red[3],Support:j.red[4]}),l({Top:j.blue[0],Jungle:j.blue[1],Mid:j.blue[2],ADC:j.blue[3],Support:j.blue[4]}),A(!0))}catch(C){console.error("KI Fehler:",C),alert("Fehler beim Chat oder Teamgenerierung")}finally{f(!1)}},w=()=>{navigator.clipboard.writeText(`
 Du bist ein professioneller League-of-Legends Teamplaner.
 Sortiere Spieler nach KDA + WinRate und bilde faire Teams.
 Gib die Antwort **ausschließlich** in JSON zurück:
