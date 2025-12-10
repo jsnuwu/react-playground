@@ -43,8 +43,8 @@ ${JSON.stringify(minimal)}
 Nutzer fragt:
 ${customPrompt}
 `;
-      /*  const res = await fetch("https://react-playground-backend-l7lj.onrender.com/chat", {*/
-      const res = await fetch("http://localhost:3000/chat", {
+        const res = await fetch("https://react-playground-backend-l7lj.onrender.com/chat", {
+     /* const res = await fetch("http://localhost:3000/chat", {*/
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
