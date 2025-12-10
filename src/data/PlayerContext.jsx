@@ -14,14 +14,16 @@ export const PlayerProvider = ({ children }) => {
       .then((data) => {
         const merged = data.map((dbPlayer) => {
           const defaultPlayer = defaultPlayers.find(
-            (dp) => dp.name === dbPlayer.name
+            (dp) => dp.mongoId === dbPlayer._id
           );
+
           return {
             ...dbPlayer,
-            avatar: defaultPlayer?.avatar || dbPlayer.avatar || null,
-            profileLink: dbPlayer.profileLink || "#",
+            avatar: defaultPlayer?.avatar ?? null,
+            profileLink: defaultPlayer?.profileLink ?? "#",
           };
         });
+
         setPlayerData(merged);
       })
       .catch(() => console.log("Backend not reachable, using Default players"));
@@ -34,7 +36,7 @@ export const PlayerProvider = ({ children }) => {
   );
 };
 
-  /*  useEffect(() => {
+/*  useEffect(() => {
     fetch("http://localhost:3000/players")
       .then(res => res.json())
       .then(data => {
@@ -47,5 +49,3 @@ export const PlayerProvider = ({ children }) => {
       })
       .catch(() => console.log("Backend nicht erreichbar, nutze Default"));
   }, []); */
-
-

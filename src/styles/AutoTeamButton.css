@@ -1,6 +1,3 @@
-
-
-
 .btn {
   border: none;
   width: 11.5em;
@@ -10,26 +7,25 @@
   justify-content: center;
   align-items: center;
   gap: 13px;
-  background: #1C1A1C;
+  background: #1c1a1c;
   cursor: pointer;
   transition: all 450ms ease-in-out;
 }
 
 .sparkle {
-  fill: #AAAAAA;
+  fill: #aaaaaa;
   transition: all 800ms ease;
 }
 
 .text {
   font-weight: 600;
-  color: #AAAAAA;
-  font-size: 18px; 
+  color: #aaaaaa;
+  font-size: 18px;
   user-select: none;
 }
 
-
 .btn:hover {
-  background: linear-gradient(90deg, #a14fff, #8400ffbe);
+  background: linear-gradient(90deg, #a14fff58, #8400ffaa);
   box-shadow: 0 0 15px #8400ff80, 0 0 30px #a14fff;
   transform: translateY(-2px);
 }
@@ -45,23 +41,57 @@
   fill: white;
 }
 
-
 .btn:hover .text {
   color: white;
   text-shadow: 0 0 1px white;
-
 }
 
 .btn:hover .sparkle {
   fill: white;
   transform: scale(1.2);
-} 
+}
 
 .btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  background: #2A262A;
+  background: #2a262a;
   box-shadow: none;
+}
+
+.copyPrompt-btn {
+  width: 12em;
+  height: 2.5em;
+  border: none;
+  border-radius: 1.5em;
+  background-color: #1c1a1c;
+  color: #aaaaaa;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 300ms ease-in-out;
+  box-shadow: 0 0 3px #00000060;
+}
+
+.copyPrompt-btn:hover {
+  background: linear-gradient(90deg, #a14fff33, #8400ff33);
+  box-shadow: 0 0 8px #8400ff60, 0 0 15px #a14fff40;
+  color: white;
+  transform: translateY(-1px);
+}
+
+.copyPrompt-btn:active {
+  transform: translateY(0);
+}
+
+.copyPrompt-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #2a262a;
+  box-shadow: none;
+  color: #888;
 }
 
 .auto-team-container {
@@ -73,11 +103,69 @@
 }
 
 .prompt-input {
-  width: 180%;
+  width: 100%;
   min-height: 80px;
   padding: 8px;
   font-size: 14px;
   border-radius: 5px;
+  background-color: #1c1a1c;
   border: 1px solid #ccc;
-  resize: vertical;
+}
+
+.KI-answer-container {
+  width: 600px;
+  min-height: 100px;
+  max-height: 300px;
+  overflow: auto;
+  background-color: #1e1e1e;
+  border: 1px solid #ccc;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: monospace;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  .btn, .copyPrompt-btn {
+    width: 80vw;
+    font-size: 16px;
+  }
+
+  .text {
+    font-size: 16px;
+  }
+
+  .prompt-input {
+    min-height: 70px;
+    font-size: 13px;
+  }
+
+  .KI-answer-container {
+    max-height: 200px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn, .copyPrompt-btn {
+    width: 70vw;
+    font-size: 14px;
+  }
+
+  .text {
+    font-size: 14px;
+  }
+
+  .prompt-input {
+    max-width: 300px;
+    min-height: 60px;
+    font-size: 12px;
+  }
+
+  .KI-answer-container {
+    max-width: 300px;
+    max-height: 150px;
+    font-size: 12px;
+  }
 }

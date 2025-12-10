@@ -122,8 +122,8 @@ function App() {
       {/* EasterEgg */}
       <EasterEgg
         gifSrc="/assets/meme.gif"
-        key1="Shift"
-        key2="g"
+        key1="shift"
+        key2="f"
         duration={2500}
       />
 
