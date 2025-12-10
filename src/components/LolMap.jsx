@@ -84,30 +84,7 @@ const SummonersRiftMap = ({
 
   return (
     <div className="map-container">
-      <div style={{ display: "flex", justifyContent: "flex-end" }}>
-         <button
-    className="clear-map-button"
-    onClick={() => {
-      setRedTeam({
-        Top: null,
-        Jungle: null,
-        Mid: null,
-        ADC: null,
-        Support: null,
-      });
-      setBlueTeam({
-        Top: null,
-        Jungle: null,
-        Mid: null,
-        ADC: null,
-        Support: null,
-      });
-    }}
-    aria-label="Clear map"
-  >
-    ×
-  </button>
-      </div>
+
       <svg viewBox={`0 0 ${800 * scale} ${800 * scale}`} className="map-svg">
         <defs>
           <filter

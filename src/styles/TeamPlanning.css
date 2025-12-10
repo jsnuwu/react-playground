@@ -28,12 +28,34 @@
   margin-bottom: 2rem;
 }
 
-.pool-list {
+.pool-area.center-pool {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  width: 521.2px;
+}
+
+.player-headline {
+  font-size: 23px;
+  margin-top: -2rem;
+  margin-bottom: 1em;
+}
+
+.pool-list-wrapper {
+  width: 100%;             
+  max-width: 521.5px;      
+  min-height: 150px;       
+  overflow: hidden;
+  display: flex;
+  justify-content: center; 
+}
+
+.pool-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 10px;
-  justify-content: center;
-  margin-top: 0.5rem;
+  width: 100%;
+  margin-top: 1rem;
 }
 
 .player-card {
@@ -41,9 +63,12 @@
   padding: 8px 16px;
   border-radius: 12px;
   cursor: grab;
+  margin: 0 4px;
   text-align: center;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  white-space: nowrap;
+    word-break: break-all;
+    max-height: 40px;  
+    overflow: hidden;
 }
 
 .player-card:active {
@@ -53,26 +78,35 @@
 
 .player-card:hover {
   transform: scale(1.05);
+  background-color: rgba(83, 9, 255, 0.8);
   box-shadow: 0 8px 20px rgba(104, 53, 221, 0.6);
+}
+
+.lane-box .player-card {
+  max-width: 100%;          
+  overflow: hidden;         
+  text-overflow: ellipsis;  
+  white-space: nowrap;      
+  box-sizing: border-box;   
 }
 
 .teams-area {
   display: flex;
   gap: 2rem;
-  width: auto;
   justify-content: center;
+  align-items: flex-start;
 }
 
 .team-column {
-  flex: 1 1 300px;
-  width: auto;
+  position: absolute;
+  width: 13rem;
   background-color: rgba(16, 20, 26, 0.9);
   border-radius: 16px;
   padding: 1rem;
   border: 1px solid #392e4e;
   transition: transform 0.1s ease, box-shadow 0.2s ease;
-  perspective: 1000px;
   position: relative;
+  margin-bottom: -2rem;
 }
 
 .team-column:hover.red {
@@ -98,14 +132,14 @@
 
 .map-grid {
   display: grid;
-  grid-template-columns: repeat(5, auto);
+  grid-template-columns: repeat(1, auto);
   gap: 1rem;
 }
 
 .lane-box {
   background-color: rgba(16, 20, 26, 0.8);
   border-radius: 12px;
-  min-height: 80px;
+  min-height: 90px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -114,7 +148,8 @@
   white-space: nowrap;
   width: auto;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-
+  overflow: hidden;
+  
 }
 
 .lane-box.red {
@@ -127,12 +162,12 @@
 
 .lane-box.red:hover {
   transform: scale(1.05);
-  box-shadow: 0 0px 15px rgba(255, 77, 77, 0.7); 
+  box-shadow: 0 0px 15px rgba(255, 77, 77, 0.7);
 }
 
 .lane-box.blue:hover {
   transform: scale(1.05);
-  box-shadow: 0 0px 15px rgba(77, 166, 255, 0.7); 
+  box-shadow: 0 0px 15px rgba(77, 166, 255, 0.7);
 }
 
 .lane-box h4 {
@@ -152,48 +187,91 @@
   border-color: #ff4d4dcc;
 }
 
+.map-button-wrapper {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.clear-map-button {
+  width: 160px;
+  padding: 0.7rem 1rem;
+  border-radius: 12px;
+  border: 1px solid #392e4e;
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.clear-map-button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: scale(1.05);
+}
+
 @media (max-width: 1024px) {
   .map-grid {
-    grid-template-columns: repeat(3, minmax(60px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 768px) {
+  .team-column{
+  width: 45%;
+  margin-bottom: 1rem;
+  }
+  
   .teams-area {
     flex-direction: column;
-    gap: 1.5rem;
+    align-items: center;
+    gap: 1.2rem;
   }
 
   .map-grid {
-    grid-template-columns: repeat(2, minmax(60px, 1fr));
-    gap: 0.75rem;
-  }
-
-  .lane-box {
-    min-height: 60px;
-    padding: 0.5rem;
-  }
-
-  .player-card {
-    font-size: 0.9rem;
-    padding: 6px 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .map-grid {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.5rem;
   }
 
   .lane-box {
-    min-height: 50px;
-    padding: 0.4rem;
-    font-size: 0.8rem;
+    min-height: 70px;
   }
 
   .player-card {
-    padding: 5px 10px;
+    font-size: 0.85rem;
+    padding: 4px 8px;
+  }
+
+  .clear-map-button {
+    width: 140px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .team-column{
+  width: 60%;
+  margin-bottom: 1rem;
+  right: 100px;
+  }
+
+  .map-grid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0.4rem;
+  }
+
+  .lane-box {
+    min-height: 60px;
+  }
+
+  .player-card {
     font-size: 0.8rem;
+    padding: 3px 6px;
+  }
+
+  .clear-map-button {
+    width: 40%;
+    font-size: 0.7rem;
   }
 }

@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { PlayerContext } from "../Data/PlayerContext";
 import tryExtractJson from "../data/tryExtractJson";
 import "../styles/AutoTeamButton.css";
+import Notification from "./Notification";
 
 const AutoTeamButton = ({ redTeam, setRedTeam, blueTeam, setBlueTeam }) => {
   const { playerData } = useContext(PlayerContext);
@@ -10,65 +11,19 @@ const AutoTeamButton = ({ redTeam, setRedTeam, blueTeam, setBlueTeam }) => {
   const [aiReply, setAiReply] = useState("");
   const [teamGenerated, setTeamGenerated] = useState(false);
 
-  const computeScore = (p) => {
-    const kills = Number(p.kills) || 0;
-    const deaths = Number(p.deaths) || 1;
-    const assists = Number(p.assists) || 0;
-    const winRate = Number(p.winRate) || 0;
-    const kda = (kills + assists) / deaths;
-    return kda * (1 + winRate / 100);
+  const [notification, setNotification] = useState(null);
+
+  const showNotification = (message, type = "error", duration = 3000) => {
+    setNotification({ message, type });
+    setTimeout(() => setNotification(null), duration);
   };
-
-  const localBalancer = (players) => {
-    const pts = players.map((p) => ({ ...p, score: computeScore(p) }));
-    pts.sort((a, b) => b.score - a.score);
-
-    const red = [];
-    const blue = [];
-    let sR = 0,
-      sB = 0;
-
-    for (const p of pts) {
-      if (sR <= sB && red.length < 5) {
-        red.push(p.name);
-        sR += p.score;
-      } else {
-        blue.push(p.name);
-        sB += p.score;
-      }
-    }
-
-    return { red, blue };
-  };
-
-  const generateAutoTeamPrompt = () => {
-    const minimal = playerData.map((p) => ({
-      name: p.name,
-      kills: p.kills ?? 0,
-      deaths: p.deaths ?? 1,
-      assists: p.assists ?? 0,
-      winRate: p.winRate ?? 0,
-    }));
-
-    return `
-Du bist ein professioneller League-of-Legends Teamplaner.
-Sortiere Spieler nach KDA + WinRate und bilde faire Teams.
-Gib die Antwort **ausschließlich** in JSON zurück:
-
-{
-  "red": ["TopName","JungleName","MidName","ADCName","SupportName"],
-  "blue": ["TopName","JungleName","MidName","ADCName","SupportName"]
-}
-
-Spieler: ${JSON.stringify(minimal)}
-Keine erfundenen Spieler, nur diese Daten verwenden.
-
-`;
-  };
-
-  /* const res = await fetch("https://react-playground-backend-l7lj.onrender.com/chat", {*/
 
   const handleAiInteraction = async () => {
+    if (!customPrompt || customPrompt.trim() === "") {
+      showNotification("Prompt is required", "error");
+      return;
+    }
+
     setLoading(true);
     setAiReply("");
 
@@ -86,10 +41,10 @@ Hier sind die Spieler-Daten (nur als Referenz, verwende sie falls relevant):
 ${JSON.stringify(minimal)}
 
 Nutzer fragt:
-${customPrompt || "Erstelle faire Teams auf Basis der Spieler-Daten."}
+${customPrompt}
 `;
-       const res = await fetch("https://react-playground-backend-l7lj.onrender.com/chat", {
-    /*  const res = await fetch("http://localhost:3000/chat", {*/
+      /*  const res = await fetch("https://react-playground-backend-l7lj.onrender.com/chat", {*/
+      const res = await fetch("http://localhost:3000/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -128,7 +83,7 @@ ${customPrompt || "Erstelle faire Teams auf Basis der Spieler-Daten."}
   };
 
   const handleCopyPrompt = () => {
-    const defaultPrompt = `
+    const defaultCopyPrompt = `
 Du bist ein professioneller League-of-Legends Teamplaner.
 Sortiere Spieler nach KDA + WinRate und bilde faire Teams.
 Gib die Antwort **ausschließlich** in JSON zurück:
@@ -140,7 +95,7 @@ Gib die Antwort **ausschließlich** in JSON zurück:
 
 Keine erfundenen Spieler, nur diese Daten verwenden.
 `;
-    navigator.clipboard.writeText(defaultPrompt).then(
+    navigator.clipboard.writeText(defaultCopyPrompt).then(
       () => alert("Default-Prompt kopiert!"),
       (err) => alert("Konnte Default-Prompt nicht kopieren: " + err)
     );
@@ -153,6 +108,12 @@ Keine erfundenen Spieler, nur diese Daten verwenden.
         value={customPrompt}
         onChange={(e) => setCustomPrompt(e.target.value)}
         className="prompt-input"
+        onKeyDown={(e) => {
+          if(e.key == "Enter" && !e.shiftKey){
+            e.preventDefault();
+            handleAiInteraction();
+          }
+        }}
       />
 
       <div className="KI-answer-container">
@@ -177,6 +138,9 @@ Keine erfundenen Spieler, nur diese Daten verwenden.
       <button className="copyPrompt-btn" onClick={handleCopyPrompt}>
         Copy default Prompt
       </button>
+      {notification && (
+        <Notification message={notification.message} type={notification.type} />
+      )}
     </div>
   );
 };

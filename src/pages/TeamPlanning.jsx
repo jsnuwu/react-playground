@@ -92,42 +92,73 @@ const LoLTeamPlanner = () => {
 
   return (
     <div className="lol-planner-container">
-      <div className="pool-area">
-        <h3>Players</h3>
-        <div className="pool-list">
-          {pool.map((player) => (
-            <div
-              key={player}
-              className="player-card"
-              draggable
-              onDragStart={() => onDragStart(player, "pool")}
-            >
-              {player}
-            </div>
-          ))}
-        </div>
-      </div>
-
       <AutoTeamButton
         redTeam={redTeam}
         setRedTeam={setRedTeam}
         blueTeam={blueTeam}
         setBlueTeam={setBlueTeam}
       />
+      <div className="map-button-wrapper">
+        <div className="teams-area">
+          {/* Blue Team */}
+          {renderTeamLane("Blue Team", blueTeam, "blue")}
 
-      <div className="teams-area">
-        {renderTeamLane("Blue Team", blueTeam, "blue")}
-        {renderTeamLane("Red Team", redTeam, "red")}
+          {/* Player Pool*/}
+
+          <div className="pool-area center-pool">
+            <h3 className="player-headline">Players</h3>
+            <div className="pool-list-wrapper">
+            <div className="pool-list">
+              {pool.map((player) => (
+                <div
+                  key={player}
+                  className="player-card"
+                  draggable
+                  onDragStart={() => onDragStart(player, "pool")}
+                >
+                  {player}
+                </div>
+              ))}
+            </div>
+            </div>
+          </div>
+
+          {/* Red Team */}
+          {renderTeamLane("Red Team", redTeam, "red")}
+        </div>
       </div>
-
       <LoLMap
         redTeam={redTeam}
-        setRedTeam={setRedTeam} 
+        setRedTeam={setRedTeam}
         blueTeam={blueTeam}
-        setBlueTeam={setBlueTeam} 
+        setBlueTeam={setBlueTeam}
         onDropPlayer={(lane, team) => onDrop(team, lane)}
         playerData={playerData}
       />
+      <div className="map-button-wrapper">
+        <button
+          className="clear-map-button"
+          onClick={() => {
+            setRedTeam({
+              Top: null,
+              Jungle: null,
+              Mid: null,
+              ADC: null,
+              Support: null,
+            });
+            setBlueTeam({
+              Top: null,
+              Jungle: null,
+              Mid: null,
+              ADC: null,
+              Support: null,
+            });
+          }}
+          aria-label="Clear map"
+        >
+          Clear Map
+        </button>
+      </div>
     </div>
   );
 };
