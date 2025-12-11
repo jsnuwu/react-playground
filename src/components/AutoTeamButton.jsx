@@ -1,17 +1,30 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { PlayerContext } from "../Data/PlayerContext";
 import tryExtractJson from "../data/tryExtractJson";
 import "../styles/AutoTeamButton.css";
 import Notification from "./Notification";
+import defaultAvatar from "../assets/profilePictures/default.jpg";
+import AIAvatar from "../assets/chatAvatar/AiAvatar.png";
 
 const AutoTeamButton = ({ redTeam, setRedTeam, blueTeam, setBlueTeam }) => {
   const { playerData } = useContext(PlayerContext);
   const [loading, setLoading] = useState(false);
   const [customPrompt, setCustomPrompt] = useState("");
-  const [aiReply, setAiReply] = useState("");
-  const [teamGenerated, setTeamGenerated] = useState(false);
-
   const [notification, setNotification] = useState(null);
+  const chatWindowRef = useRef(null);
+  const [messages, setMessages] = useState([
+    {
+      role: "ai",
+      content:
+        "Hello! I'm your League of Legends team planner AI. I can help you generate balanced teams based on the players you provide. Just type your prompt with the context you want, and I'll give you team suggestions. Make sure to provide the available players and any special preferences for roles.",
+    },
+  ]);
+
+  useEffect(() => {
+    if (chatWindowRef.current) {
+      chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   const showNotification = (message, type = "error", duration = 3000) => {
     setNotification({ message, type });
@@ -25,7 +38,9 @@ const AutoTeamButton = ({ redTeam, setRedTeam, blueTeam, setBlueTeam }) => {
     }
 
     setLoading(true);
-    setAiReply("");
+    const userMessage = { role: "user", content: customPrompt };
+    setMessages((prev) => [...prev, userMessage]);
+    setCustomPrompt("");
 
     try {
       const minimal = playerData.map((p) => ({
@@ -57,7 +72,11 @@ ${customPrompt}
       const data = await res.json();
       const parsedJson = tryExtractJson(data.reply);
 
-      setAiReply(data.reply || "Keine Antwort von der KI.");
+      const aiMessage = {
+        role: "ai",
+        content: data.reply || "No answer from the AI.",
+      };
+      setMessages((prev) => [...prev, aiMessage]);
 
       if (parsedJson?.red && parsedJson?.blue) {
         setRedTeam({
@@ -77,15 +96,14 @@ ${customPrompt}
         setTeamGenerated(true);
       }
     } catch (err) {
-      console.error("KI Fehler:", err);
-      alert("Fehler beim Chat oder Teamgenerierung");
+      alert("Error during chat or team generation");
     } finally {
       setLoading(false);
     }
   };
 
-const handleCopyPrompt = async () => {
-  const defaultCopyPrompt = `
+  const handleCopyPrompt = async () => {
+    const defaultCopyPrompt = `
 Du bist ein professioneller League-of-Legends-Teamplaner.
 Du kennst ausschließlich die unten aufgeführten Spieler und ihre Rollen.
 Es dürfen keine anderen oder erfundenen Spieler verwendet werden.
@@ -120,63 +138,82 @@ Felix P → jungle / mid / ADC
 Mechu → top / support
 `;
 
-  try {
-    await navigator.clipboard.writeText(defaultCopyPrompt);
-    showNotification("Default-Prompt kopiert!", "success");
-  } catch (err) {
-    console.error(err);
-    showNotification("Kopieren fehlgeschlagen!", "error");
-  }
-};
-
+    try {
+      await navigator.clipboard.writeText(defaultCopyPrompt);
+      showNotification("Default prompt copied!", "success");
+    } catch (err) {
+      console.error(err);
+      showNotification("Copy failed!", "error");
+    }
+  };
 
   return (
     <div className="chat-wrapper">
-    <div className="auto-team-container">
-      
+      <div className="auto-team-container">
+        {/* Chat-Fenster */}
+        <div className="chat-window" ref={chatWindowRef}>
+          {messages.map((msg, idx) => (
+            <div
+              key={idx}
+              className={`message ${
+                msg.role === "ai" ? "ai-message" : "user-message"
+              }`}
+            >
+              <img
+                className="avatar"
+                src={msg.role === "ai" ? AIAvatar : defaultAvatar}
+                alt={msg.role}
+              />
+              <div className="message-content">{msg.content}</div>
+            </div>
+          ))}
+        </div>
 
-      <div className="KI-answer-container" placeholder="hi" >
-        <pre>{aiReply}</pre>
+        <textarea
+          placeholder="Enter AI prompt here... (with enough context for the team)"
+          value={customPrompt}
+          onChange={(e) => setCustomPrompt(e.target.value)}
+          className="prompt-input"
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              handleAiInteraction();
+            }
+          }}
+        />
+
+        <div className="buttons-container">
+          <button className="copyPrompt-btn" onClick={handleCopyPrompt}>
+            Copy Fair Team Prompt
+          </button>
+          <button
+            className="btn"
+            onClick={handleAiInteraction}
+            disabled={loading}
+          >
+            <svg
+              height="24"
+              width="24"
+              fill="#FFFFFF"
+              viewBox="0 0 24 24"
+              data-name="Layer 1"
+              id="Layer_1"
+              className="sparkle"
+            >
+              {" "}
+              <path d="M10,21.236,6.755,14.745.264,11.5,6.755,8.255,10,1.764l3.245,6.491L19.736,11.5l-6.491,3.245ZM18,21l1.5,3L21,21l3-1.5L21,18l-1.5-3L18,18l-3,1.5ZM19.333,4.667,20.5,7l1.167-2.333L24,3.5,21.667,2.333,20.5,0,19.333,2.333,17,3.5Z"></path>{" "}
+            </svg>
+            <span className="text">{loading ? "Thinking..." : "Generate"}</span>
+          </button>
+        </div>
+
+        {notification && (
+          <Notification
+            message={notification.message}
+            type={notification.type}
+          />
+        )}
       </div>
-
-      <textarea
-        placeholder="Hier KI-Prompt eingeben... (mit genug kontext für Team)"
-        value={customPrompt}
-        onChange={(e) => setCustomPrompt(e.target.value)}
-        className="prompt-input"
-        onKeyDown={(e) => {
-          if (e.key == "Enter" && !e.shiftKey) {
-            e.preventDefault();
-            handleAiInteraction();
-          }
-        }}
-      />
-<div className="buttons-container">
-
-
-      <button className="copyPrompt-btn" onClick={handleCopyPrompt}>
-        Copy default Prompt
-      </button>
-            <button className="btn" onClick={handleAiInteraction} disabled={loading}>
-        <svg
-          height="24"
-          width="24"
-          fill="#FFFFFF"
-          viewBox="0 0 24 24"
-          data-name="Layer 1"
-          id="Layer_1"
-          className="sparkle"
-        >
-          <path d="M10,21.236,6.755,14.745.264,11.5,6.755,8.255,10,1.764l3.245,6.491L19.736,11.5l-6.491,3.245ZM18,21l1.5,3L21,21l3-1.5L21,18l-1.5-3L18,18l-3,1.5ZM19.333,4.667,20.5,7l1.167-2.333L24,3.5,21.667,2.333,20.5,0,19.333,2.333,17,3.5Z"></path>
-        </svg>
-        <span className="text">{loading ? "Thinking..." : "Generate"}</span>
-      </button>
-          </div>
-
-      {notification && (
-        <Notification message={notification.message} type={notification.type} />
-      )}
-    </div>
     </div>
   );
 };
