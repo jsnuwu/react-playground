@@ -84,27 +84,61 @@ ${customPrompt}
     }
   };
 
-  const handleCopyPrompt = () => {
-    const defaultCopyPrompt = `
-Du bist ein professioneller League-of-Legends Teamplaner.
-Sortiere Spieler nach KDA + WinRate und bilde faire Teams.
-Gib die Antwort **ausschließlich** in JSON zurück:
+const handleCopyPrompt = async () => {
+  const defaultCopyPrompt = `
+Du bist ein professioneller League-of-Legends-Teamplaner.
+Du kennst ausschließlich die unten aufgeführten Spieler und ihre Rollen.
+Es dürfen keine anderen oder erfundenen Spieler verwendet werden.
+
+Deine Aufgaben:
+
+Wähle zufällig aus, welche Spieler welche Rollen (Top/Jungle/Mid/ADC/Support) übernehmen dürfen.
+Die Zuordnung soll jedes Mal unterschiedlich sein.
+Spieler dürfen nur Rollen bekommen, die sie tatsächlich spielen können.
+
+Erstelle daraus zwei faire Teams (Red & Blue).
+
+Gib das Ergebnis ausschließlich im JSON-Format aus:
 
 {
   "red": ["TopName","JungleName","MidName","ADCName","SupportName"],
   "blue": ["TopName","JungleName","MidName","ADCName","SupportName"]
 }
 
-Keine erfundenen Spieler, nur diese Daten verwenden.
+Verfügbare Spieler (nur diese sind erlaubt):
+
+David → ADC / jungle / mid / top  
+Jenny → support / top
+Nils → ADC / support / mid
+Dennis → top / jungle / ADC / support
+Mohammed → mid / jungle
+Adrian → top / support
+Jason → mid / ADC / top
+Kristof → jungle / ADC
+Felix S → ADC / mid / support
+Felix P → jungle / mid / ADC
+Mechu → top / support
 `;
-    navigator.clipboard.writeText(defaultCopyPrompt).then(
-      () => alert("Default-Prompt kopiert!"),
-      (err) => alert("Konnte Default-Prompt nicht kopieren: " + err)
-    );
-  };
+
+  try {
+    await navigator.clipboard.writeText(defaultCopyPrompt);
+    showNotification("Default-Prompt kopiert!", "success");
+  } catch (err) {
+    console.error(err);
+    showNotification("Kopieren fehlgeschlagen!", "error");
+  }
+};
+
 
   return (
+    <div className="chat-wrapper">
     <div className="auto-team-container">
+      
+
+      <div className="KI-answer-container" placeholder="hi" >
+        <pre>{aiReply}</pre>
+      </div>
+
       <textarea
         placeholder="Hier KI-Prompt eingeben... (mit genug kontext für Team)"
         value={customPrompt}
@@ -117,12 +151,13 @@ Keine erfundenen Spieler, nur diese Daten verwenden.
           }
         }}
       />
+<div className="buttons-container">
 
-      <div className="KI-answer-container">
-        <pre>{aiReply}</pre>
-      </div>
 
-      <button className="btn" onClick={handleAiInteraction} disabled={loading}>
+      <button className="copyPrompt-btn" onClick={handleCopyPrompt}>
+        Copy default Prompt
+      </button>
+            <button className="btn" onClick={handleAiInteraction} disabled={loading}>
         <svg
           height="24"
           width="24"
@@ -136,13 +171,12 @@ Keine erfundenen Spieler, nur diese Daten verwenden.
         </svg>
         <span className="text">{loading ? "Thinking..." : "Generate"}</span>
       </button>
+          </div>
 
-      <button className="copyPrompt-btn" onClick={handleCopyPrompt}>
-        Copy default Prompt
-      </button>
       {notification && (
         <Notification message={notification.message} type={notification.type} />
       )}
+    </div>
     </div>
   );
 };

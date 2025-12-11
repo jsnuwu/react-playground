@@ -58,9 +58,18 @@
   box-shadow: none;
 }
 
+.buttons-container {
+  display: flex;
+  gap: 15px; 
+  width: 100%;
+  justify-content: space-between;
+  align-items: center; 
+}
+
 .copyPrompt-btn {
-  width: 12em;
-  height: 2.5em;
+  width: 11.5em;
+  height: 3.5em;
+  gap: 13px;
   border: none;
   border-radius: 1.5em;
   background-color: #1c1a1c;
@@ -73,7 +82,6 @@
   align-items: center;
   transition: all 300ms ease-in-out;
   box-shadow: 0 0 3px #00000060;
-  margin-bottom: 6rem;
 }
 
 .copyPrompt-btn:hover {
@@ -95,40 +103,82 @@
   color: #888;
 }
 
+.chat-wrapper {
+  background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 10rem;
+  width: 100%;
+  max-width: 1000px;
+  justify-content: flex-start;
+}
+
 .auto-team-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 12px;
   align-items: center;
 }
 
 .prompt-input {
   width: 100%;
-  min-height: 80px;
-  padding: 8px;
+  min-height: 60px;
+  padding: 12px 15px;
   font-size: 14px;
-  border-radius: 5px;
+  border-radius: 12px;
   background-color: #1c1a1c;
-  border: 1px solid #ccc;
+  border: 1px solid #444;
+  color: #fff;
+  resize: none;
+  transition: all 0.3s ease;
+}
+
+.prompt-input:focus {
+  outline: none;
+  border-color: #a14fff;
+  box-shadow: 0 0 10px #8400ff50;
 }
 
 .KI-answer-container {
-  width: 600px;
-  min-height: 100px;
-  max-height: 300px;
-  overflow: auto;
-  background-color: #1e1e1e;
-  border: 1px solid #ccc;
-  color: #fff;
-  padding: 10px;
-  border-radius: 5px;
-  font-family: monospace;
-  margin-bottom: 10px;
+  width: 100%;
+  min-height: 380px;
+  max-height: 500px;
+  overflow-y: auto;
+  background-color: #272727;
+  border-radius: 12px;
+  padding: 18px;
+  color: #e0e0e0;
+  font-family: "Courier New", Courier, monospace;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
+  scrollbar-width: thin;
+  scrollbar-color: #8400ff #1e1e1e;
+}
+
+.KI-answer-container pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.KI-answer-container::-webkit-scrollbar {
+  width: 8px;
+}
+.KI-answer-container::-webkit-scrollbar-track {
+  background: #1e1e1e;
+  border-radius: 8px;
+}
+.KI-answer-container::-webkit-scrollbar-thumb {
+  background: #8400ff;
+  border-radius: 8px;
 }
 
 @media (max-width: 768px) {
-  .btn, .copyPrompt-btn {
+  .btn,
+  .copyPrompt-btn {
     width: 80vw;
     font-size: 16px;
   }
@@ -149,7 +199,8 @@
 }
 
 @media (max-width: 480px) {
-  .btn, .copyPrompt-btn {
+  .btn,
+  .copyPrompt-btn {
     width: 70vw;
     font-size: 14px;
   }
