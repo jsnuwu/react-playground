@@ -1,4 +1,5 @@
 .btn {
+  position: relative;
   border: none;
   width: 11.5em;
   height: 3.5em;
@@ -7,14 +8,28 @@
   justify-content: center;
   align-items: center;
   gap: 13px;
-  background: #1c1a1c;
+  background-color: #1c1a1c;
   cursor: pointer;
   transition: all 450ms ease-in-out;
+  padding-left: 15px;
 }
 
-.sparkle {
-  fill: #aaaaaa;
-  transition: all 800ms ease;
+.btn-icon {
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 82px;
+  height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .text {
@@ -22,40 +37,6 @@
   color: #aaaaaa;
   font-size: 18px;
   user-select: none;
-}
-
-.btn:hover {
-  background: linear-gradient(90deg, #a14fff58, #8400ffaa);
-  box-shadow: 0 0 15px #8400ff80, 0 0 30px #a14fff;
-  transform: translateY(-2px);
-}
-
-.btn svg {
-  width: 1.5em;
-  height: 1.5em;
-  transition: all 300ms ease;
-}
-
-.btn:hover svg {
-  transform: scale(1.2);
-  fill: white;
-}
-
-.btn:hover .text {
-  color: white;
-  text-shadow: 0 0 1px white;
-}
-
-.btn:hover .sparkle {
-  fill: white;
-  transform: scale(1.2);
-}
-
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  background: #2a262a;
-  box-shadow: none;
 }
 
 .buttons-container {
@@ -66,47 +47,10 @@
   align-items: center;
 }
 
-.copyPrompt-btn {
-  width: 11.5em;
-  height: 3.5em;
-  gap: 13px;
-  border: none;
-  border-radius: 1.5em;
-  background-color: #1c1a1c;
-  color: #aaaaaa;
-  font-weight: 600;
-  font-size: 14px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 300ms ease-in-out;
-  box-shadow: 0 0 3px #00000060;
-}
-
-.copyPrompt-btn:hover {
-  background: linear-gradient(90deg, #a14fff33, #8400ff33);
-  box-shadow: 0 0 8px #8400ff60, 0 0 15px #a14fff40;
-  color: white;
-  transform: translateY(-1px);
-}
-
-.copyPrompt-btn:active {
-  transform: translateY(0);
-}
-
-.copyPrompt-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  background-color: #2a262a;
-  box-shadow: none;
-  color: #888;
-}
-
 .chat-wrapper {
   width: 100%;
   max-width: 1000px;
-  margin: 0 auto 10rem;
+  margin: 0 auto 12rem;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -114,11 +58,13 @@
   background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 15px rgba(132, 0, 255, 0.3);
+  border: 1px solid #392e4e;
 }
 
 .chat-window {
   width: 100%;
-  height: 500px;
+  height: 550px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -127,6 +73,7 @@
   background-color: #272727;
   border-radius: 12px;
   box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.088);
 }
 
 .chat-window::-webkit-scrollbar {
@@ -137,7 +84,7 @@
   border-radius: 8px;
 }
 .chat-window::-webkit-scrollbar-thumb {
-  background: #8400ff;
+  background: #3d3d3d;
   border-radius: 8px;
 }
 
@@ -245,18 +192,21 @@
   background: #1c1a1c;
   color: #aaaaaa;
 }
+
 .btn:hover {
-  background: linear-gradient(90deg, #a14fff58, #8400ffaa);
+  background: linear-gradient(90deg, #7700ff33, #8400ff33);
   color: white;
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
+
 .copyPrompt-btn {
   width: 13.5em;
   background: #1c1a1c;
   color: #aaaaaa;
 }
+
 .copyPrompt-btn:hover {
-  background: linear-gradient(90deg, #a14fff33, #8400ff33);
+  background: linear-gradient(90deg, #7700ff33, #8400ff33);
   color: white;
   transform: translateY(-1px);
 }
@@ -320,32 +270,49 @@
   border-radius: 8px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+  .chat-window {
+    height: 450px;
+  }
+
   .btn,
   .copyPrompt-btn {
-    width: 80vw;
-    font-size: 16px;
+    width: 10em;
+    height: 3.2em;
+  }
+}
+
+@media (max-width: 768px) {
+  .buttons-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn,
+  .copyPrompt-btn {
+    width: 100%;
+    height: 3.2em;
   }
 
   .text {
     font-size: 16px;
   }
 
-  .prompt-input {
-    min-height: 70px;
-    font-size: 13px;
+  .avatar {
+    width: 34px;
+    height: 34px;
   }
 
-  .KI-answer-container {
-    max-height: 200px;
-    font-size: 13px;
+  .chat-window {
+    height: 360px;
   }
 }
 
 @media (max-width: 480px) {
   .btn,
   .copyPrompt-btn {
-    width: 70vw;
+    width: 100%;
+    height: 3em;
     font-size: 14px;
   }
 
@@ -353,15 +320,17 @@
     font-size: 14px;
   }
 
-  .prompt-input {
-    max-width: 300px;
-    min-height: 60px;
-    font-size: 12px;
+  .avatar {
+    width: 30px;
+    height: 30px;
   }
 
-  .KI-answer-container {
-    max-width: 300px;
-    max-height: 150px;
-    font-size: 12px;
+  .message-content {
+    max-width: 90%;
+    font-size: 13px;
+  }
+
+  .chat-window {
+    height: 300px;
   }
 }
