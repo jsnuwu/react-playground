@@ -108,18 +108,43 @@ const LoLTeamPlanner = () => {
           <div className="pool-area center-pool">
             <h3 className="player-headline">Players</h3>
             <div className="pool-list-wrapper">
-            <div className="pool-list">
-              {pool.map((player) => (
-                <div
-                  key={player}
-                  className="player-card"
-                  draggable
-                  onDragStart={() => onDragStart(player, "pool")}
-                >
-                  {player}
-                </div>
-              ))}
+              <div className="pool-list">
+                {pool.map((player) => (
+                  <div
+                    key={player}
+                    className="player-card"
+                    draggable
+                    onDragStart={() => onDragStart(player, "pool")}
+                  >
+                    {player}
+                  </div>
+                ))}
+              </div>
             </div>
+
+            <div className="map-button-wrapper">
+              <button
+                className="clear-map-button"
+                onClick={() => {
+                  setRedTeam({
+                    Top: null,
+                    Jungle: null,
+                    Mid: null,
+                    ADC: null,
+                    Support: null,
+                  });
+                  setBlueTeam({
+                    Top: null,
+                    Jungle: null,
+                    Mid: null,
+                    ADC: null,
+                    Support: null,
+                  });
+                }}
+                aria-label="Clear map"
+              >
+                Clear All
+              </button>
             </div>
           </div>
 
@@ -127,30 +152,7 @@ const LoLTeamPlanner = () => {
           {renderTeamLane("Red Team", redTeam, "red")}
         </div>
       </div>
-            <div className="map-button-wrapper">
-        <button
-          className="clear-map-button"
-          onClick={() => {
-            setRedTeam({
-              Top: null,
-              Jungle: null,
-              Mid: null,
-              ADC: null,
-              Support: null,
-            });
-            setBlueTeam({
-              Top: null,
-              Jungle: null,
-              Mid: null,
-              ADC: null,
-              Support: null,
-            });
-          }}
-          aria-label="Clear map"
-        >
-          Clear Map
-        </button>
-      </div>
+
       <LoLMap
         redTeam={redTeam}
         setRedTeam={setRedTeam}
@@ -159,7 +161,6 @@ const LoLTeamPlanner = () => {
         onDropPlayer={(lane, team) => onDrop(team, lane)}
         playerData={playerData}
       />
-
     </div>
   );
 };
