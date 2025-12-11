@@ -1,3 +1,11 @@
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
 .btn {
   position: relative;
   border: none;
@@ -12,6 +20,15 @@
   cursor: pointer;
   transition: all 450ms ease-in-out;
   padding-left: 15px;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+  background-color: rgba(132, 0, 255, 0.2);
+  transition: 0.5s;
+  transform: scale(1.05);
 }
 
 .btn-icon {
@@ -32,9 +49,37 @@
   object-fit: contain;
 }
 
+.copyPrompt-btn {
+  width: 13.5em;
+  background: #1c1a1c;
+  color: #ffffff;
+  height: 3.5em;
+  border-radius: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border: none;
+  font-weight: 600;
+}
+
+.btn:hover {
+  background-color: rgba(132, 0, 255, 0.2);
+  transition: 0.5s;
+  transform: scale(1.05);
+}
+
+.copyPrompt-btn:hover {
+  background-color: rgba(132, 0, 255, 0.2);
+  transition: 0.5s;
+  transform: scale(1.05);
+}
+
 .text {
   font-weight: 600;
-  color: #aaaaaa;
+  color: #ffffff;
   font-size: 18px;
   user-select: none;
 }
@@ -51,13 +96,12 @@
   width: 100%;
   max-width: 1000px;
   margin: 0 auto 12rem;
-  padding: 20px;
+  padding: 25px;
   display: flex;
   flex-direction: column;
   gap: 15px;
-  background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+  background: linear-gradient(145deg, rgba(30, 30, 30, 0.7), rgba(42, 42, 42, 0.7));
   border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   box-shadow: 0 4px 15px rgba(132, 0, 255, 0.3);
   border: 1px solid #392e4e;
 }
@@ -70,7 +114,7 @@
   flex-direction: column;
   gap: 15px;
   padding: 10px;
-  background-color: #272727;
+  background-color: rgba(39, 39, 39, 0.8);
   border-radius: 12px;
   box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
   border: 2px solid rgba(255, 255, 255, 0.088);
@@ -153,7 +197,7 @@
   padding: 12px 15px;
   font-size: 14px;
   border-radius: 12px;
-  background-color: #1c1a1c;
+  background-color: rgb(28, 26, 28, 0.8);
   border: 1px solid #444;
   color: #fff;
   resize: none;
@@ -165,52 +209,6 @@
   box-shadow: 0 0 10px #8400ff50;
 }
 
-.buttons-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  width: 100%;
-}
-
-.btn,
-.copyPrompt-btn {
-  height: 3.5em;
-  border-radius: 3em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 13px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  border: none;
-  font-weight: 600;
-}
-
-.btn {
-  width: 11.5em;
-  background: #1c1a1c;
-  color: #aaaaaa;
-}
-
-.btn:hover {
-  background: linear-gradient(90deg, #7700ff33, #8400ff33);
-  color: white;
-  transform: translateY(-1px);
-}
-
-.copyPrompt-btn {
-  width: 13.5em;
-  background: #1c1a1c;
-  color: #aaaaaa;
-}
-
-.copyPrompt-btn:hover {
-  background: linear-gradient(90deg, #7700ff33, #8400ff33);
-  color: white;
-  transform: translateY(-1px);
-}
-
 .auto-team-container {
   display: flex;
   flex-direction: column;
@@ -218,18 +216,7 @@
   align-items: center;
 }
 
-.prompt-input {
-  width: 100%;
-  min-height: 60px;
-  padding: 12px 15px;
-  font-size: 14px;
-  border-radius: 12px;
-  background-color: #1c1a1c;
-  border: 1px solid #444;
-  color: #fff;
-  resize: none;
-  transition: all 0.3s ease;
-}
+
 
 .prompt-input:focus {
   outline: none;
