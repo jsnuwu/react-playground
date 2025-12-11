@@ -313,7 +313,7 @@ ${JSON.stringify(z)}
 
 Nutzer fragt:
 ${d}
-`,B=await(await fetch("https://react-playground-backend-l7lj.onrender.com/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:[{role:"user",content:_}]})})).json(),j=Jw(B.reply),Y={role:"ai",content:B.reply||"No answer from the AI."};T(L=>[...L,Y]),j?.red&&j?.blue&&(n({Top:j.red[0],Jungle:j.red[1],Mid:j.red[2],ADC:j.red[3],Support:j.red[4]}),l({Top:j.blue[0],Jungle:j.blue[1],Mid:j.blue[2],ADC:j.blue[3],Support:j.blue[4]}),setTeamGenerated(!0))}catch{alert("Error during chat or team generation")}finally{f(!1)}},w=async()=>{const D=`
+`,B=await(await fetch("https://react-playground-backend-l7lj.onrender.com/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:[{role:"user",content:_}]})})).json(),j=Jw(B.reply),Y={role:"ai",content:B.reply||"No answer from the AI."};T(L=>[...L,Y]),j?.red&&j?.blue&&(n({Top:j.red[0],Jungle:j.red[1],Mid:j.red[2],ADC:j.red[3],Support:j.red[4]}),l({Top:j.blue[0],Jungle:j.blue[1],Mid:j.blue[2],ADC:j.blue[3],Support:j.blue[4]}),setTeamGenerated(!0))}catch{}finally{f(!1)}},w=async()=>{const D=`
 Du bist ein professioneller League-of-Legends-Teamplaner.
 Du kennst ausschließlich die unten aufgeführten Spieler und ihre Rollen.
 Es dürfen keine anderen oder erfundenen Spieler verwendet werden.
