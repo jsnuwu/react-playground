@@ -5,7 +5,7 @@
   gap: 2rem;
   padding: 2rem;
   color: #fff;
-  font-family: sans-serif;
+
 }
 
 .test {
@@ -193,8 +193,8 @@
 }
 
 .clear-map-button {
-  position: absolute;
-  margin-top: 19.3rem;
+  position: relative;
+  top: -4.9rem;
   left: 50%;
   transform: translateX(-50%);
   width: 160px;
@@ -205,7 +205,6 @@
   cursor: pointer;
   background-color: #14141466;
   transition: 0.2s ease, transform 0.3s ease;
-  position: relative;
   z-index: 0;
   overflow: hidden;
 }
@@ -239,6 +238,11 @@
   .map-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+  
+    .team-column {
+    width: 45%;
+    margin-bottom: 1rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -268,8 +272,10 @@
   }
 
   .clear-map-button {
-    width: 140px;
-    font-size: 0.85rem;
+    left: 15.5rem;
+    top: 1rem;
+    width: 130px;
+    font-size: 0.75rem;
   }
 }
 
@@ -295,6 +301,7 @@
   }
 
   .clear-map-button {
+    left: 9.5rem;
     width: 40%;
     font-size: 0.7rem;
   }

@@ -10,7 +10,7 @@
 }
 
 .add-player-container:hover {
-  transform: scale(1.02);
+  transform: scale(1.01);
   box-shadow: 0 4px 15px rgba(132, 0, 255, 0.3);
   background-color: rgba(16, 20, 26, 0.95);
 }
@@ -59,13 +59,12 @@
 
 .form-row input:focus {
   outline: none;
-  background-color: #1c1c2287;
-  box-shadow: 0 0 8px rgba(132, 0, 255, 0.5);
+  border-color: #a14fff;
+  box-shadow: 0 0 10px #8400ff50;
 }
 
 .form-row input:hover {
-  transform: translateY(-2px) scale(1.01);
-  box-shadow: 0 8px 55px rgba(132, 0, 255, 0.3);
+  transform: scale(1.01);
 }
 
 .add-player-form button {

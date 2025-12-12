@@ -121,38 +121,36 @@ const LoLTeamPlanner = () => {
                 ))}
               </div>
             </div>
-
-            <div className="map-button-wrapper">
-              <button
-                className="clear-map-button"
-                onClick={() => {
-                  setRedTeam({
-                    Top: null,
-                    Jungle: null,
-                    Mid: null,
-                    ADC: null,
-                    Support: null,
-                  });
-                  setBlueTeam({
-                    Top: null,
-                    Jungle: null,
-                    Mid: null,
-                    ADC: null,
-                    Support: null,
-                  });
-                }}
-                aria-label="Clear map"
-              >
-                Clear All
-              </button>
-            </div>
           </div>
 
           {/* Red Team */}
           {renderTeamLane("Red Team", redTeam, "red")}
         </div>
       </div>
-
+      <div className="map-button-wrapper">
+        <button
+          className="clear-map-button"
+          onClick={() => {
+            setRedTeam({
+              Top: null,
+              Jungle: null,
+              Mid: null,
+              ADC: null,
+              Support: null,
+            });
+            setBlueTeam({
+              Top: null,
+              Jungle: null,
+              Mid: null,
+              ADC: null,
+              Support: null,
+            });
+          }}
+          aria-label="Clear map"
+        >
+          Clear All
+        </button>
+      </div>
       <LoLMap
         redTeam={redTeam}
         setRedTeam={setRedTeam}

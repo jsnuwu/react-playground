@@ -33,16 +33,23 @@ const AutoTeamButton = ({ redTeam, setRedTeam, blueTeam, setBlueTeam }) => {
     setTimeout(() => setNotification(null), duration);
   };
 
-  const handleAiInteraction = async () => {
-    if (!customPrompt || customPrompt.trim() === "") {
+  const handleDefaultPrompt = () => {
+    handleAiInteraction(defaultAiPrompt);
+  };
+
+  const handleAiInteraction = async (promptOverride = null) => {
+    const promptToUse = promptOverride || customPrompt;
+
+    if (!promptToUse || promptToUse.trim() === "") {
       showNotification("Prompt is required", "error");
       return;
     }
 
     setLoading(true);
-    const userMessage = { role: "user", content: customPrompt };
-    setMessages((prev) => [...prev, userMessage]);
-    setCustomPrompt("");
+
+    setMessages((prev) => [...prev, { role: "user", content: promptToUse }]);
+
+    if (!promptOverride) setCustomPrompt("");
 
     try {
       const minimal = playerData.map((p) => ({
@@ -59,8 +66,9 @@ Jenny und Mechu sind Frauen.
 ${JSON.stringify(minimal)}
 
 Nutzer fragt:
-${customPrompt}
-`; /* const res = await fetch("http://localhost:3000/chat", {*/
+${promptToUse}
+`;
+
       const res = await fetch(
         "https://react-playground-backend-l7lj.onrender.com/chat",
         {
@@ -75,11 +83,7 @@ ${customPrompt}
       const data = await res.json();
       const parsedJson = tryExtractJson(data.reply);
 
-      const aiMessage = {
-        role: "ai",
-        content: data.reply || "No answer from the AI.",
-      };
-      setMessages((prev) => [...prev, aiMessage]);
+      setMessages((prev) => [...prev, { role: "ai", content: data.reply }]);
 
       if (parsedJson?.red && parsedJson?.blue) {
         setRedTeam({
@@ -99,14 +103,12 @@ ${customPrompt}
         setTeamGenerated(true);
       }
     } catch (err) {
-      alert("Error during chat or team generation");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleCopyPrompt = async () => {
-    const defaultCopyPrompt = `
+  const defaultAiPrompt = `
 Du bist ein professioneller League-of-Legends-Teamplaner.
 Du kennst ausschließlich die unten aufgeführten Spieler und ihre Rollen.
 Es dürfen keine anderen oder erfundenen Spieler verwendet werden.
@@ -126,7 +128,7 @@ Gib das Ergebnis ausschließlich im JSON-Format aus:
   "blue": ["TopName","JungleName","MidName","ADCName","SupportName"]
 }
 
-Verfügbare Spieler (nur diese sind erlaubt):
+Verfügbare Spieler (nur diese sind erlaubt): 
 
 David → ADC / jungle / mid / top  
 Jenny → support / top
@@ -140,15 +142,6 @@ Felix S → ADC / mid / support
 Felix P → jungle / mid / ADC
 Mechu → top / support
 `;
-
-    try {
-      await navigator.clipboard.writeText(defaultCopyPrompt);
-      showNotification("Default prompt copied!", "success");
-    } catch (err) {
-      console.error(err);
-      showNotification("Copy failed!", "error");
-    }
-  };
 
   return (
     <div className="chat-wrapper">
@@ -186,9 +179,10 @@ Mechu → top / support
         />
 
         <div className="buttons-container">
-          <button className="copyPrompt-btn" onClick={handleCopyPrompt}>
-            Copy Fair Team Prompt
+          <button className="copyPrompt-btn" onClick={handleDefaultPrompt}>
+            Generate Team
           </button>
+
           <button
             className="btn"
             onClick={handleAiInteraction}
