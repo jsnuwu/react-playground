@@ -24,6 +24,7 @@ const LoLTeamPlanner = () => {
     Support: null,
   });
   const [dragged, setDragged] = useState(null);
+  const [selectedPlayer, setSelectedPlayer] = useState(null);
 
   const pool = playerData
     .map((p) => p.name)
@@ -56,8 +57,16 @@ const LoLTeamPlanner = () => {
   };
 
   const returnToPool = (team, lane) => {
-    if (team === "red") setRedTeam({ ...redTeam, [lane]: null });
-    if (team === "blue") setBlueTeam({ ...blueTeam, [lane]: null });
+    let playerToReturn = null;
+
+    if (team === "red") {
+      playerToReturn = redTeam[lane];
+      setRedTeam({ ...redTeam, [lane]: null });
+    }
+    if (team === "blue") {
+      playerToReturn = blueTeam[lane];
+      setBlueTeam({ ...blueTeam, [lane]: null });
+    }
   };
 
   const renderTeamLane = (teamName, teamState, teamKey) => (
@@ -70,11 +79,22 @@ const LoLTeamPlanner = () => {
             className={`lane-box ${teamKey}`}
             onDragOver={(e) => e.preventDefault()}
             onDrop={() => onDrop(teamKey, lane)}
+            onClick={() => {
+              if (selectedPlayer) {
+                if (teamKey === "red") {
+                  setRedTeam((prev) => ({ ...prev, [lane]: selectedPlayer }));
+                } else if (teamKey === "blue") {
+                  setBlueTeam((prev) => ({ ...prev, [lane]: selectedPlayer }));
+                }
+                setSelectedPlayer(null);
+              }
+            }}
           >
             <h4>{lane}</h4>
             {teamState[lane] ? (
               <div
                 className="player-card"
+                tabIndex={0}
                 draggable
                 onDragStart={() => onDragStart(teamState[lane], teamKey, lane)}
                 onClick={() => returnToPool(teamKey, lane)}
@@ -108,13 +128,23 @@ const LoLTeamPlanner = () => {
           <div className="pool-area center-pool" id="team-planner">
             <h3 className="player-headline">Players</h3>
             <div className="pool-list-wrapper">
-              <div className="pool-list">
+              <div
+                className="pool-list"
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={() => {
+                  if (dragged && dragged.fromTeam !== "pool") {
+                    returnToPool(dragged.fromTeam, dragged.lane);
+                    setDragged(null);
+                  }
+                }}
+              >
                 {pool.map((player) => (
                   <div
                     key={player}
                     className="player-card"
                     draggable
                     onDragStart={() => onDragStart(player, "pool")}
+                    onClick={() => setSelectedPlayer(player)}
                   >
                     {player}
                   </div>

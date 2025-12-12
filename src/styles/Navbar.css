@@ -75,3 +75,83 @@ section, #bento, #stats, #AI, #team-planner, #lolMap, #add-player {
 
 
 
+@media (max-width: 1024px) {
+  .navbar {
+    width: 50px;
+    padding-top: 0.5rem;
+  }
+
+  .nav-links a {
+    font-size: 0.75rem;
+    height: 50px;
+  }
+
+  .nav-avatar {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    top: 0;
+    left: 0;
+    height: 60px;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0.5rem 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  }
+
+  .navbar-container {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .nav-links {
+    flex-direction: row;
+    gap: 0.5rem;
+    width: auto;
+  }
+
+  .nav-links li {
+    width: auto;
+  }
+
+  .nav-links a {
+    height: 40px;
+    width: 40px;
+    font-size: 0;
+    border-left: none;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .nav-links a:hover {
+    border-left: none;
+    background-color: rgba(255,255,255,0.1);
+  }
+
+  .nav-avatar {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    height: 50px;
+  }
+
+  .nav-links a {
+    height: 35px;
+    width: 35px;
+  }
+
+  .nav-avatar {
+    width: 20px;
+    height: 20px;
+  }
+}
