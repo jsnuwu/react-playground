@@ -133,7 +133,7 @@ function App() {
         gifSrc="/assets/meme.gif"
         key1="shift"
         key2="f"
-        duration={2500}
+        duration={4500}
       />
 
       {/* Splash Cursor */}

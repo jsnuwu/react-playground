@@ -4,7 +4,7 @@ import "../styles/easteregg.css"
 
 const normalizeKey = (k) => (typeof k === "string" ? k.toLowerCase() : k);
 
-const EasterEgg = ({ key1 = "shift", key2 = "f", duration = 200 }) => {
+const EasterEgg = ({ key1 = "shift", key2 = "f", duration = 4500 }) => {
   const [visible, setVisible] = useState(false);
   const pressed = useRef(new Set());
   const timeoutRef = useRef(null);
