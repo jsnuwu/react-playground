@@ -1,4 +1,5 @@
 .add-player-container {
+  position: relative;
   max-width: 500px;
   margin: 2rem auto;
   padding: 2rem;
@@ -10,7 +11,7 @@
 }
 
 .add-player-container:hover {
-  transform: scale(1.01);
+  transform: scale(1.02);
   box-shadow: 0 4px 15px rgba(132, 0, 255, 0.3);
   background-color: rgba(16, 20, 26, 0.95);
 }

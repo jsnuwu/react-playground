@@ -8,6 +8,7 @@ import { PlayerProvider } from "./Data/PlayerContext";
 import AddNewPlayer from "./pages/AddNewPlayer";
 import EasterEgg from "./components/EasterEgg";
 import BackToTop from "./components/BackToTopButton";
+import Navbar from "./components/navBar";
 
 function App() {
   const containerRef = useRef(null);
@@ -28,8 +29,11 @@ function App() {
         overflowX: "hidden",
       }}
     >
+      <Navbar />
+
       {/* Headline */}
       <div
+        id="bento"
         ref={containerRef}
         style={{
           zIndex: 2,
@@ -61,7 +65,10 @@ function App() {
         </div>
 
         {/* Stats */}
-        <div style={{ width: "100%", minHeight: "auto", marginBottom: "14vh" }}>
+        <div
+          id="stats"
+          style={{ width: "100%", minHeight: "auto", marginBottom: "14vh" }}
+        >
           {" "}
           <StatPage ref={statPageRef} />{" "}
         </div>
@@ -75,6 +82,7 @@ function App() {
           }}
         >
           <Headline
+            id="AI"
             label="Assign the lanes"
             className="headline-demo"
             containerRef={containerRef}
@@ -98,6 +106,7 @@ function App() {
         </div>
 
         <Headline
+          id="add-player"
           label="Add new Player"
           className="headline-demo"
           containerRef={containerRef}
@@ -148,8 +157,7 @@ function App() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          paddingTop: "5vh",
-          overflowX: "hidden",
+          paddingTop: "1vh",
           position: "relative",
         }}
       >

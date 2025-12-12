@@ -110,6 +110,7 @@ const AddNewPlayer = () => {
   };
 
   return (
+    
     <div className="add-player-container">
       <h2>Add New Player</h2>
 

@@ -105,7 +105,7 @@ const LoLTeamPlanner = () => {
 
           {/* Player Pool*/}
 
-          <div className="pool-area center-pool">
+          <div className="pool-area center-pool" id="team-planner">
             <h3 className="player-headline">Players</h3>
             <div className="pool-list-wrapper">
               <div className="pool-list">
@@ -151,6 +151,7 @@ const LoLTeamPlanner = () => {
           Clear All
         </button>
       </div>
+      <div></div>
       <LoLMap
         redTeam={redTeam}
         setRedTeam={setRedTeam}

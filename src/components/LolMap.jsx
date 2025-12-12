@@ -83,8 +83,7 @@ const SummonersRiftMap = ({
   };
 
   return (
-    <div className="map-container">
-
+    <div className="map-container" id="lolMap">
       <svg viewBox={`0 0 ${800 * scale} ${800 * scale}`} className="map-svg">
         <defs>
           <filter
