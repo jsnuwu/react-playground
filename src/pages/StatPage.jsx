@@ -18,6 +18,7 @@ import test3 from "../assets/effects/test3.gif";
 const StatPage = () => {
   const { playerData, setPlayerData } = useContext(PlayerContext);
   const containerRef = useRef(null);
+  const [sortBy, setSortBy] = React.useState("score");
 
   const maxKDA = Math.max(
     ...playerData.map((p) => (p.kills + p.assists) / Math.max(1, p.deaths))
@@ -81,7 +82,17 @@ const StatPage = () => {
     }
   };
 
-  const sortedPlayers = [...processedPlayers].sort((a, b) => b.score - a.score);
+  const sortedPlayers = [...processedPlayers].sort((a, b) => {
+    switch (sortBy) {
+      case "winrate":
+        return b.winrate - a.winrate;
+      case "kills":
+        return b.kills - a.kills;
+      case "score":
+      default:
+        return b.score - a.score;
+    }
+  });
   const borderGifs = [test1, test2, test3];
   const avatarBorderGifs = [crown, place2, place3];
   return (
@@ -99,7 +110,20 @@ const StatPage = () => {
           falloff="linear"
         />
       </div>
+
       <div className="statpage-grid">
+        <div className="sort-controls">
+          <label htmlFor="sort">Sort by: </label>
+          <select
+            id="sort"
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+          >
+            <option value="score">Total</option>
+            <option value="winrate">Winrate</option>
+            <option value="kills">KDA</option>
+          </select>
+        </div>
         {sortedPlayers.map((player, index) => (
           <a
             key={player._id}
