@@ -18,7 +18,7 @@ const AutoTeamButton = ({ redTeam, setRedTeam, blueTeam, setBlueTeam }) => {
     {
       role: "ai",
       content:
-        "Hello! I'm your League of Legends team planner AI. I can help you generate balanced teams based on the players you provide. Just type your prompt with the context you want, and I'll give you team suggestions. Make sure to provide the available players and any special preferences for roles.",
+        "Hello! I'm your League of Legends team planner AI. I can help you generate balanced teams based on the players you provide. Just type your prompt with the context you want, and I'll give you team suggestions. Please note: at the moment no actual AI logic is implemented in the backend, so the team generation feature is currently not functional. Make sure to provide the available players and any special preferences for roles once the system is fully supported.",
     },
   ]);
 

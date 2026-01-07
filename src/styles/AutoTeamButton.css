@@ -56,6 +56,13 @@
   object-fit: contain;
 }
 
+.buttons-container .btn,
+.buttons-container .copyPrompt-btn {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .copyPrompt-btn {
   width: 11.5em;
   background-color: rgb(20, 20, 20, 0.5);
