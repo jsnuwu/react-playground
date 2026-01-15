@@ -1,5 +1,3 @@
-https://jsnuwu.github.io/react-playground/
-
 Ein **React Playground** in Form einer **League of Legends Team-Maker Web-App**.  
 Die Anwendung ermöglicht es, **zwei Teams zu erstellen**, **Spieler hinzuzufügen** und (ehemals) mithilfe einer **KI faire Teams basierend auf Spieler-Daten** zu generieren.
 
@@ -56,6 +54,8 @@ Die App ist als **Playground** konzipiert und nicht als fertiges Produkt.
 ---
 
 ## Projekt starten
+
+- https://jsnuwu.github.io/react-playground/
 
 ### Repository klonen
 ```bash
